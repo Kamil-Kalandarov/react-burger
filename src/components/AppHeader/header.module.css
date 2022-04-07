@@ -1,0 +1,26 @@
+.header {
+  background-color: #1C1C21;
+  margin: 0 auto;
+}
+
+.header__nav {
+  max-width: 1920px;
+  display: grid;
+  grid-template-columns: max-content max-content max-content max-content;
+  align-items: center;
+  margin: 0;
+}
+
+.header__menuItemLink {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header__logo {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding-left: 112px;
+ padding-right: 288px;
+}
