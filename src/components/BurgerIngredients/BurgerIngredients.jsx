@@ -1,51 +1,103 @@
+import React from 'react';
+import PropTypes from "prop-types"; 
 import styles from './burgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerIngredients = ({ current, setCurrent, data }) => {
+const BurgerIngredients = ({ingredients, filteredIngredients}) => {
+  const [current, setCurrent] = React.useState('buns')
   return (
-    <div className={`${styles.burgerIngredients} pt-10 pr-10`}>
-      <h1>Соберите бургер</h1>
+    <section className={`${styles.burgerIngredients} pt-10 mr-10`}>
+      <h1 className='text text_type_main-large pb-5'>Соберите бургер</h1>
       <div style={{ display: 'flex' }}>
-        <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
+        <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+          Булки
         </Tab>
-        <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+        <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+          Соусы
         </Tab>
-        <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+        <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+          Начинки
         </Tab>
       </div>
-      <div>
-        <ul>
-          <li>
-            <h2 className='text text_type_main-default'>Булки</h2>
-            <ul>
-              {data.map((item) => {
-                <li key={item._id}>
-                  <article>
-                    <img src={item.image} alt={item.name} />
-                    <p>{item.price} <CurrencyIcon /></p>
-                    <h3>{item.name}</h3>
-                  </article>
-                </li>
-              })}
-            </ul>
-          </li>
-          <li>
-            <h2 className='text text_type_main-default'>Соусы</h2>
-            <ul>
-
-            </ul>
-          </li>
-          <li>
-            <h2 className='text text_type_main-default'>Начинки</h2>
-            <ul>
-
-            </ul>
-          </li>
+      <div className={styles.burgerIngredients__cardsWrapper}>
+        <h3 className='text text_type_main-medium pt-4'>Булки</h3>
+        <ul className={styles.burgerIngredients__cardList}>
+          {ingredients
+            .filter((ingredient) => ingredient.type === 'main')
+            .map((ingredient) => {
+            return (
+              <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
+                <article className={styles.burgerIngredients__cardElement}>
+                  <div className='pl-4 pb-1 pr-4'>
+                    <img src={ingredient.image}/>
+                    <div className={styles.burgerIngredients__cardPrice}>
+                      <p className='text text_type_digits-default pt-1'>{ingredient.price}</p>
+                      <CurrencyIcon type='primary'/>
+                    </div>
+                  </div>
+                  <h3 className={`${styles.burgerIngredients__cardName} text text_type_main-default`} 
+                    onClick={() => filteredIngredients(ingredient)}>{ingredient.name}</h3>
+                </article>
+            </li>
+            )
+          }
+          )};
+        </ul>
+        <h3 className='text text_type_main-medium pt-4'>Соусы</h3>
+        <ul className={styles.burgerIngredients__cardList}>
+          {ingredients
+            .filter((ingredient) => ingredient.type === 'sauce')
+            .map((ingredient) => {
+            return (
+              <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
+                <article className={styles.burgerIngredients__cardElement}>
+                  <div className='pl-4 pb-1 pr-4'>
+                    <img src={ingredient.image}/>
+                    <div className={styles.burgerIngredients__cardPrice}>
+                      <p className='text text_type_digits-default pt-1'>{ingredient.price}</p>
+                      <CurrencyIcon type='primary'/>
+                    </div>
+                  </div>
+                  <h3 className={`${styles.burgerIngredients__cardName} text text_type_main-default`} 
+                    onClick={() => filteredIngredients(ingredient)}>{ingredient.name}</h3>
+                </article>
+            </li>
+            )
+          }
+          )};
+        </ul>
+        <h3 className='text text_type_main-medium pt-4'>Начинки</h3>
+        <ul className={styles.burgerIngredients__cardList}>
+          {ingredients
+            .filter((ingredient) => ingredient.type === 'main')
+            .map((ingredient) => {
+            return (
+              <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
+                <article className={styles.burgerIngredients__cardElement}>
+                  <div className='pl-4 pb-1 pr-4'>
+                    <img src={ingredient.image}/>
+                    <div className={styles.burgerIngredients__cardPrice}>
+                      <p className='text text_type_digits-default pt-1'>{ingredient.price}</p>
+                      <CurrencyIcon type='primary'/>
+                    </div>
+                  </div>
+                  <h3 className={`${styles.burgerIngredients__cardName} text text_type_main-default`} 
+                    onClick={() => filteredIngredients(ingredient)}>{ingredient.name}</h3>
+                </article>
+            </li>
+            )
+          }
+          )};
         </ul>
       </div>
-    </div>
+    </section>
   );
+};
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onClick: PropTypes.func
 };
 
 export default BurgerIngredients;

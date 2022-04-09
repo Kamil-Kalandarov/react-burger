@@ -1,11 +1,12 @@
 .app {
-  max-width: 1240px;
+  max-height: 100vh;
   margin: 0 auto;
   display: grid;
 }
 
 .app__flexComponents {
-  max-width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
