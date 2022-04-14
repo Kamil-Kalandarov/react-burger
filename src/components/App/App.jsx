@@ -5,14 +5,13 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { data } from '../../utils/data.js';
 
-
 const App = () => {
   return (
     <section className={styles.app}>
       <AppHeader />
       <main className={styles.app__flexComponents}>
         <BurgerIngredients ingredients={data}/>
-        <BurgerConstructor />
+        <BurgerConstructor ingredients={data}/>
       </main>
     </section>
   );

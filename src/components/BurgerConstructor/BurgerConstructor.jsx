@@ -1,12 +1,84 @@
 import React from 'react';
 import styles from './burgerConstructor.module.css'
+import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ingredients}) => {
   return (
-    <div className={`${styles.burgerConstructor} pt-25`}>
-      <h2>Конструктор</h2>
-    </div>
+    <section className={`${styles.burgerConstructor} pl-4`}>
+      {ingredients
+        .filter((ingredient) => ingredient.name === 'Краторная булка N-200i')
+        .map((ingredient) => {
+          return (
+            <article key={ingredient._id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mt-25`}>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text="Краторная булка N-200i (верх)"
+                price={ingredient.price}
+                thumbnail={ingredient.image}
+              />
+            </article>
+          )
+        })
+      }
+      <div className={styles.burgerConstructor__wrapper}>
+        <ul className={`${styles.burgerConstructor__list} pr-4`}>
+          {ingredients
+            .filter((ingredient) => ingredient.type !== 'bun')
+            .map((ingredient) => {
+              return (
+                <li key={ingredient._id}>
+                  <article className={styles.burgerConstructor__cardElement}>
+                    <p className={styles.burgerConstructor__dragIcon}>
+                      <DragIcon type='primary'/>
+                    </p>
+                    <ConstructorElement
+                      key={ingredient._id}
+                      isLocked={false}
+                      text={ingredient.name}
+                      price={ingredient.price}
+                      thumbnail={ingredient.image}
+                    />
+                  </article>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </div>
+        {ingredients
+          .filter((ingredient) => ingredient.name === 'Краторная булка N-200i')
+          .map((ingredient) => {
+            return (
+              <article className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
+                <ConstructorElement
+                  key={ingredient._id}
+                  type="bottom"
+                  isLocked={true}
+                  text="Краторная булка N-200i (верх)"
+                  price={ingredient.price}
+                  thumbnail={ingredient.image}
+                />
+              </article>
+            )
+          })
+        }
+        <div className={`${styles.burgerConstructor__totalPriceContainer} mr-4`}>
+          <div className={`${styles.burgerConstructor__totalPrice} pr-10`}>
+            <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}>610</p>
+            <CurrencyIcon type="primary" />
+          </div>
+          <Button type="primary" size="large">
+            Оформить заказ
+          </Button>
+        </div>
+    </section>
   );
 };
+
+
 
 export default BurgerConstructor;

@@ -2,6 +2,10 @@
   display: grid;
 }
 
+.burgerIngredients__tab {
+  text-decoration: none;
+}
+
 .burgerIngredients__cardsWrapper {
   max-width: 600px;
   max-height: 716px;
