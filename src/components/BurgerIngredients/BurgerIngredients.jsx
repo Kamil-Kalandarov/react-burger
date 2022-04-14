@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from "prop-types"; 
+import PropTypes from "prop-types";
+import PropTypesIngredientsData from '../../utils/propTypes';
 import { useState } from 'react';
 import styles from './burgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+/* Выбор ингредиентов для бургера */
 const BurgerIngredients = ({ingredients}) => {
   /* Переменная текущего состояния ТАБОВ */
   const [current, setCurrent] = useState('bun')
@@ -21,7 +23,9 @@ const BurgerIngredients = ({ingredients}) => {
         <h3 className='text text_type_main-medium'>Булки</h3>
         <ul className={styles.burgerIngredients__cardList}>
           {ingredients
-            .filter((ingredient) => ingredient.type === 'bun')
+            /* Фильтр ингредиентов по типу */
+            .filter((ingredient) => ingredient.type === 'bun') 
+            /* Отрисовка отфильтрованных ингредиентов */
             .map((ingredient) => {
             return (
               <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
@@ -44,7 +48,9 @@ const BurgerIngredients = ({ingredients}) => {
         <h3 className='text text_type_main-medium pt-4'>Соусы</h3>
         <ul className={styles.burgerIngredients__cardList}>
           {ingredients
+            /* Фильтр ингредиентов по типу */
             .filter((ingredient) => ingredient.type === 'sauce')
+            /* Отрисовка отфильтрованных ингредиентов */
             .map((ingredient) => {
             return (
               <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
@@ -67,7 +73,9 @@ const BurgerIngredients = ({ingredients}) => {
         <h3 className='text text_type_main-medium pt-4'>Начинки</h3>
         <ul className={styles.burgerIngredients__cardList}>
           {ingredients
+            /* Фильтр ингредиентов по типу */
             .filter((ingredient) => ingredient.type === 'main')
+            /* Отрисовка отфильтрованных ингредиентов */
             .map((ingredient) => {
             return (
               <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
@@ -93,7 +101,7 @@ const BurgerIngredients = ({ingredients}) => {
 
 /* Проверка типов данных, полученных на вход */
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+  ingredients: PropTypes.arrayOf(PropTypesIngredientsData).isRequired,
   onClick: PropTypes.func
 };
 

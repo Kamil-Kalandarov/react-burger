@@ -1,18 +1,24 @@
 import React from 'react';
+import PropTypes from "prop-types"; 
+import PropTypesIngredientsData from '../../utils/propTypes';
 import styles from './burgerConstructor.module.css'
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
+/* Конструктор бургера */
 const BurgerConstructor = ({ingredients}) => {
   return (
     <section className={`${styles.burgerConstructor} pl-4`}>
       {ingredients
+        /* Фильтр ингредиентов по названию булки (верхняя часть бургера) */
         .filter((ingredient) => ingredient.name === 'Краторная булка N-200i')
+        /* Отрисовка отфильрованной булки */
         .map((ingredient) => {
           return (
             <article key={ingredient._id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mt-25`}>
+              {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
               <ConstructorElement
                 type="top"
                 isLocked={true}
@@ -35,6 +41,7 @@ const BurgerConstructor = ({ingredients}) => {
                     <p className={styles.burgerConstructor__dragIcon}>
                       <DragIcon type='primary'/>
                     </p>
+                    {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
                     <ConstructorElement
                       key={ingredient._id}
                       isLocked={false}
@@ -50,15 +57,17 @@ const BurgerConstructor = ({ingredients}) => {
         </ul>
       </div>
         {ingredients
+          /* Фильтр ингредиентов по названию булки (нижняя часть бургера) */
           .filter((ingredient) => ingredient.name === 'Краторная булка N-200i')
           .map((ingredient) => {
             return (
               <article className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
+                {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
                 <ConstructorElement
                   key={ingredient._id}
                   type="bottom"
                   isLocked={true}
-                  text="Краторная булка N-200i (верх)"
+                  text="Краторная булка N-200i (низ)"
                   price={ingredient.price}
                   thumbnail={ingredient.image}
                 />
@@ -66,6 +75,7 @@ const BurgerConstructor = ({ingredients}) => {
             )
           })
         }
+        {/* Итоговая стоимость бругера с кнопкой заказа */}
         <div className={`${styles.burgerConstructor__totalPriceContainer} mr-4`}>
           <div className={`${styles.burgerConstructor__totalPrice} pr-10`}>
             <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}>610</p>
@@ -79,6 +89,9 @@ const BurgerConstructor = ({ingredients}) => {
   );
 };
 
-
+/* Проверка типов данных, полученных на вход */
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypesIngredientsData).isRequired,
+};
 
 export default BurgerConstructor;
