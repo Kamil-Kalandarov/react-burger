@@ -43,16 +43,6 @@
   cursor: pointer;
 }
 
-.burgerConstructor__cardImage {
-  max-width: 80px;
-  max-height: 40px;
-}
-
-.burgerConstructor__cardName {
-  max-width: 240px;
-  max-height: 48px;
-}
-
 .burgerConstructor__totalPriceContainer {
   max-height: 64px;
   display: grid;

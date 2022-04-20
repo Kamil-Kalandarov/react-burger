@@ -61,10 +61,9 @@ const BurgerConstructor = ({ingredients}) => {
           .filter((ingredient) => ingredient.name === 'Краторная булка N-200i')
           .map((ingredient) => {
             return (
-              <article className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
+              <article key={ingredient._id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
                 {/* Вставка заготовки ингредиентов для конструктора из библиотеки UI */}
                 <ConstructorElement
-                  key={ingredient._id}
                   type="bottom"
                   isLocked={true}
                   text="Краторная булка N-200i (низ)"
