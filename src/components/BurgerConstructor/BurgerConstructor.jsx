@@ -80,9 +80,7 @@ const BurgerConstructor = ({ingredients}) => {
             <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}>610</p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large">
-            Оформить заказ
-          </Button>
+          <Button type="primary" size="large">Оформить заказ</Button>
         </div>
     </section>
   );
