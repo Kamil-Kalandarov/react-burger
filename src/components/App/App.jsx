@@ -1,14 +1,17 @@
-import  React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './app.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import Modal from '../Modal/Modal';
 /* import { data } from '../../utils/data.js'; */
-import { apiConfig } from '../constans/apiConfig';
+import { apiConfig } from '../../constans/apiConfig';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 
 const App = () => {
-  const [ingredients, setIngredients] = React.useState([])
+  const [ingredients, setIngredients] = useState([])
+  const [isIngredientsDetailsOpened, setIsIngredientsDetailsOpened] = useState(true)
   
   const getIngredients = () => {
     fetch(`${apiConfig.baseUrl}/ingredients`, {
@@ -21,9 +24,17 @@ const App = () => {
     })
   };
   
-  React.useEffect(() => {
+  useEffect(() => {
     getIngredients()
   }, []);
+
+  const closeModals = () => {
+    setIsIngredientsDetailsOpened(false)
+  };
+
+  const handleEscKeydown = (event) => {
+    event.key === 'Escape' && closeModals()
+  };
 
   return (
     <section className={styles.app}>
@@ -32,6 +43,11 @@ const App = () => {
         <BurgerIngredients ingredients={ingredients} />
         <BurgerConstructor ingredients={ingredients} />
       </main>
+      {isIngredientsDetailsOpened && (
+        <Modal onCloseClick={closeModals} onEscKeydown={handleEscKeydown}>
+          <IngredientDetails />
+        </Modal>
+      )}
     </section>
   );
 }
