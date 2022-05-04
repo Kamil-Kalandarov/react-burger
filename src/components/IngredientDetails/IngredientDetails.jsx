@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './ingredientDetails.module.css';
 
+/* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const IngredientDetails = ({ingredient}) => {
   return (
     <div className={`${styles.ingredientDetails} pt-10 pb-15 pl-10 pr-10`}>
@@ -28,7 +29,7 @@ const IngredientDetails = ({ingredient}) => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default IngredientDetails
