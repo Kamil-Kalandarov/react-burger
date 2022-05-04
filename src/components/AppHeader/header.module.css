@@ -20,6 +20,10 @@
   text-decoration: none;
 }
 
+.header__menuItemLink:hover {
+  opacity: 50%;
+}
+
 .header__menuItemLink:visited {
   color: #fff;
 }

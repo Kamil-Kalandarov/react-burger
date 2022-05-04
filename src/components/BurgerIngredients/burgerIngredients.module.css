@@ -38,6 +38,11 @@
   margin: 0;
   display: grid;
   justify-content: start;
+  cursor: pointer;
+}
+
+.burgerIngredients__cardElement:hover {
+  opacity: 50%;
 }
 
 .burgerIngredients__cardPrice {

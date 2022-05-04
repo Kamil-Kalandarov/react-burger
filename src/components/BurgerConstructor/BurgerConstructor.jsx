@@ -8,7 +8,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 /* Конструктор бургера */
-const BurgerConstructor = ({ingredients}) => {
+const BurgerConstructor = ({ingredients, onOrderButtonClick}) => {
   return (
     <section className={`${styles.burgerConstructor} pl-4`}>
       {ingredients
@@ -77,10 +77,10 @@ const BurgerConstructor = ({ingredients}) => {
         {/* Итоговая стоимость бругера с кнопкой заказа */}
         <div className={`${styles.burgerConstructor__totalPriceContainer} mr-4`}>
           <div className={`${styles.burgerConstructor__totalPrice} pr-10`}>
-            <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}>610</p>
+            <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}></p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large">Оформить заказ</Button>
+          <Button type="primary" size="large" onClick={() => onOrderButtonClick()}>Оформить заказ</Button>
         </div>
     </section>
   );

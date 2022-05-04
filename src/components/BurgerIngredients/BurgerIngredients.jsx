@@ -7,7 +7,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 /* Выбор ингредиентов для бургера */
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = ({ingredients, onIngredientClick}) => {
   /* Переменная текущего состояния ТАБОВ */
   const [current, setCurrent] = useState('bun')
   return (
@@ -29,7 +29,7 @@ const BurgerIngredients = ({ingredients}) => {
             .map((ingredient) => {
             return (
               <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
-                <article className={styles.burgerIngredients__cardElement}>
+                <article className={styles.burgerIngredients__cardElement} onClick={() => onIngredientClick(ingredient)}>
                   <div className='pl-4 pb-1 pr-4'>
                     <img src={ingredient.image}/>
                     <div className={styles.burgerIngredients__cardPrice}>
@@ -54,7 +54,7 @@ const BurgerIngredients = ({ingredients}) => {
             .map((ingredient) => {
             return (
               <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
-                <article className={styles.burgerIngredients__cardElement}>
+                <article className={styles.burgerIngredients__cardElement} onClick={() => onIngredientClick(ingredient)}>
                   <div className='pl-4 pb-1 pr-4'>
                     <img src={ingredient.image}/>
                     <div className={styles.burgerIngredients__cardPrice}>
@@ -79,7 +79,7 @@ const BurgerIngredients = ({ingredients}) => {
             .map((ingredient) => {
             return (
               <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
-                <article className={styles.burgerIngredients__cardElement}>
+                <article className={styles.burgerIngredients__cardElement} onClick={() => onIngredientClick(ingredient)}>
                   <div className='pl-4 pb-1 pr-4'>
                     <img src={ingredient.image}/>
                     <div className={styles.burgerIngredients__cardPrice}>

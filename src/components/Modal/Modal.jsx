@@ -2,6 +2,7 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './modal.module.css';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
 
 const reactModalCOntainer = document.querySelector('#react-modals')
 
@@ -14,12 +15,13 @@ const Modal = ({onCloseClick, onEsckeyDown, children}) => {
   }, [])
 
   return createPortal(
-    <div className={styles.modal}>
-      <div className={styles.modal__container}>
+    <>
+      <div className={styles.modal}>
         <button className={styles.modal__closeButton} type='button'><CloseIcon type='primary' onClick={onCloseClick}/></button>
         {children}
       </div>
-    </div>,
+      <ModalOverlay onClick={onCloseClick}/>
+    </>,
     reactModalCOntainer
   )
 }
