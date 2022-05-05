@@ -102,6 +102,7 @@ const BurgerIngredients = ({ingredients, onIngredientClick}) => {
 /* Проверка типов данных, полученных на вход */
 BurgerIngredients.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypesIngredientsData).isRequired,
+  onIngredientClick: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;

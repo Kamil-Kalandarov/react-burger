@@ -1,5 +1,7 @@
 import React from "react";
 import styles from './ingredientDetails.module.css';
+import PropTypes from "prop-types";
+import PropTypesIngredientsData from '../../utils/propTypes';
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const IngredientDetails = ({ingredient}) => {
@@ -32,4 +34,8 @@ const IngredientDetails = ({ingredient}) => {
   );
 };
 
-export default IngredientDetails
+IngredientDetails.propTypes = {
+  ingredient: PropTypesIngredientsData.isRequired
+};
+
+export default IngredientDetails;

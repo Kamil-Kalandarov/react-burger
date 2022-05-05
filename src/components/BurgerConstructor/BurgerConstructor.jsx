@@ -89,6 +89,7 @@ const BurgerConstructor = ({ingredients, onOrderButtonClick}) => {
 /* Проверка типов данных, полученных на вход */
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypesIngredientsData).isRequired,
+  onOrderButtonClick: PropTypes.func.isRequired
 };
 
 export default BurgerConstructor;
