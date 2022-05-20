@@ -7,6 +7,7 @@ import Modal from '../Modal/Modal';
 import { apiConfig } from '../../constans/apiConfig';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import { ingredientsContext } from '../../services/ingredientsContext';
 
 const App = () => {
   /* Стейт ингредиентов для компонента 'BurgerIngredients' */
@@ -17,6 +18,8 @@ const App = () => {
   const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false) 
   /* Стейт для передачи в модальное окно выбранного ингредиента */
   const [currentIngredient, setCurrentIngredient] = useState({})
+
+  
 
   /* Монитрование пустого массива для ингредиентов, куда в дальнейшем будут вмонитрованы ингредиенты функцией "getIngredients" */
   useEffect(() => {
@@ -44,6 +47,34 @@ const App = () => {
     })
   }
 
+  const [currentOrderNumber, setCurrentOrderNumber] = useState({
+    name: "",
+    order: {
+      number: "1313"
+    },
+    success: true
+  })
+ 
+  const ingredientsId = ingredients.map(ingredient => ingredient._id)
+  
+
+  const postOrderNumber = (ingredientsId) => {
+    fetch(`${apiConfig.baseUrl}/orders`, {
+      method: 'POST',
+      headers: apiConfig.headers,
+      body: JSON.stringify({
+        "ingredients": ingredientsId
+      })
+    })
+    .then(checkResponse)
+    .then((currentOrderNumber) => {
+      setCurrentOrderNumber(currentOrderNumber)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   /* Хендлер клика по ингредиенту, открывающий модалку и передающий в нее значения кликнутого ингредиента, 
   "ingredient", передан через props в компонент "BurgerIngredients" */
   const handleIngredientClick = (ingredient) => {
@@ -62,7 +93,8 @@ const App = () => {
   };
 
   /* Хендлер октрытия модального окна с деталями заказа */
-  const handleOrderClick = () => {
+  const handleOrderClick = (ingredientsId) => {
+    postOrderNumber(ingredientsId)
     setOrderDetailsOpened(true)
   }
 
@@ -81,8 +113,10 @@ const App = () => {
     <section className={styles.app}>
       <AppHeader />
       <main className={styles.app__flexComponents}>
-        <BurgerIngredients ingredients={ingredients} onIngredientClick={handleIngredientClick} />
-        <BurgerConstructor ingredients={ingredients} onOrderButtonClick={handleOrderClick}/>
+        <ingredientsContext.Provider value={{ingredients, setIngredients}}>
+          <BurgerIngredients /* ingredients={ingredients} */ onIngredientClick={handleIngredientClick} />
+          <BurgerConstructor /* ingredients={ingredients} */ ingredientsId={ingredientsId} onOrderButtonClick={handleOrderClick}/>
+        </ingredientsContext.Provider>
       </main>
       {isIngredientsDetailsOpened && (
         <Modal onCloseClick={closeIngredientModal} onEsckeyDown={handleEscKeydownIngredientModal}>
@@ -91,7 +125,7 @@ const App = () => {
       )}
       {isOrderDetailsOpened && (
         <Modal onCloseClick={closeOrderModal} onEsckeyDown={handleEscKeydownOrderModal}>
-          <OrderDetails />
+          <OrderDetails currentOrderNumber={currentOrderNumber} />
         </Modal>
       )}
     </section>

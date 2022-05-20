@@ -2,10 +2,10 @@ import React from "react";
 import styles from './orderDetails.module.css'
 
 /* Соержимое модалки с деталями заказа, которые устанваливаются кликом при формировании заказа */
-const OrderDetails = () => {
+const OrderDetails = ({ currentOrderNumber }) => {
   return (
     <div className={`${styles.orderDetails} pt-30 pb-30`}>
-      <h3 className='styles.orderDetails__title text text_type_digits-large'>034536</h3>
+      <h3 className='styles.orderDetails__title text text_type_digits-large'>{currentOrderNumber.order.number}</h3>
       <p className='text text_type_main-medium pt-8 pb-15'>идентификатор заказа</p>
       <img className={styles.orderDetails__image} src={require('./images/order accpeted-popup-graphics.png')}/>
       <p className='text text_type_main-default pt-15 pb-2'>Ваш заказ начали готовить</p>
@@ -14,4 +14,4 @@ const OrderDetails = () => {
   );
 };
 
-export default OrderDetails
+export default OrderDetails;

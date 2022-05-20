@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 import PropTypesIngredientsData from '../../utils/propTypes';
 import { useState } from 'react';
@@ -6,8 +6,15 @@ import styles from './burgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { ingredientsContext } from '../../services/ingredientsContext';
+
 /* Выбор ингредиентов для бургера */
-const BurgerIngredients = ({ingredients, onIngredientClick}) => {
+const BurgerIngredients = ({/* ingredients, */ onIngredientClick}) => {
+
+  const { ingredients } = useContext(ingredientsContext)
+
+  console.log(ingredients)
+
   /* Переменная текущего состояния ТАБОВ */
   const [current, setCurrent] = useState('bun')
   return (
@@ -101,7 +108,7 @@ const BurgerIngredients = ({ingredients, onIngredientClick}) => {
 
 /* Проверка типов данных, полученных на вход */
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypesIngredientsData).isRequired,
+  ingredients: PropTypes.arrayOf(PropTypesIngredientsData),
   onIngredientClick: PropTypes.func.isRequired
 };
 

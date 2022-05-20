@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from "prop-types"; 
 import PropTypesIngredientsData from '../../utils/propTypes';
 import styles from './burgerConstructor.module.css'
@@ -7,8 +7,13 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { ingredientsContext } from '../../services/ingredientsContext';
+
 /* Конструктор бургера */
-const BurgerConstructor = ({ingredients, onOrderButtonClick}) => {
+const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
+
+  const { ingredients } = useContext(ingredientsContext)
+
   return (
     <section className={`${styles.burgerConstructor} pl-4`}>
       {ingredients
@@ -80,7 +85,7 @@ const BurgerConstructor = ({ingredients, onOrderButtonClick}) => {
             <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}></p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={() => onOrderButtonClick()}>Оформить заказ</Button>
+          <Button type="primary" size="large" onClick={onOrderButtonClick(ingredientsId)}>Оформить заказ</Button>
         </div>
     </section>
   );
@@ -88,7 +93,7 @@ const BurgerConstructor = ({ingredients, onOrderButtonClick}) => {
 
 /* Проверка типов данных, полученных на вход */
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypesIngredientsData).isRequired,
+  ingredients: PropTypes.arrayOf(PropTypesIngredientsData),
   onOrderButtonClick: PropTypes.func.isRequired
 };
 
