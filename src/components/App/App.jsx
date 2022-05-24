@@ -7,7 +7,7 @@ import Modal from '../Modal/Modal';
 import { apiConfig } from '../../constans/apiConfig';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import { ingredientsContext } from '../../services/ingredientsContext';
+import { BurgerIngredientsContext } from '../../services/burgerIngredientsContext';
 
 const App = () => {
   /* Стейт ингредиентов для компонента 'BurgerIngredients' */
@@ -18,9 +18,15 @@ const App = () => {
   const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false) 
   /* Стейт для передачи в модальное окно выбранного ингредиента */
   const [currentIngredient, setCurrentIngredient] = useState({})
-
+  /* Стейт текущего номера заказа */
+  const [currentOrderNumber, setCurrentOrderNumber] = useState({
+    name: "",
+    order: {
+      number: ""
+    },
+    success: true
+  })
   
-
   /* Монитрование пустого массива для ингредиентов, куда в дальнейшем будут вмонитрованы ингредиенты функцией "getIngredients" */
   useEffect(() => {
     getIngredients()
@@ -47,17 +53,10 @@ const App = () => {
     })
   }
 
-  const [currentOrderNumber, setCurrentOrderNumber] = useState({
-    name: "",
-    order: {
-      number: "1313"
-    },
-    success: true
-  })
- 
+ /* Массив ID ингредиентов */
   const ingredientsId = ingredients.map(ingredient => ingredient._id)
   
-
+  /* Отправка на сервер ID ингредиентов и получение номера заказа */
   const postOrderNumber = (ingredientsId) => {
     fetch(`${apiConfig.baseUrl}/orders`, {
       method: 'POST',
@@ -108,15 +107,17 @@ const App = () => {
     event.key === 'Escape' && closeOrderModal()
   };
 
+
+
   /* Рендер всех компонентов */
   return (
     <section className={styles.app}>
       <AppHeader />
       <main className={styles.app__flexComponents}>
-        <ingredientsContext.Provider value={{ingredients, setIngredients}}>
-          <BurgerIngredients /* ingredients={ingredients} */ onIngredientClick={handleIngredientClick} />
-          <BurgerConstructor /* ingredients={ingredients} */ ingredientsId={ingredientsId} onOrderButtonClick={handleOrderClick}/>
-        </ingredientsContext.Provider>
+        <BurgerIngredientsContext.Provider value={{ingredients, setIngredients}}>
+          <BurgerIngredients onIngredientClick={handleIngredientClick} />
+          <BurgerConstructor ingredientsId={ingredientsId} onOrderButtonClick={handleOrderClick}/>
+        </BurgerIngredientsContext.Provider>
       </main>
       {isIngredientsDetailsOpened && (
         <Modal onCloseClick={closeIngredientModal} onEsckeyDown={handleEscKeydownIngredientModal}>

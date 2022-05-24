@@ -6,15 +6,13 @@ import styles from './burgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { ingredientsContext } from '../../services/ingredientsContext';
+import { BurgerIngredientsContext } from '../../services/burgerIngredientsContext';
 
 /* Выбор ингредиентов для бургера */
-const BurgerIngredients = ({/* ingredients, */ onIngredientClick}) => {
-
-  const { ingredients } = useContext(ingredientsContext)
-
+const BurgerIngredients = ({ onIngredientClick }) => {
+   /* Обращение к кнтексту с ингредиентами */
+  const { ingredients } = useContext(BurgerIngredientsContext)
   console.log(ingredients)
-
   /* Переменная текущего состояния ТАБОВ */
   const [current, setCurrent] = useState('bun')
   return (

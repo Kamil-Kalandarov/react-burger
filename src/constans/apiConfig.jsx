@@ -2,6 +2,6 @@
 export const apiConfig = {
   baseUrl: 'https://norma.nomoreparties.space/api',
   headers: {
-    'content-Typer': 'application/json;charset=utf-8'
+    'content-Type': 'application/json;charset=utf-8'
   }
 };

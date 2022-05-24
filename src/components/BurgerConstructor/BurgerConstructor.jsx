@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import PropTypes from "prop-types"; 
 import PropTypesIngredientsData from '../../utils/propTypes';
 import styles from './burgerConstructor.module.css'
@@ -7,12 +7,37 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { ingredientsContext } from '../../services/ingredientsContext';
+import { BurgerIngredientsContext } from '../../services/burgerIngredientsContext';
+
+
+
+
 
 /* Конструктор бургера */
 const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
 
-  const { ingredients } = useContext(ingredientsContext)
+  /* Обращение к кнтексту с ингредиентами */
+  const { ingredients } = useContext(BurgerIngredientsContext)
+
+  const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
+
+  const fillings = ingredients.filter((ingredient) => ingredient.type !=='bun');
+
+  const bunsPrice = buns.reduce((prevValue, ingredient) => {
+    return prevValue + ingredient.price
+  }, 0)
+
+  const fillingsPrice = fillings.reduce((prevValue, ingredient) => {
+    return prevValue + ingredient.price
+  }, 0)
+
+  const IngredientsTotalPrice = bunsPrice + fillingsPrice
+  
+
+  console.log(IngredientsTotalPrice)
+
+
+
 
   return (
     <section className={`${styles.burgerConstructor} pl-4`}>
@@ -82,10 +107,10 @@ const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
         {/* Итоговая стоимость бругера с кнопкой заказа */}
         <div className={`${styles.burgerConstructor__totalPriceContainer} mr-4`}>
           <div className={`${styles.burgerConstructor__totalPrice} pr-10`}>
-            <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}></p>
+            <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}>{IngredientsTotalPrice}</p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={onOrderButtonClick(ingredientsId)}>Оформить заказ</Button>
+          <Button type="primary" size="large" onClick={() => onOrderButtonClick(ingredientsId)}>Оформить заказ</Button>
         </div>
     </section>
   );
@@ -94,6 +119,7 @@ const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
 /* Проверка типов данных, полученных на вход */
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypesIngredientsData),
+  ingredientsId: PropTypes.array,
   onOrderButtonClick: PropTypes.func.isRequired
 };
 
