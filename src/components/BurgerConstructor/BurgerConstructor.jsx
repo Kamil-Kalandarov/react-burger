@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import PropTypes from "prop-types"; 
-import PropTypesIngredientsData from '../../utils/propTypes';
 import styles from './burgerConstructor.module.css'
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import { BurgerIngredientsContext } from '../../services/burgerIngredientsContext';
 
 
@@ -18,19 +16,19 @@ const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
 
   /* Обращение к кнтексту с ингредиентами */
   const { ingredients } = useContext(BurgerIngredientsContext)
-
+  /* Филтр булок */
   const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
-
+  /* Филтр начинок */
   const fillings = ingredients.filter((ingredient) => ingredient.type !=='bun');
-
+  /* цена булок */
   const bunsPrice = buns.reduce((prevValue, ingredient) => {
     return prevValue + ingredient.price
   }, 0)
-
+  /* Цена начинок */
   const fillingsPrice = fillings.reduce((prevValue, ingredient) => {
     return prevValue + ingredient.price
   }, 0)
-
+  /* Цена всех ингредиентов */
   const IngredientsTotalPrice = bunsPrice + fillingsPrice
   
 
@@ -62,8 +60,7 @@ const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
       }
       <div className={styles.burgerConstructor__wrapper}>
         <ul className={`${styles.burgerConstructor__list} pr-4`}>
-          {ingredients
-            .filter((ingredient) => ingredient.type !== 'bun')
+          {fillings
             .map((ingredient) => {
               return (
                 <li key={ingredient._id}>
@@ -118,7 +115,6 @@ const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
 
 /* Проверка типов данных, полученных на вход */
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypesIngredientsData),
   ingredientsId: PropTypes.array,
   onOrderButtonClick: PropTypes.func.isRequired
 };

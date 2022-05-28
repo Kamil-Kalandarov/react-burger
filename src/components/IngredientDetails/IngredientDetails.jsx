@@ -1,6 +1,5 @@
 import React from "react";
 import styles from './ingredientDetails.module.css';
-import PropTypes from "prop-types";
 import PropTypesIngredientsData from '../../utils/propTypes';
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */

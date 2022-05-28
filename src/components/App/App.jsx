@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import styles from './app.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -7,6 +7,7 @@ import Modal from '../Modal/Modal';
 import { apiConfig } from '../../constans/apiConfig';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
+import Preloader from '../Preloader/Preloader';
 import { BurgerIngredientsContext } from '../../services/burgerIngredientsContext';
 
 const App = () => {
@@ -46,7 +47,7 @@ const App = () => {
     fetch(`${apiConfig.baseUrl}/ingredients`, {
       headers: apiConfig.headers
     })
-    .then(checkResponse)
+    .then((checkResponse))
     .then(response => setIngredients(response.data))
     .catch((err) => {
       console.log(err);
@@ -55,9 +56,43 @@ const App = () => {
 
  /* Массив ID ингредиентов */
   const ingredientsId = ingredients.map(ingredient => ingredient._id)
+
+  const orderNumberInitialState = {
+    isLoading: false,
+    error: null
+  }
+  
+  function loadingReducer(state, action) {
+    console.log(action)
+    switch (action.type) {
+      case 'pending': 
+        return {
+          ...state,
+          isLoading: true,
+        };
+      case 'success':
+        return {
+          ...state,
+          isLoading: false,
+          error: null
+        };
+      case "error":
+        return {
+          ...state,
+          isLoading: false,
+          error: "Ошибка, повторите еще раз!",
+        };
+      };
+    };
+
+  const [state, loadingDispatcher] = useReducer(loadingReducer, orderNumberInitialState)
+
   
   /* Отправка на сервер ID ингредиентов и получение номера заказа */
   const postOrderNumber = (ingredientsId) => {
+    loadingDispatcher({
+      type: 'pending'
+    })
     fetch(`${apiConfig.baseUrl}/orders`, {
       method: 'POST',
       headers: apiConfig.headers,
@@ -67,12 +102,19 @@ const App = () => {
     })
     .then(checkResponse)
     .then((currentOrderNumber) => {
+      loadingDispatcher({
+        type: 'success',
+      })
       setCurrentOrderNumber(currentOrderNumber)
     })
     .catch((err) => {
-      console.log(err)
+      loadingDispatcher({
+        type: 'error'
+      })
     })
   }
+
+
 
   /* Хендлер клика по ингредиенту, открывающий модалку и передающий в нее значения кликнутого ингредиента, 
   "ingredient", передан через props в компонент "BurgerIngredients" */
@@ -86,11 +128,6 @@ const App = () => {
     setIsIngredientsDetailsOpened(false)
   };
 
-  /* Закрытие модального окна с ингредиентом клавишей "Escape */
-  const handleEscKeydownIngredientModal = (event) => {
-    event.key === 'Escape' && closeIngredientModal()
-  };
-
   /* Хендлер октрытия модального окна с деталями заказа */
   const handleOrderClick = (ingredientsId) => {
     postOrderNumber(ingredientsId)
@@ -101,13 +138,6 @@ const App = () => {
   const closeOrderModal = () => {
     setOrderDetailsOpened(false)
   };
-
-  /* Закрытие модального окна с деталями заказа клавишей "Escape */
-  const handleEscKeydownOrderModal = (event) => {
-    event.key === 'Escape' && closeOrderModal()
-  };
-
-
 
   /* Рендер всех компонентов */
   return (
@@ -120,13 +150,13 @@ const App = () => {
         </BurgerIngredientsContext.Provider>
       </main>
       {isIngredientsDetailsOpened && (
-        <Modal onCloseClick={closeIngredientModal} onEsckeyDown={handleEscKeydownIngredientModal}>
+        <Modal onCloseClick={closeIngredientModal}>
           <IngredientDetails ingredient={currentIngredient}/>
         </Modal>
       )}
       {isOrderDetailsOpened && (
-        <Modal onCloseClick={closeOrderModal} onEsckeyDown={handleEscKeydownOrderModal}>
-          <OrderDetails currentOrderNumber={currentOrderNumber} />
+        <Modal onCloseClick={closeOrderModal}>
+          {state.isLoading ? ( <Preloader />) : (<OrderDetails currentOrderNumber={currentOrderNumber} />)}
         </Modal>
       )}
     </section>

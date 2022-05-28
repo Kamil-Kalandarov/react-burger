@@ -1,31 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import PropTypesIngredientsData from '../../utils/propTypes';
 import { useState } from 'react';
 import styles from './burgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import { BurgerIngredientsContext } from '../../services/burgerIngredientsContext';
 
 /* Выбор ингредиентов для бургера */
 const BurgerIngredients = ({ onIngredientClick }) => {
    /* Обращение к кнтексту с ингредиентами */
   const { ingredients } = useContext(BurgerIngredientsContext)
-  console.log(ingredients)
   /* Переменная текущего состояния ТАБОВ */
   const [current, setCurrent] = useState('bun')
+
+  const handleScroll = (id) => {
+    const ingredientsId = document.getElementById(id)
+    setCurrent(id)
+    ingredientsId.scrollIntoView({behavior: "smooth"})
+  }
+
   return (
     <section className={`${styles.burgerIngredients} pt-10 mr-10`}>
       <h1 className='text text_type_main-large pb-5'>Соберите бургер</h1>
       <div className={styles.burgerIngredients__tabList}>
-        <a className={styles.burgerIngredients__tab} href='#bun'><Tab value="bun" active={current === 'bun'} onClick={setCurrent}>Булки</Tab></a>
-        <a className={styles.burgerIngredients__tab} href='#sauce'><Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>Соусы</Tab></a>
-        <a className={styles.burgerIngredients__tab} href='#main'><Tab value="main" active={current === 'main'} onClick={setCurrent}>Начинки</Tab></a>
+        <a className={styles.burgerIngredients__tab}><Tab value="bun" active={current === 'bun'} onClick={() => {handleScroll('bun')}}>Булки</Tab></a>
+        <a className={styles.burgerIngredients__tab}><Tab value="sauce" active={current === 'sauce'} onClick={() => {handleScroll('sauce')}}>Соусы</Tab></a>
+        <a className={styles.burgerIngredients__tab}><Tab value="main" active={current === 'main'} onClick={() => {handleScroll('main')}}>Начинки</Tab></a>
       </div>
-      <div className={`${styles.burgerIngredients__cardsWrapper} mt-10`}>
-        <a name='bun'></a>
-        <h3 className='text text_type_main-medium'>Булки</h3>
+   <div className={`${styles.burgerIngredients__cardsWrapper} mt-10`}>
+        <h3 className='text text_type_main-medium' id='bun'>Булки</h3>
         <ul className={styles.burgerIngredients__cardList}>
           {ingredients
             /* Фильтр ингредиентов по типу */
@@ -49,8 +52,7 @@ const BurgerIngredients = ({ onIngredientClick }) => {
           }
           )}
         </ul>
-        <a name='sauce'></a>
-        <h3 className='text text_type_main-medium pt-4'>Соусы</h3>
+        <h3 className='text text_type_main-medium pt-4' id='sauce'>Соусы</h3>
         <ul className={styles.burgerIngredients__cardList}>
           {ingredients
             /* Фильтр ингредиентов по типу */
@@ -74,8 +76,7 @@ const BurgerIngredients = ({ onIngredientClick }) => {
           }
           )}
         </ul>
-        <a name='main'></a>
-        <h3 className='text text_type_main-medium pt-4'>Начинки</h3>
+        <h3 className='text text_type_main-medium pt-4' id='main'>Начинки</h3>
         <ul className={styles.burgerIngredients__cardList}>
           {ingredients
             /* Фильтр ингредиентов по типу */
@@ -106,7 +107,6 @@ const BurgerIngredients = ({ onIngredientClick }) => {
 
 /* Проверка типов данных, полученных на вход */
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypesIngredientsData),
   onIngredientClick: PropTypes.func.isRequired
 };
 

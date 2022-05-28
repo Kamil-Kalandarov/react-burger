@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './modal.module.css';
@@ -8,12 +8,17 @@ import PropTypes from "prop-types";
 const reactModalCOntainer = document.querySelector('#react-modals')
 
 /* Передача props для модального окна, используются в компоненте App */
-const Modal = ({onCloseClick, onEsckeyDown, children}) => {
-  /* Монитрование случателя нажатия клваиши */
-  React.useEffect(() => {
-    document.addEventListener("keydown", onEsckeyDown)
+const Modal = ({onCloseClick, children}) => {
+  /* Хендлер нажатия на клваишу 'Escape' */
+  const handleEscKeydownModal = (event) => {
+    event.key === 'Escape' && onCloseClick()
+  };
+
+  /* Монитрование случателя нажатия клваиши 'Escape' */
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscKeydownModal)
     return () => {
-      document.removeEventListener("keydown", onEsckeyDown)
+      document.removeEventListener("keydown", handleEscKeydownModal)
     }
   }, [])
 
@@ -32,7 +37,6 @@ const Modal = ({onCloseClick, onEsckeyDown, children}) => {
 
 Modal.propTypes = {
   onCloseClick: PropTypes.func.isRequired,
-  onEsckeyDown: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired
 };
 
