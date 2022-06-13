@@ -1,0 +1,7 @@
+.tabList {
+  display: flex;
+}
+
+.tab {
+  text-decoration: none;
+}

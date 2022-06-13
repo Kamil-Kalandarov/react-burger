@@ -1,14 +1,16 @@
 import React from "react";
 import styles from './ingredientDetails.module.css';
-import PropTypesIngredientsData from '../../utils/propTypes';
+/* import PropTypesIngredientsData from '../../utils/propTypes'; */
+import { useSelector } from "react-redux";
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
-const IngredientDetails = ({ingredient}) => {
+const IngredientDetails = () => {
+  const ingredient = useSelector(store => store.ingredientDetails.ingredient)
   return (
     <div className={`${styles.ingredientDetails} pt-10 pb-15 pl-10 pr-10`}>
       <h3 className={`${styles.ingredientDetails__title} text text_type_main-large pb-5`}>Детали ингредиента</h3>
       <div className={styles.ingredientDetails__content}>
-        <img className='pr-5 pl-5' src={ingredient.image}/>
+        <img className='pr-5 pl-5' src={ingredient.image} alt='изображение ингредиента'/>
         <p className={`${styles.ingredientDetails__name} text text_type_main-medium pt-4 pb-8`}>{ingredient.name}</p>
         <ul className={styles.ingredientDetails__nutritionalValueList}>
           <li className={styles.ingredientDetails__nutritionalValueItem}>
@@ -33,8 +35,8 @@ const IngredientDetails = ({ingredient}) => {
   );
 };
 
-IngredientDetails.propTypes = {
+/* IngredientDetails.propTypes = {
   ingredient: PropTypesIngredientsData.isRequired
-};
+}; */
 
 export default IngredientDetails;

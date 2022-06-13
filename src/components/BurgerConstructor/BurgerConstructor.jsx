@@ -1,21 +1,25 @@
-import React, { useContext, useEffect, useMemo } from 'react';
-import PropTypes from "prop-types"; 
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './burgerConstructor.module.css'
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerIngredientsContext } from '../../services/burgerIngredientsContext';
+import { getInitialIngredients } from '../../services/actions/initialIngredients';
 
 
 
 
 
 /* Конструктор бургера */
-const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
+const BurgerConstructor = (/* { ingredientsId, onOrderButtonClick } */) => {
+  const ingredients = useSelector(store => store.initialIngredients.ingredients)
+  const dispatch = useDispatch()
 
-  /* Обращение к кнтексту с ингредиентами */
-  const { ingredients } = useContext(BurgerIngredientsContext)
+  useEffect(() => {
+    dispatch(getInitialIngredients())
+  }, [dispatch])
+
   /* Филтр булок */
   const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
   /* Филтр начинок */
@@ -32,7 +36,7 @@ const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
   const IngredientsTotalPrice = bunsPrice + fillingsPrice
   
 
-  console.log(IngredientsTotalPrice)
+
 
 
 
@@ -107,16 +111,16 @@ const BurgerConstructor = ({ ingredientsId, onOrderButtonClick }) => {
             <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}>{IngredientsTotalPrice}</p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={() => onOrderButtonClick(ingredientsId)}>Оформить заказ</Button>
+          <Button type="primary" size="large" /* onClick={() => onOrderButtonClick(ingredientsId)} */>Оформить заказ</Button>
         </div>
     </section>
   );
 };
 
 /* Проверка типов данных, полученных на вход */
-BurgerConstructor.propTypes = {
+/* BurgerConstructor.propTypes = {
   ingredientsId: PropTypes.array,
   onOrderButtonClick: PropTypes.func.isRequired
-};
+}; */
 
 export default BurgerConstructor;
