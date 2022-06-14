@@ -2,6 +2,7 @@ import React from "react";
 import styles from './ingredientDetails.module.css';
 /* import PropTypesIngredientsData from '../../utils/propTypes'; */
 import { useSelector } from "react-redux";
+import { store } from "../../services/store";
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const IngredientDetails = () => {

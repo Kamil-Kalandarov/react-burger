@@ -1,10 +1,10 @@
 export const OPEN_INGREDIENT_DETAILS_MODAL = 'OPEN_INGREDIENT_DETAILS_MODAL';
 export const CLOSE_INGREDIENT_DETAILS_MODAL = 'OPEN_INGREDIENT_DETAILS_MODAL';
 
-export const openIngredientDetailsModal = (currentIngredients) => {
+export const openIngredientDetailsModal = (currentIngredient) => {
   return {
     type: OPEN_INGREDIENT_DETAILS_MODAL,
-    payload: currentIngredients
+    payload: currentIngredient
   }
 }
 

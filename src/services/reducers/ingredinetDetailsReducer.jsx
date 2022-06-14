@@ -1,8 +1,7 @@
 import { OPEN_INGREDIENT_DETAILS_MODAL, CLOSE_INGREDIENT_DETAILS_MODAL } from "../actions/ingredientDetails";
 
 const ingredientDetailInitialState = {
-  ingredient: {},
-  isOpened: false
+  ingredient: null
 }
 
 export const ingredientDetailsReducer = (state = ingredientDetailInitialState, action) => {
@@ -10,16 +9,11 @@ export const ingredientDetailsReducer = (state = ingredientDetailInitialState, a
     case OPEN_INGREDIENT_DETAILS_MODAL: {
       return {
         ...state,
-        ingredient: action.payload,
-        isOpened: true
+        ingredient: action.payload
       }
     }
     case CLOSE_INGREDIENT_DETAILS_MODAL: {
-      return {
-        ...state,
-        ingredient: {},
-        isOpened: false
-      }
+      return ingredientDetailInitialState;
     }
     default: {
       return state;
