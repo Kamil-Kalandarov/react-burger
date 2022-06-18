@@ -1,127 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './burgerIngredients.module.css';
 import Tabs from '../Tabs/Tabs';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
-import { store } from '../../services/store';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import Modal from '../Modal/Modal';
-import { openIngredientDetailsModal } from '../../services/actions/ingredientDetails';
+import IngredientsItemsList from '../IngredientsItemsList/IngredientsItemsList';
 
 /* Выбор ингредиентов для бургера */
 const BurgerIngredients = () => {
-   /* Обращение к store */
-   const ingredients = useSelector(store => store.initialIngredients.ingredients)
-   const dispatch = useDispatch()
 
-   const [isIngredientsDetailsOpened, setIsIngredientsDetailsOpened] = useState(false)
+  const initialIngredients = useSelector(store => store.initialIngredients.ingredients);
 
-   const handleIngredientClick = (ingredient) => {
-    dispatch(openIngredientDetailsModal(ingredient))
-    setIsIngredientsDetailsOpened(true)
-  };
+  console.log(initialIngredients)
 
-  const closeIngredientModal = () => {
-    setIsIngredientsDetailsOpened(false)
-  };
+  const buns = initialIngredients.filter((ingredeint) => ingredeint.type === 'bun');
+  const sauces = initialIngredients.filter((ingredeint) => ingredeint.type === 'sauce');
+  const mains = initialIngredients.filter((ingredeint) => ingredeint.type === 'main');
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getInitialIngredients())
   }, [dispatch])
 
   return (
-    <>
       <section className={`${styles.burgerIngredients} pt-10 mr-10`}>
         <h1 className='text text_type_main-large pb-5'>Соберите бургер</h1>
         <Tabs />
-        <div className={`${styles.burgerIngredients__cardsWrapper} mt-10`}>
-          <h3 className='text text_type_main-medium' id='bun'>Булки</h3>
-          <ul className={styles.burgerIngredients__cardList}>
-            {ingredients
-              /* Фильтр ингредиентов по типу */
-              .filter((ingredient) => ingredient.type === 'bun') 
-              /* Отрисовка отфильтрованных ингредиентов */
-              .map((ingredient) => {
-              return (
-                <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
-                  <article className={styles.burgerIngredients__cardElement} onClick={() => handleIngredientClick(ingredient)}>
-                    <div className='pl-4 pb-1 pr-4'>
-                      <img src={ingredient.image}/>
-                      <div className={styles.burgerIngredients__cardPrice}>
-                        <p className='text text_type_digits-default pt-1'>{ingredient.price}</p>
-                        <CurrencyIcon type='primary'/>
-                      </div>
-                    </div>
-                    <h3 className={`${styles.burgerIngredients__cardName} text text_type_main-default`}>{ingredient.name}</h3>
-                  </article>
-              </li>
-              )
-            }
-            )}
-          </ul>
-          <h3 className='text text_type_main-medium pt-4' id='sauce'>Соусы</h3>
-          <ul className={styles.burgerIngredients__cardList}>
-            {ingredients
-              /* Фильтр ингредиентов по типу */
-              .filter((ingredient) => ingredient.type === 'sauce')
-              /* Отрисовка отфильтрованных ингредиентов */
-              .map((ingredient) => {
-              return (
-                <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
-                  <article className={styles.burgerIngredients__cardElement} onClick={() => handleIngredientClick(ingredient)}>
-                    <div className='pl-4 pb-1 pr-4'>
-                      <img src={ingredient.image}/>
-                      <div className={styles.burgerIngredients__cardPrice}>
-                        <p className='text text_type_digits-default pt-1'>{ingredient.price}</p>
-                        <CurrencyIcon type='primary'/>
-                      </div>
-                    </div>
-                    <h3 className={`${styles.burgerIngredients__cardName} text text_type_main-default`}>{ingredient.name}</h3>
-                  </article>
-              </li>
-              )
-            }
-            )}
-          </ul>
-          <h3 className='text text_type_main-medium pt-4' id='main'>Начинки</h3>
-          <ul className={styles.burgerIngredients__cardList}>
-            {ingredients
-              /* Фильтр ингредиентов по типу */
-              .filter((ingredient) => ingredient.type === 'main')
-              /* Отрисовка отфильтрованных ингредиентов */
-              .map((ingredient) => {
-              return (
-                <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
-                  <article className={styles.burgerIngredients__cardElement} onClick={() => handleIngredientClick(ingredient)}>
-                    <div className='pl-4 pb-1 pr-4'>
-                      <img src={ingredient.image}/>
-                      <div className={styles.burgerIngredients__cardPrice}>
-                        <p className='text text_type_digits-default pt-1'>{ingredient.price}</p>
-                        <CurrencyIcon type='primary'/>
-                      </div>
-                    </div>
-                    <h3 className={`${styles.burgerIngredients__cardName} text text_type_main-default`}>{ingredient.name}</h3>
-                  </article>
-              </li>
-              )
-            }
-            )}
-          </ul>
-        </div>
+        <IngredientsItemsList 
+          title="Булки"
+          titleId="buns"
+          ingredients={buns}
+        />
+        <IngredientsItemsList 
+          title="Соусы"
+          titleId="sauces"
+          ingredients={sauces}
+        />
+        <IngredientsItemsList 
+          title="Начинки"
+          titleId="mains"
+          ingredients={mains}
+        />
       </section>
-      {isIngredientsDetailsOpened && (
-        <Modal onCloseClick={closeIngredientModal}>
-          <IngredientDetails />
-        </Modal>
-      )}
-    </>
   );
 };
-
-/* Проверка типов данных, полученных на вход */
-/* BurgerIngredients.propTypes = {
-  onIngredientClick: PropTypes.func.isRequired
-}; */
 
 export default BurgerIngredients;

@@ -31,6 +31,7 @@
   display: grid;
   justify-content: start;
   cursor: pointer;
+  position: relative;
 }
 
 .burgerIngredients__cardElement:hover {

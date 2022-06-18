@@ -1,0 +1,21 @@
+.cardElement {
+  max-width: 272px;
+  margin: 0;
+  display: grid;
+  justify-content: start;
+  cursor: pointer;
+  position: relative;
+}
+
+.cardPrice {
+  display: grid;
+  grid-template-columns: max-content min-content;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}
+
+.cardName {
+  margin: 0;
+  text-align: center;
+}

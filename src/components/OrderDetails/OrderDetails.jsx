@@ -1,10 +1,12 @@
 import React from "react";
 import styles from './orderDetails.module.css'
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 
 /* Соержимое модалки с деталями заказа, которые устанваливаются кликом при формировании заказа */
-const OrderDetails = ({ currentOrderNumber }) => {
+const OrderDetails = () => {
+  const currentOrderNumber = useSelector(store => store.orderDetails.currentOrderNumber)
   return (
     <div className={`${styles.orderDetails} pt-30 pb-30`}>
       <h3 className='styles.orderDetails__title text text_type_digits-large'>{currentOrderNumber.order.number}</h3>
@@ -16,9 +18,9 @@ const OrderDetails = ({ currentOrderNumber }) => {
   );
 };
 
-/* Проверка типов данных, полученных на вход */
-OrderDetails.propTypes = {
+ /* Проверка типов данных, полученных на вход */
+/* OrderDetails.propTypes = {
   currentOrderNumber: PropTypes.object.isRequired
-};
+};  */
 
 export default OrderDetails;
