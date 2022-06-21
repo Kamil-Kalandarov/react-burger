@@ -20,7 +20,8 @@ export const initialIngredientsReducer = (state = initialIngredients, action) =>
     /* Переключени табов */
     case TAB_SWITCH: {
       return {
-        ...state
+        ...state,
+        currentTab: action.payload
       }
     }
     case GET_INGRDEIENTS_REQUEST: {

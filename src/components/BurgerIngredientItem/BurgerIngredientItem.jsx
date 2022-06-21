@@ -7,13 +7,13 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { openIngredientDetailsModal } from "../../services/actions/ingredientDetails";
 
-const BurgerIngredientItem = (ingredients) => {
+const BurgerIngredientItem = ({ingredients}) => {
 
   const dispatch = useDispatch();
 
   const [isIngredientsDetailsOpened, setIsIngredientsDetailsOpened] = useState(false);
 
-  const handleIngredientClick = (ingredient) => {
+  const handleIngredientClick = ({ingredient}) => {
     dispatch(openIngredientDetailsModal(ingredient))
     setIsIngredientsDetailsOpened(true)
   };

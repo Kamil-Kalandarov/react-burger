@@ -6,6 +6,13 @@ export const GET_INGRDEIENTS_SUCCESS = 'GET_INGRDEIENTS_SUCCESS';
 export const GET_INGRDEIENTS_FAILED = 'GET_INGRDEIENTS_FAILED';
 export const TAB_SWITCH = 'TAB_SWITCH';
 
+export const setCurrentTab = (currentTab) => {
+  return {
+    type: TAB_SWITCH,
+    payload: currentTab
+  }
+}
+
 export const getIngredientsRequest = () => {
   return {
     type: GET_INGRDEIENTS_REQUEST,

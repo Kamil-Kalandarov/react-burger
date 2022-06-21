@@ -6,7 +6,7 @@ import { store } from "../../services/store";
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const IngredientDetails = () => {
-  const ingredient = useSelector(store => store.ingredientDetails.ingredient)
+  const ingredient = useSelector(store => store.ingredientDetails)
   return (
     <div className={`${styles.ingredientDetails} pt-10 pb-15 pl-10 pr-10`}>
       <h3 className={`${styles.ingredientDetails__title} text text_type_main-large pb-5`}>Детали ингредиента</h3>

@@ -1,20 +1,6 @@
-.cardsWrapper {
+.cardList {
   max-width: 600px;
   max-height: 716px;
-  overflow:auto;
-  margin-bottom: 40px;
-}
-
-.cardsWrapper::-webkit-scrollbar {
-  width: 8px;
-  background-color: #2F2F37;
-}
-
-.cardsWrapper::-webkit-scrollbar-thumb {
-  background-color: #8585AD;
-}
-
-.cardList {
   list-style: none;
   padding: 0;
   display: grid;

@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs.module.css';
+import { setCurrentTab } from '../../services/actions/initialIngredients';
 
-const Tabs = () => { 
-  /* Переменная текущего состояния ТАБОВ */
-  const current = useSelector(store => store.initialIngredients.currentTab)
+const Tabs = ({inViewBuns, inViewSauces, inViewMains}) => { 
+  const currentTab = useSelector(store => store.initialIngredients.currentTab) 
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  useEffect(() => {
+    if (inViewBuns) {
+      dispatch(setCurrentTab('buns'))
+    } else if (inViewSauces) {
+      dispatch(setCurrentTab('sauces'))
+    } else if (inViewMains) {
+      dispatch(setCurrentTab('mains'))
+    }
+  }, [inViewBuns, inViewSauces, inViewMains])
 
-/*   const handleScroll = (id) => {
-    const ingredientsId = document.getElementById(id)
-    dispatch(id)
-    ingredientsId.scrollIntoView({behavior: "smooth"})
-  } */
+  
+  const handleScroll = (currentTab) => {
+    dispatch(setCurrentTab(currentTab))
+    document.getElementById(currentTab).scrollIntoView({behavior: "smooth"})
+  }
+
   return(
     <div className={styles.tabList}>
-      <a className={styles.tab}><Tab value="bun" active={current === 'bun'} /* onClick={() => {handleScroll('bun')}} */>Булки</Tab></a>
-      <a className={styles.tab}><Tab value="sauce" active={current === 'sauce'} /* onClick={() => {handleScroll('sauce')}} */>Соусы</Tab></a>
-      <a className={styles.tab}><Tab value="main" active={current === 'main'} /* onClick={() => {handleScroll('main')}} */>Начинки</Tab></a>
+      <a className={styles.tab}><Tab value="buns" active={currentTab === 'buns'} 
+        onClick={(value) => {handleScroll(value)}}>Булки</Tab></a>
+      <a className={styles.tab}><Tab value="sauces" active={currentTab === 'sauces'} 
+        onClick={(value) => {handleScroll(value)}}>Соусы</Tab></a>
+      <a className={styles.tab}><Tab value="mains" active={currentTab === 'mains'} 
+        onClick={(value) => {handleScroll(value)}}>Начинки</Tab></a>
     </div>
   )
 }

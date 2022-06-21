@@ -7,6 +7,10 @@
   position: relative;
 }
 
+.cardElement:hover {
+  opacity: 50%;
+}
+
 .cardPrice {
   display: grid;
   grid-template-columns: max-content min-content;

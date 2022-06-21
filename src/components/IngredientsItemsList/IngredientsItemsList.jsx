@@ -22,20 +22,20 @@ const IngredientsItemsList = forwardRef(({
       return counters
   }, [constructorIngredients]);
   return (
-    <div className={`${styles.cardsWrapper} mt-10`} ref={ref}>
+    <>
       <h3 className='text text_type_main-medium' id={titleId}>{title}</h3>
-      <ul className={styles.cardList}>
+      <ul className={styles.cardList} ref={ref}>
         {ingredients.map((ingredient) => {
           return (
             <BurgerIngredientItem 
-              ingredients={ingredients}
-              key={ingredient._id}
-              counter={ingredientsCounter[ingredient._id]}
+              ingredients={ ingredient }
+              key={ ingredient._id }
+              counter={ ingredientsCounter[ingredient._id] }
             />
           )
         })}
       </ul>
-  </div>
+    </>
           )
 });
 

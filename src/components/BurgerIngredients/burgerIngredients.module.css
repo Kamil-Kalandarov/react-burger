@@ -16,37 +16,4 @@
 
 .burgerIngredients__cardsWrapper::-webkit-scrollbar-thumb {
   background-color: #8585AD;
-}
-
-.burgerIngredients__cardList {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.burgerIngredients__cardElement {
-  max-width: 272px;
-  margin: 0;
-  display: grid;
-  justify-content: start;
-  cursor: pointer;
-  position: relative;
-}
-
-.burgerIngredients__cardElement:hover {
-  opacity: 50%;
-}
-
-.burgerIngredients__cardPrice {
-  display: grid;
-  grid-template-columns: max-content min-content;
-  justify-content: center;
-  align-items: center;
-  gap: 9px;
-}
-
-.burgerIngredients__cardName {
-  margin: 0;
-  text-align: center;
-}
+} 
