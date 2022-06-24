@@ -19,11 +19,6 @@ const BurgerIngredients = () => {
   const { saucesRef, inViewSauces } = useInView({ threshold: 0 });
   const { mainsRef, inViewMains } = useInView({ threshold: 0 });
 
-  const setRefs = useCallback((node) => {
-    bunsRef.current = node;
-    inViewBuns(node);
-  }, inViewBuns)
-
 
   useEffect(() => {
     dispatch(getInitialIngredients())
@@ -32,7 +27,7 @@ const BurgerIngredients = () => {
   return (
       <section className={`${styles.burgerIngredients} pt-10 mr-10`}>
         <h1 className='text text_type_main-large pb-5'>Соберите бургер</h1>
-        <Tabs setRefs={setRefs}/>
+        <Tabs inViewBuns={inViewBuns} inViewSauces={inViewSauces} inViewMains={inViewMains} />
         <div className={`${styles.burgerIngredients__cardsWrapper} mt-10`}>
           <IngredientsItemsList 
             title="Булки"
