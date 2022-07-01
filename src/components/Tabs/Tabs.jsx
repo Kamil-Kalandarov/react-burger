@@ -4,7 +4,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs.module.css';
 import { setCurrentTab } from '../../services/actions/initialIngredients';
 
-const Tabs = ({inViewBuns, inViewSauces, inViewMains}) => { 
+const Tabs = ({ inViewBuns, inViewSauces, inViewMains }) => { 
   const currentTab = useSelector(store => store.initialIngredients.currentTab) 
   const dispatch = useDispatch();
 

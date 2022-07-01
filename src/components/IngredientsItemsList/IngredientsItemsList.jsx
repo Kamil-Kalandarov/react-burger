@@ -16,7 +16,7 @@ const IngredientsItemsList = forwardRef(({
     const counters = {};
     fillings.forEach((filling) => {
       if(!counters[filling._id]) counters[filling._id] = 0;
-      counters[ingredients._id]++;
+      counters[filling._id]++;
     })
       if(bun) counters[bun._id] = 2
       return counters
@@ -28,7 +28,7 @@ const IngredientsItemsList = forwardRef(({
         {ingredients.map((ingredient) => {
           return (
             <BurgerIngredientItem 
-              ingredients={ ingredient }
+              ingredient={ ingredient }
               key={ ingredient._id }
               counter={ ingredientsCounter[ingredient._id] }
             />

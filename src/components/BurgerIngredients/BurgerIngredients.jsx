@@ -15,10 +15,9 @@ const BurgerIngredients = () => {
   const sauces = initialIngredients.filter((ingredeint) => ingredeint.type === 'sauce');
   const mains = initialIngredients.filter((ingredeint) => ingredeint.type === 'main');
 
-  const { bunsRef, inViewBuns } = useInView({ threshold: 0 });
-  const { saucesRef, inViewSauces } = useInView({ threshold: 0 });
-  const { mainsRef, inViewMains } = useInView({ threshold: 0 });
-
+  const [ bunsRef, inViewBuns ] = useInView({ threshold: 0 });
+  const [ saucesRef, inViewSauces ] = useInView({ threshold: 0 });
+  const [ mainsRef, inViewMains ] = useInView({ threshold: 0 });
 
   useEffect(() => {
     dispatch(getInitialIngredients())
