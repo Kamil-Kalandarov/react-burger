@@ -2,6 +2,7 @@
   display: grid;
   grid-template-rows: min-content max-content min-content;
   gap: 16px;
+  border: 2px solid transparent
 }
 
 .burgerConstructor__cardBunElement {

@@ -7,7 +7,7 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { openIngredientDetailsModal } from "../../services/actions/ingredientDetails";
 
-const BurgerIngredientItem = ({ ingredient }) => {
+const BurgerIngredientItem = ({ ingredient, counter }) => {
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ const BurgerIngredientItem = ({ ingredient }) => {
       <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
         <article className={styles.cardElement} 
           onClick={() => handleIngredientClick(ingredient)} ref={dragRef}>
-          <Counter count={0} size="default" />
+          <Counter count={counter} size="default" />
           <div className='pl-4 pb-1 pr-4'>
             <img src={ingredient.image}/>
             <div className={styles.cardPrice}>

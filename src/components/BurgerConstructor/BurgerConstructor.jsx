@@ -12,6 +12,7 @@ import { postOrderNumber } from '../../services/actions/orderDetails'; */
 import { store } from '../../services/store';
 import { addIngredient } from '../../services/actions/burgerConstructor';
 import { useDrop } from 'react-dnd';
+import EmptyConstructorElement from './EmptyConstructorElement/EmptyConstructorElement';
 
 
 /* Конструктор бургера */
@@ -38,82 +39,57 @@ const BurgerConstructor = () => {
     })
   })
 
-
-  /* console.log(bun)
-  console.log(fillings) */
-
- /*  const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false) */
-
-/*   const handleOrderButtonClick = (ingredientsId) => {
-    postOrderNumber(ingredientsId)
-    setOrderDetailsOpened(true)
-  } */
-
- 
-/*const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
-
-  const fillings = ingredients.filter((ingredient) => ingredient.type !=='bun');
- 
-  const bunsPrice = buns.reduce((prevValue, ingredient) => {
-    return prevValue + ingredient.price
-  }, 0)
- 
-  const fillingsPrice = fillings.reduce((prevValue, ingredient) => {
-    return prevValue + ingredient.price
-  }, 0)
-
-  const IngredientsTotalPrice = bunsPrice + fillingsPrice */
+  const borderColor = isHover ? 'darkblue' : 'transparent'
   
   return (
     <>
-      <section className={`${styles.burgerConstructor} pl-4`} ref={dropTarget}>
+      <section className={`${styles.burgerConstructor} pl-4`} style={{borderColor}} ref={dropTarget}>
         { bun ? (
-          <article key={ingredient._id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mt-25`}>
+          <article key={bun._id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mt-25`}>
             <ConstructorElement
               type="top"
               isLocked={true}
-              text="Краторная булка N-200i (верх)"
-              price={ingredient.price}
-              thumbnail={ingredient.image}
+              text={bun.name}
+              price={bun.price}
+              thumbnail={bun.image}
             />
           </article>
-        ) : ( 'Выберите булку и перенесите ее сюда')
+        ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
         }
         <div className={styles.burgerConstructor__wrapper}>
-          <ul className={`${styles.burgerConstructor__list} pr-4`}>
-          { fillings
-            .map((ingredient) => {
-              return (
-                <li key={ingredient._id}>
+            { fillings.length > 0 ? (
+              <ul className={`${styles.burgerConstructor__list} pr-4`}>
+                { fillings.map((filling) => (
+                <li key={filling._id}>
                   <article className={styles.burgerConstructor__cardElement}>
                     <p className={styles.burgerConstructor__dragIcon}>
                       <DragIcon type='primary'/>
                     </p>
                     <ConstructorElement
-                      key={ingredient._id}
+                      key={filling._id}
                       isLocked={false}
-                      text={ingredient.name}
-                      price={ingredient.price}
-                      thumbnail={ingredient.image}
+                      text={filling.name}
+                      price={filling.price}
+                      thumbnail={filling.image}
                     />
                   </article>
                 </li>
-              )
-            })
+              ))}
+              </ul>
+              ) : ( <EmptyConstructorElement>{'Выберите начинку или соус и перенесите ее сюда'}</EmptyConstructorElement>)
             }
-          </ul>
         </div>
         { bun ? (
-          <article key={ingredient._id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
+          <article key={bun._id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
             <ConstructorElement
               type="bottom"
               isLocked={true}
               text="Краторная булка N-200i (низ)"
-              price={ingredient.price}
-              thumbnail={ingredient.image}
+              price={bun.price}
+              thumbnail={bun.image}
             />
           </article>
-        ) : ( 'Выберите булку и перенесите ее сюда')
+        ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
         }
        {/*  <div className={`${styles.burgerConstructor__totalPriceContainer} mr-4`}>
           <div className={`${styles.burgerConstructor__totalPrice} pr-10`}>
