@@ -1,11 +1,11 @@
-/* import {
+import {
   GET_ORDER_DETAILS_REQUEST,
   GET_ORDER_DETAILS_SUCCESS,
   GET_ORDER_DETAILS_FAILED
 } from '../actions/orderDetails';
 
 const orderDetailsInitialState = {
-  orderIngredients: [],
+  orderedIngredients: [],
   currentOrderNumber: null,
   oredrRequest: false,
   orderSuccess: false,
@@ -32,10 +32,13 @@ export const orderDetailsRducer = (state = orderDetailsInitialState, action) => 
     case GET_ORDER_DETAILS_FAILED: {
       return {
         ...state,
-        orderSuccess: 'success',
         currentOrderNumber: action.payload,
+        oredrRequest: false,
         orderfailed: true
       }
     }
+    default: {
+      return state
+    }
   }
-} */
+}

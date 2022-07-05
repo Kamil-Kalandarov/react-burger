@@ -7,6 +7,6 @@ import { burgerConstructorReducer } from "./burgerConstructorReducer";
 export const rootReducer = combineReducers({
   initialIngredients: initialIngredientsReducer,
   ingredientDetails: ingredientDetailsReducer,
-  /* orderDetails: orderDetailsRducer, */
+  orderDetails: orderDetailsRducer,
   constructorIngredients: burgerConstructorReducer
 })

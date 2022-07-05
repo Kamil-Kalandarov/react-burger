@@ -20,16 +20,14 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
       } else {
         return {
           ...state,
-          fillings: [ ...state.fillings, action.payload ]
+          fillings: [ ...state.fillings, {...action.payload, id: action.id }]
         }
       };
     case DELETE_INGREDIENT:
       return {
         ...state,
-        fillings: [
-          ...state.fillings.slice(0, action.payload),
-          ...state.fillings.slice(action.payload + 1)
-        ],
+        fillings: [...state.fillings].filter((filling) => filling.id !== action.id),
+        
       };
     case RESET: {
       return {

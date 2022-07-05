@@ -25,11 +25,11 @@ const IngredientsItemsList = forwardRef(({
     <>
       <h3 className='text text_type_main-medium' id={titleId}>{title}</h3>
       <ul className={styles.cardList} ref={ref}>
-        {ingredients.map((ingredient) => {
+        {ingredients.map((ingredient, id) => {
           return (
             <BurgerIngredientItem 
               ingredient={ ingredient }
-              key={ ingredient._id }
+              key={ id }
               counter={ ingredientsCounter[ingredient._id] }
             />
           )

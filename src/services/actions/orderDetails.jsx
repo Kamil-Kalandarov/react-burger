@@ -1,15 +1,14 @@
-/* import { apiConfig } from "../../constans/apiConfig";
+import { apiConfig } from "../../constans/apiConfig";
 import { checkResponse } from "../api";
 
 export const GET_ORDER_DETAILS_REQUEST = 'GET_ORDER_DETAILS_REQUEST';
 export const GET_ORDER_DETAILS_SUCCESS = 'GET_ORDER_DETAILS_SUCCESS';
 export const GET_ORDER_DETAILS_FAILED = 'GET_ORDER_DETAILS_FAILED';
 
-export const getOrderDetailsRequest = (orderIngredients) => {
+export const getOrderDetailsRequest = (orderedIngredients) => {
   return {
     type: GET_ORDER_DETAILS_REQUEST,
-    orderIngredients,
-    payload: true
+    orderedIngredients,
   }
 }
 
@@ -23,22 +22,21 @@ export const getOrderDetailsSuccess = (currentOrderNumber) => {
 export const getOrderDetailsFailed = () => {
   return {
     type: GET_ORDER_DETAILS_FAILED,
-    payload: true,
   }
 }
 
-export function postOrderNumber (ingredientsId) {
+export function postOrder (orderedIngredients) {
   return function (dispatch) {
-    dipatch(getOrderDetailsRequest())
+    dispatch(getOrderDetailsRequest(orderedIngredients))
     fetch(`${apiConfig.baseUrl}/orders`, {
       method: 'POST',
       headers: apiConfig.headers,
       body: JSON.stringify({
-        "ingredients": ingredientsId
+        "ingredients": orderedIngredients
       })
     })
     .then(checkResponse)
-    .then((currentOrderNumber) => dispatch(getOrderDetailsSuccess(currentOrderNumber)))
+    .then((response) => dispatch(getOrderDetailsSuccess(response.order.number)))
     .catch(dispatch(getOrderDetailsFailed()))
   }
-} */
+}

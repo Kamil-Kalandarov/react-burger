@@ -16,3 +16,4 @@ export const getIngredients = () => {
   })
   .then((checkResponse))
 }
+

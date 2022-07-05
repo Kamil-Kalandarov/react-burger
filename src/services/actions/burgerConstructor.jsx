@@ -7,7 +7,14 @@ export const RESET = 'RESET'
 export const addIngredient = (ingredient) => {
   return {
     type: ADD_INGREDIENT,
-    payload: ingredient, id: nanoid()
+    payload: ingredient, id: nanoid() 
+  }
+}
+
+export const deleteIngredient = (id) => {
+  return {
+    type: DELETE_INGREDIENT,
+    id
   }
 }
 
@@ -16,11 +23,4 @@ export const resetConstructor = () => {
     type: RESET
   }
 }
-
-/* deletefillingFromConstructor = (ingredientId) => {
-  return {
-    type: DELETE_FILLING,
-    ingredientId
-  }
-} */
 
