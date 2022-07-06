@@ -24,14 +24,15 @@ const BurgerConstructor = () => {
 
   const bun = useSelector(store => store.constructorIngredients.bun);
   const fillings = useSelector(store => store.constructorIngredients.fillings);
+  const allConstructorIngredients = useSelector(store => store.constructorIngredients)
   const dispatch = useDispatch();
 
   const handleDrop = (ingredient) => {
     dispatch(addIngredient(ingredient))
   }
 
-  const handleDelete = (id) => {
-    dispatch(deleteIngredient(id))
+  const handleDelete = (orderedIngredients) => {
+    dispatch(deleteIngredient(orderedIngredients))
   }
 
   const handleOrder =(orderedIngredients) => {
@@ -46,7 +47,6 @@ const BurgerConstructor = () => {
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'ingredient',
     drop({ingredient}, monitor) {
-      console.log(ingredient)
       handleDrop(ingredient)
     },
     collect: (monitor) => ({
@@ -111,7 +111,7 @@ const BurgerConstructor = () => {
             <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}></p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={() => handleOrder(bun, fillings)}>Оформить заказ</Button>
+          <Button type="primary" size="large" onClick={() => handleOrder(allConstructorIngredients)}>Оформить заказ</Button>
         </div> 
       </section>
       {isOrderDetailsOpened && (

@@ -26,7 +26,7 @@ export const orderDetailsRducer = (state = orderDetailsInitialState, action) => 
         ...state,
         oredrRequest: false,
         orderSuccess: 'success',
-        currentOrderNumber: action.payload
+        currentOrderNumber: action.order
       }
     }
     case GET_ORDER_DETAILS_FAILED: {

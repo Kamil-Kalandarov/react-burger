@@ -26,6 +26,7 @@ export const getOrderDetailsFailed = () => {
 }
 
 export function postOrder (orderedIngredients) {
+  console.log(orderedIngredients)
   return function (dispatch) {
     dispatch(getOrderDetailsRequest(orderedIngredients))
     fetch(`${apiConfig.baseUrl}/orders`, {
