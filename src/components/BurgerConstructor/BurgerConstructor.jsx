@@ -20,11 +20,12 @@ import EmptyConstructorElement from './EmptyConstructorElement/EmptyConstructorE
 /* Конструктор бургера */
 const BurgerConstructor = () => {
   const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false);
-  const isLoading = useSelector(store => store.orderDetails.oredrRequest);
+  const isLoading = useSelector(store => store.orderDetails.orederRequest); 
 
   const bun = useSelector(store => store.constructorIngredients.bun);
   const fillings = useSelector(store => store.constructorIngredients.fillings);
   const allConstructorIngredients = useSelector(store => store.constructorIngredients)
+ 
   const dispatch = useDispatch();
 
   const handleDrop = (ingredient) => {

@@ -7,7 +7,7 @@ import {
 const orderDetailsInitialState = {
   orderedIngredients: [],
   currentOrderNumber: null,
-  oredrRequest: false,
+  orederRequest: false,
   orderSuccess: false,
   orderfailed: false
 }
@@ -17,23 +17,23 @@ export const orderDetailsRducer = (state = orderDetailsInitialState, action) => 
     case GET_ORDER_DETAILS_REQUEST: {
       return {
         ...state,
-        oredrRequest: true,
+        orederRequest: true,
         orderIngredients: action.payload
       }
     }
     case GET_ORDER_DETAILS_SUCCESS: {
       return {
         ...state,
-        oredrRequest: false,
+        orederRequest: false,
         orderSuccess: 'success',
-        currentOrderNumber: action.order
+        currentOrderNumber: action.payload
       }
     }
     case GET_ORDER_DETAILS_FAILED: {
       return {
         ...state,
         currentOrderNumber: action.payload,
-        oredrRequest: false,
+        orederRequest: false,
         orderfailed: true
       }
     }
