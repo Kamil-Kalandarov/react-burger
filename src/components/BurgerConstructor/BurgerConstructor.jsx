@@ -128,8 +128,7 @@ const BurgerConstructor = ({ index }) => {
     <>
       <section className={`${styles.burgerConstructor} pl-4`} style={{ borderColor }} ref={dropTarget}>
         { bun ? (
-          <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mt-25`} 
-            style={{ opacity }} ref={drag} data-handler-id={ handlerId } index={index}>
+          <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mt-25`}>
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -144,7 +143,7 @@ const BurgerConstructor = ({ index }) => {
             { fillings.length > 0 ? (
               <ul className={`${styles.burgerConstructor__list} pr-4`}>
                 { fillings.map((filling) => (
-                <li key={filling.id}>
+                <li key={filling.id} style={{ opacity }} data-handler-id={ handlerId } ref={ref}>
                   <article className={styles.burgerConstructor__cardElement}>
                     <p className={styles.burgerConstructor__dragIcon}>
                       <DragIcon type='primary'/>
