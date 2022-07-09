@@ -1,0 +1,10 @@
+.fillingConstructorElement {
+  display: grid;
+  grid-template-columns: min-content max-content;
+  align-items: center;
+  gap: 15px;
+}
+
+.fillingConstructorElement__dragIcon {
+  cursor: pointer;
+}

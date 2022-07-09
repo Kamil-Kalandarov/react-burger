@@ -1,6 +1,7 @@
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
+  CHANGE_FILLING_POSITION,
   RESET
 } from '../actions/burgerConstructor';
 
@@ -29,6 +30,17 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
         fillings: [...state.fillings].filter((filling) => filling.id !== action.id),
         
       };
+    case CHANGE_FILLING_POSITION:
+      const ingredients = [...state.fillings];
+      ingredients.splice(
+        action.payload.to,
+        0,
+        ingredients.splice(action.payload.from, 1)[0]
+      );
+      return {
+        ...state,
+        fillings: ingredients
+      }
     case RESET: {
       return {
         burgerConstructorInitialState

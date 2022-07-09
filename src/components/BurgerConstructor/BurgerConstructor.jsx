@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './burgerConstructor.module.css'
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -15,96 +15,37 @@ import { postOrder } from '../../services/actions/orderDetails';
 import { useDrop, useDrag } from 'react-dnd';
 import { useRef } from 'react';
 import EmptyConstructorElement from './EmptyConstructorElement/EmptyConstructorElement';
+import { emptyConstructor } from '../../services/actions/orderDetails';
+import FiilingCOnstructorElement from './FillingConstructorElement/FillingConstructorElement';
 
 
 /* Конструктор бургера */
-const BurgerConstructor = ({ index }) => {
+const BurgerConstructor = () => {
+  const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false);
+
   const dispatch = useDispatch();
   
-  const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false);
-  const isLoading = useSelector(store => store.orderDetails.orederRequest); 
-
+  const currentOrderNumber = useSelector(store => store.orderDetails.currentOrderNumber);
   const bun = useSelector(store => store.constructorIngredients.bun);
   const fillings = useSelector(store => store.constructorIngredients.fillings);
   const allConstructorIngredients = useSelector(store => store.constructorIngredients)
 
-  const id = fillings.forEach((filling) => filling.id)
+  const totalPrice = useMemo(() => {
+    return (bun ? bun.price * 2 : 0) + fillings.reduce((prev, next) => prev + next.price, 0);
+  }, [bun, fillings]);
 
-  const ref = useRef(null)
-
-  const [{ handlerId }, drop] = useDrop({
-    accept: 'newIndex',
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      }
-    },
-    hover(item, monitor) {
-      if (!ref.current) {
-        return
-      }
-      const dragIndex = item.index
-      const hoverIndex = index
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return
-      }
-      // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
-      // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset()
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return
-      }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return
-      }
-      // Time to actually perform the action
-      dispatch(changeFillingPosition(dragIndex, hoverIndex))
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-      item.index = hoverIndex
-    },
-  })
-
-  const [{ isDragging }, drag] = useDrag({
-    type: 'newIndex',
-    item: () => {
-      return { id, index }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  })
-  const opacity = isDragging ? 0 : 1
-  drag(drop(ref))
+  const fillingsIds = fillings.map((filling) => filling.id)
 
   const handleDrop = (ingredient) => {
     dispatch(addIngredient(ingredient))
   }
 
-  const handleDelete = (orderedIngredients) => {
-    dispatch(deleteIngredient(orderedIngredients))
-  }
-
   const handleOrder =(orderedIngredients) => {
-    dispatch(postOrder([
-      orderedIngredients.bun._id,
-      ...orderedIngredients.fillings.map((filling) => filling._id),
-      orderedIngredients.bun._id,
-    ]))
+      dispatch(postOrder([
+        orderedIngredients.bun._id,
+        ...orderedIngredients.fillings.map((filling) => filling._id),
+        orderedIngredients.bun._id,
+      ]))
     setOrderDetailsOpened(true)
   }
 
@@ -126,65 +67,57 @@ const BurgerConstructor = ({ index }) => {
   
   return (
     <>
-      <section className={`${styles.burgerConstructor} pl-4`} style={{ borderColor }} ref={dropTarget}>
-        { bun ? (
-          <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mt-25`}>
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={bun.name}
-              price={bun.price}
-              thumbnail={bun.image}
-            />
-          </article>
-        ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
-        }
-        <div className={styles.burgerConstructor__wrapper}>
-            { fillings.length > 0 ? (
-              <ul className={`${styles.burgerConstructor__list} pr-4`}>
-                { fillings.map((filling) => (
-                <li key={filling.id} style={{ opacity }} data-handler-id={ handlerId } ref={ref}>
-                  <article className={styles.burgerConstructor__cardElement}>
-                    <p className={styles.burgerConstructor__dragIcon}>
-                      <DragIcon type='primary'/>
-                    </p>
-                    <ConstructorElement
-                      isLocked={false}
-                      text={filling.name}
-                      price={filling.price}
-                      thumbnail={filling.image}
-                      handleClose={() => handleDelete(filling.id)}
-                    />
-                  </article>
-                </li>
-              ))}
-              </ul>
-              ) : ( <EmptyConstructorElement>{'Выберите начинку или соус и перенесите ее сюда'}</EmptyConstructorElement>)
-            }
+      <section className={`${styles.burgerConstructor} pl-4 mt-25`}>
+        <div className={`${styles.burgerConstructor__ingredientsContainer}`} style={{ borderColor }} ref={dropTarget}>
+          { bun ? (
+            <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2`}>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={bun.name}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </article>
+          ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
+          }
+          <div className={styles.burgerConstructor__wrapper}>
+              { fillings.length > 0 ? (
+                <ul className={`${styles.burgerConstructor__list} pr-4`}>
+                  { fillings.map((filling, index) => (
+                  <FiilingCOnstructorElement key={filling.id} filling={filling} index={index} />
+                ))}
+                </ul>
+                ) : ( <EmptyConstructorElement>{'Выберите начинку или соус и перенесите ее сюда'}</EmptyConstructorElement>)
+              }
+          </div>
+          { bun ? (
+            <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text="Краторная булка N-200i (низ)"
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </article>
+          ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
+          }
         </div>
-        { bun ? (
-          <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text="Краторная булка N-200i (низ)"
-              price={bun.price}
-              thumbnail={bun.image}
-            />
-          </article>
-        ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
-        }
         <div className={`${styles.burgerConstructor__totalPriceContainer} mr-4`}>
           <div className={`${styles.burgerConstructor__totalPrice} pr-10`}>
-            <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}></p>
+            <p className={`${styles.burgerConstructor__price} $text text_type_digits-medium`}>{ totalPrice }</p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={() => handleOrder(allConstructorIngredients)}>Оформить заказ</Button>
-        </div> 
+            {bun && fillings !== undefined ? 
+              (<Button type="primary" size="large" onClick={() => handleOrder(allConstructorIngredients)}>Оформить заказ</Button>) :
+              (<Button type="primary" size="large" disabled={true}>Оформить заказ</Button>)
+            }           
+          </div> 
       </section>
       {isOrderDetailsOpened && (
         <Modal onCloseClick={handleClose}>
-          {isLoading ? ( <Preloader />) : (<OrderDetails />)}
+          <OrderDetails />
         </Modal>
       )}
     </>

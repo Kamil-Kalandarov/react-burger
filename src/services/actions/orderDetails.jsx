@@ -4,6 +4,7 @@ import { checkResponse } from "../api";
 export const GET_ORDER_DETAILS_REQUEST = 'GET_ORDER_DETAILS_REQUEST';
 export const GET_ORDER_DETAILS_SUCCESS = 'GET_ORDER_DETAILS_SUCCESS';
 export const GET_ORDER_DETAILS_FAILED = 'GET_ORDER_DETAILS_FAILED';
+export const EMPTY_CONSTRUCTOR = 'EMPTY_CONSTRUCTOR';
 
 export const getOrderDetailsRequest = (orderedIngredients) => {
   return {
@@ -26,7 +27,6 @@ export const getOrderDetailsFailed = () => {
 }
 
 export function postOrder (orderedIngredients) {
-  console.log(orderedIngredients)
   return function (dispatch) {
     dispatch(getOrderDetailsRequest(orderedIngredients))
     fetch(`${apiConfig.baseUrl}/orders`, {
