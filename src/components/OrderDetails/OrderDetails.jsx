@@ -10,6 +10,7 @@ const OrderDetails = () => {
   const currentOrderNumber = useSelector(store => store.orderDetails.currentOrderNumber);
   const isLoading = useSelector(store => store.orderDetails.orederRequest); 
   const isRequestSuccess = useSelector(store => store.orderDetails.orderSuccess);
+  const requestFailed = useSelector(store => store.orderDetails.orderfailed)
   
   {isLoading && (
       <Preloader />
@@ -24,7 +25,7 @@ const OrderDetails = () => {
         <p className='text text_type_main-default text_color_inactive'>Дождитесь готовности на орбитальной станции</p>
       </div>
       )
-    } else {
+    } else if (requestFailed) {
       return (
         <div className={`${styles.orderDetails} pt-30 pb-30`}>
           <h3 className='styles.orderDetails__title text text_type_digits-medium'>Произошла ошибка, повторите позднее</h3>

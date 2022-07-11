@@ -37,6 +37,10 @@
   padding: 16px 0 16px;
 }
 
+.burgerCOnstructor__listElement {
+  background: transparent;
+}
+
 .burgerConstructor__cardElement {
   display: grid;
   grid-template-columns: min-content max-content;

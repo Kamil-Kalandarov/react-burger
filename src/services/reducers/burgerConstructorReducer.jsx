@@ -43,7 +43,8 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState, 
       }
     case RESET: {
       return {
-        burgerConstructorInitialState
+        bun: null,
+        fillings: []
       }
     }
     default: {

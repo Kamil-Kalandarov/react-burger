@@ -22,17 +22,19 @@ const BurgerIngredientItem = ({ ingredient, counter }) => {
     setIsIngredientsDetailsOpened(false)
   };
 
-  const [{ isDrag }, dragRef] = useDrag({
+  const [{ isDragging }, dragRef] = useDrag({
     type: 'ingredient',
     item: { ingredient },
     collect: (monitor) => ({
-      isDrag: monitor.isDragging()
+      isDragging: monitor.isDragging()
     })
-  })
+  });
+
+ /*  const opacity = isDragging ? 0 : 1 */
 
   return (
     <>
-      <li className='pl-4 pr-2 pb-10' key={ingredient._id}>
+      <li className='pl-4 pr-2 pb-10' key={ingredient._id} /* style={{opacity}} */>
         <article className={styles.cardElement} 
           onClick={() => handleIngredientClick(ingredient)} ref={dragRef}>
           <Counter count={counter} size="default" />

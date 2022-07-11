@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { changeFillingPosition } from "../../../services/actions/burgerConstructor";
 import { deleteIngredient } from "../../../services/actions/burgerConstructor";
 
-const FiilingCOnstructorElement = ({ filling, index, id }) => {
+const FiilingConstructorElement = ({ filling, index, id }) => {
 
   const dispatch = useDispatch()
 
@@ -72,12 +72,13 @@ const FiilingCOnstructorElement = ({ filling, index, id }) => {
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
 
+
   const handleDelete = (orderedIngredients) => {
     dispatch(deleteIngredient(orderedIngredients))
   }
 
   return (
-    <li style={{ opacity }} data-handler-id={handlerId} ref={ref}>
+    <li style={{ opacity }} ref={ref}>
       <article className={styles.burgerConstructor__cardElement}>
         <p className={styles.burgerConstructor__dragIcon}>
           <DragIcon type='primary'/>
@@ -94,4 +95,4 @@ const FiilingCOnstructorElement = ({ filling, index, id }) => {
   )  
 }
 
-export default FiilingCOnstructorElement;
+export default FiilingConstructorElement;

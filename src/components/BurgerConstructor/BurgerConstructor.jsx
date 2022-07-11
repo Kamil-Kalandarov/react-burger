@@ -1,22 +1,19 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './burgerConstructor.module.css'
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import Preloader from '../Preloader/Preloader';
 import { store } from '../../services/store';
-import { addIngredient } from '../../services/actions/burgerConstructor';
-import { deleteIngredient, changeFillingPosition } from '../../services/actions/burgerConstructor';
+import { addIngredient, resetConstructor } from '../../services/actions/burgerConstructor';
 import { postOrder } from '../../services/actions/orderDetails';
-import { useDrop, useDrag } from 'react-dnd';
-import { useRef } from 'react';
+import { useDrop } from 'react-dnd';
+import FiilingConstructorElement from './FillingConstructorElement/FillingConstructorElement';
 import EmptyConstructorElement from './EmptyConstructorElement/EmptyConstructorElement';
-import { emptyConstructor } from '../../services/actions/orderDetails';
-import FiilingCOnstructorElement from './FillingConstructorElement/FillingConstructorElement';
+import EmptyBunTop from './EmptyBunTop/EmptyBunTop'; 
+import EmptyBunBottom from './EmptyBunBottom/EmptyBunBottom';
 
 
 /* Конструктор бургера */
@@ -49,9 +46,10 @@ const BurgerConstructor = () => {
     setOrderDetailsOpened(true)
   }
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOrderDetailsOpened(false)
-  };
+    dispatch(resetConstructor())
+  }, [dispatch]);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'ingredient',
@@ -63,12 +61,13 @@ const BurgerConstructor = () => {
     })
   })
 
+
   const borderColor = isHover ? 'darkblue' : 'transparent'
-  
+
   return (
     <>
       <section className={`${styles.burgerConstructor} pl-4 mt-25`}>
-        <div className={`${styles.burgerConstructor__ingredientsContainer}`} style={{ borderColor }} ref={dropTarget}>
+        <div className={`${styles.burgerConstructor__ingredientsContainer}`} style={{borderColor}} ref={dropTarget}>
           { bun ? (
             <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2`}>
               <ConstructorElement
@@ -79,13 +78,13 @@ const BurgerConstructor = () => {
                 thumbnail={bun.image}
               />
             </article>
-          ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
+          ) : ( <EmptyBunTop>{'Выберите булку и перенесите ее сюда'}</EmptyBunTop>)
           }
           <div className={styles.burgerConstructor__wrapper}>
               { fillings.length > 0 ? (
                 <ul className={`${styles.burgerConstructor__list} pr-4`}>
                   { fillings.map((filling, index) => (
-                  <FiilingCOnstructorElement key={filling.id} filling={filling} index={index} />
+                  <FiilingConstructorElement key={filling.id} filling={filling} index={index} />
                 ))}
                 </ul>
                 ) : ( <EmptyConstructorElement>{'Выберите начинку или соус и перенесите ее сюда'}</EmptyConstructorElement>)
@@ -101,7 +100,7 @@ const BurgerConstructor = () => {
                 thumbnail={bun.image}
               />
             </article>
-          ) : ( <EmptyConstructorElement>{'Выберите булку и перенесите ее сюда'}</EmptyConstructorElement>)
+          ) : ( <EmptyBunBottom>{'Выберите булку и перенесите ее сюда'}</EmptyBunBottom>)
           }
         </div>
         <div className={`${styles.burgerConstructor__totalPriceContainer} mr-4`}>
