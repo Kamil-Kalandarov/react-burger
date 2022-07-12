@@ -1,0 +1,8 @@
+.cardList {
+  max-width: 600px;
+  max-height: 716px;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

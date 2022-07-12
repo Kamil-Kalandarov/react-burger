@@ -1,7 +1,12 @@
 .burgerConstructor {
   display: grid;
-  grid-template-rows: min-content max-content min-content;
+  grid-template-rows: max-content min-content;
   gap: 16px;
+}
+
+.burgerConstructor__ingredientsContainer {
+  border: 2px solid transparent;
+  border-radius: 20px;
 }
 
 .burgerConstructor__cardBunElement {
@@ -29,7 +34,11 @@
   display: grid;
   gap: 16px;
   margin: 0;
-  padding: 0;
+  padding: 16px 0 16px;
+}
+
+.burgerCOnstructor__listElement {
+  background: transparent;
 }
 
 .burgerConstructor__cardElement {

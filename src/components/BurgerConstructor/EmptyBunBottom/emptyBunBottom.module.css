@@ -1,0 +1,18 @@
+.emptyBunBottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: #2f2f37;
+  width: 488px;
+  min-height: 48px;
+  border-radius: 20px 20px 60px 60px;
+  margin: 16px auto 0 auto;
+}
+
+.emptyBunBottom__text {
+  margin: auto;
+  line-height: 24px;
+  text-align: center;
+}
+ 
