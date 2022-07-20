@@ -5,6 +5,7 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 const App = () => {
   /* Рендер всех компонентов */
@@ -13,8 +14,10 @@ const App = () => {
       <AppHeader />
       <main className={styles.app__flexComponents}>
         <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
+          <DndProvider backend={TouchBackend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
         </DndProvider>
       </main>
     </section>
