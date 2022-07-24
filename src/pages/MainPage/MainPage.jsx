@@ -8,9 +8,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export const MainPage = () => {
   return (
-    <section className={styles.main}>
-      <AppHeader />
-      <main className={styles.main__flexComponents}>
+    <section className={styles.mainPage}>
+      <main className={styles.mainPage__flexComponents}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
           <BurgerConstructor />

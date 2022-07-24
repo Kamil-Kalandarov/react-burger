@@ -1,0 +1,13 @@
+.loginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.loginPage__submitBtnContainer {
+  max-width: 128px;
+  height: 56px;
+  margin: 0 auto;
+}

@@ -11,18 +11,18 @@ const AppHeader = () => {
   return (
     <header className={`${styles.header} pt-4 pb-4`}>
       <nav className={styles.header__nav}>
-        <Link to='/main' className={`${styles.header__menuItemLink} p-5`}>
+        <Link to='/' className={`${styles.header__menuItemLink} p-5`}>
           <BurgerIcon type='primary'/>
           <p className='text text_type_main-default ml-2'>Конструктор</p>
         </Link>
-        <Link className={`${styles.header__menuItemLink} p-5`}>
+        <a className={`${styles.header__menuItemLink} p-5`}>
           <ListIcon type='secondary'/>
           <p className='text text_type_main-default text_color_inactive ml-2'>Лента заказов</p>
-        </Link>
-        <Link to='/main' className={styles.header__logo}>
+        </a>
+        <Link to='/' className={styles.header__logo}>
           <Logo />
         </Link>
-        <Link className={`${styles.header__menuItemLink} p-5`}>
+        <Link to='/login' className={`${styles.header__menuItemLink} p-5`}>
           <ProfileIcon type='secondary'/>
           <p className='text text_type_main-default text_color_inactive ml-2'>Личный кабинет</p>
         </Link>

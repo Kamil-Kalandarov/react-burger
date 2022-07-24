@@ -1,10 +1,10 @@
-.main {
+.mainPage {
   max-height: 100vh;
   margin: 0 auto;
   display: grid;
 }
 
-.main__flexComponents {
+.mainPage__flexComponents {
   max-width: 1240px;
   margin: 0 auto;
   display: grid;

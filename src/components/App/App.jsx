@@ -1,15 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { MainPage } from '../../pages/pages';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AppHeader from '../AppHeader/AppHeader';
+import { LoginPage, MainPage } from '../../pages/pages';
 
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/main' element={<MainPage />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <AppHeader />
+      <Switch>
+        <Route path='/' exact={true}>
+          <MainPage />
+        </Route>
+        <Route path='/login' exact={true}>
+          <LoginPage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
