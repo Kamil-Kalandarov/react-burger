@@ -19,7 +19,7 @@ export const ResetPasswordPage = () => {
   };
 
   return (
-    <main className={styles.loginPage}>
+    <main className={styles.resetPasswordPage}>
       <Form name='reset-password' onSubmit={handleSubmit} title='Восстановление пароля'>
         <InputSection padding='pt-6'>
           <PasswordInput 
@@ -40,12 +40,12 @@ export const ResetPasswordPage = () => {
             size={'default'}
           />
         </InputSection>
-        <div className={`${styles.loginPage__submitBtnContainer} pt-6`}>
+        <div className={`${styles.resetPasswordPage__submitBtnContainer} pt-6`}>
           <Button type="primary" size="medium">Восстановить</Button>
         </div>
-        <div className={`${styles.loginPage__autorisationInfo} pt-20`}>
+        <div className={`${styles.resetPasswordPage__autorisationInfo} pt-20`}>
           <p className='text text_type_main-default'>Вспомнили пароль?
-            <Link className={styles.loginPage__link} to='/log-in'>Войти</Link>
+            <Link className={styles.resetPasswordPage__link} to='/login'>Войти</Link>
           </p>
         </div>
       </Form>

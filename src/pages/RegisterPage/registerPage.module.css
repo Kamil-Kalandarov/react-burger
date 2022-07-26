@@ -1,4 +1,4 @@
-.loginPage {
+.registerPage {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -7,12 +7,12 @@
   width: 100%;
 }
 
-.loginPage__submitBtnContainer {
+.registerPage__submitBtnContainer {
   height: 56px;
   margin: 0 auto;
 }
 
-.loginPage__autorisationInfo {
+.registerPage__autorisationInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,12 +20,12 @@
   color: #8585AD;
 }
 
-.loginPage__link {
+.registerPage__link {
   color: #4c4cff;
   text-decoration: none;
   padding-left: 8px;
 }
 
-.loginPage__link:hover {
+.registerPage__link:hover {
   opacity: 0.5;
 }

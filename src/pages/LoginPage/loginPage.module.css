@@ -29,3 +29,8 @@
 .loginPage__link:hover {
   opacity: 0.5;
 }
+
+.errorMessage {
+	text-align: left;
+	color: red;
+}

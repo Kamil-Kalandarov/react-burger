@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { 
-  LoginPage, 
+  ProfilePage,
   MainPage, 
-  SigninPage, 
+  LoginPage,
+  RegisterPage, 
   ForgotPasswordPage,
   ResetPasswordPage
 } from '../../pages/pages';
@@ -18,11 +19,14 @@ const App = () => {
         <Route path='/' exact={true}>
           <MainPage />
         </Route>
-        <Route path='/log-in' exact={true}>
+        <Route path='/profile' exact={true}>
+          <ProfilePage />
+        </Route>
+        <Route path='/login' exact={true}>
           <LoginPage />
         </Route>
-        <Route path='/sign-in' exact={true}>
-          <SigninPage />
+        <Route path='/register' exact={true}>
+          <RegisterPage />
         </Route>
         <Route path='/forgot-password' exact={true}>
           <ForgotPasswordPage />

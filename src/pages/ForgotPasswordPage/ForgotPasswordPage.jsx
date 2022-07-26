@@ -4,28 +4,29 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../../components/Form/Form";
 import InputSection from "../../components/Form/InputSection/InputSection";
 import { Link, useHistory } from "react-router-dom";
+import { useForm } from 'react-hook-form';
 
 export const ForgotPasswordPage = () => {
 
   const [email, setEmail] = useState('');
 
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   const history = useHistory();
-  console.log(history)
-  const reset = useCallback(() => {
 
-  })
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
+    console.log(data)
   };
 
   return (
-    <main className={styles.loginPage}>
-      <Form name='log-in' onSubmit={handleSubmit} title='Восстановление пароля'>
+    <main className={styles.forgotPasswordPage}>
+      <Form name='login' onSubmit={handleSubmit(onSubmit)} title='Восстановление пароля'>
         <InputSection padding='pt-6'>
           <Input
-          name={'e-mail'}
-          type={'text'}
+          {...register('e-mail', {
+            required: true,
+          })}
+          type={'email'}
           placeholder={'укажите e-mail'}
           onChange={e => setEmail(e.target.value)}
           value={email}
@@ -34,12 +35,12 @@ export const ForgotPasswordPage = () => {
           size={'default'}
           />
         </InputSection>
-        <div className={`${styles.loginPage__submitBtnContainer} pt-6`}>
+        <div className={`${styles.forgotPasswordPage__submitBtnContainer} pt-6`}>
           <Button type="primary" size="medium">Восстановить</Button>
         </div>
-        <div className={`${styles.loginPage__autorisationInfo} pt-20`}>
+        <div className={`${styles.forgotPasswordPage__autorisationInfo} pt-20`}>
           <p className='text text_type_main-default'>Вспомнили пароль?
-            <Link className={styles.loginPage__link} to='/log-in'>Войти</Link>
+            <Link className={styles.forgotPasswordPage__link} to='/login'>Войти</Link>
           </p>
         </div>
       </Form>
