@@ -43,11 +43,11 @@ export const LoginPage = () => {
             onChange={e => setEmail(e.target.value)}
             type={'email'}
             value={email}
-            error={true}
+            error={false}
             errorText={'Ошибка'}
             size={'default'}
             />
-            {errors?.mail && <p className={`${styles.errorMessage} text text_type_main-small pt-2 pl-3`}>{errors?.mail?.message}</p>}
+           {/*  {errors?.mail && <p className={`${styles.errorMessage} text text_type_main-small pt-2 pl-3`}>{errors?.mail?.message}</p>} */}
         </InputSection>
         <InputSection padding='pt-6'>
           <PasswordInput

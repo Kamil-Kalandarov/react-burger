@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styles from './registerPage.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { store } from "../../services/store";
+import { createUser } from "../../services/actions/user";
 import { 
   Input, 
   PasswordInput,
@@ -11,17 +14,20 @@ import { Link } from "react-router-dom";
 
 export const RegisterPage = () => {
 
+  const dispatch = useDispatch();
+  const user = useSelector(store => store.user.user)
+
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = ({name, email, password}) => {
+    dispatch(createUser({name, email, password}))
   };
 
   return (
     <main className={styles.registerPage}>
-      <Form name='register' onSubmit={handleSubmit} title='Регистрация'>
+      <Form name='register' onSubmit={handleSubmit(userName, email, password)} title='Регистрация'>
         <InputSection padding='pt-6'>
           <Input
             name={'userName'}
