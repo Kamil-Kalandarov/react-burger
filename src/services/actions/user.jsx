@@ -25,7 +25,7 @@ export const createUserFailed = () => {
   }
 }
 
-export async function createUser({name, email, password}) {
+export function createUser({name, email, password}) {
   return function (dispatch) {
     dispatch(createUserRequest({name, email, password}))
     fetch(`${apiConfig.baseUrl}/auth/register`, {

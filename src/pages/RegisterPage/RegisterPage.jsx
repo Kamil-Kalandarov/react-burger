@@ -15,7 +15,9 @@ import { Link } from "react-router-dom";
 export const RegisterPage = () => {
 
   const dispatch = useDispatch();
-  const user = useSelector(store => store.user.user)
+  const user = useSelector(store => store.user)
+
+ 
 
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
