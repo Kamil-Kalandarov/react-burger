@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styles from './registerPage.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { store } from "../../services/store";
@@ -17,19 +17,21 @@ export const RegisterPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user)
 
- 
-
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = ({name, email, password}) => {
-    dispatch(createUser({name, email, password}))
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(createUser({userName, email, password}))
+    },
+    [dispatch, userName, email, password]
+  );
 
   return (
     <main className={styles.registerPage}>
-      <Form name='register' onSubmit={handleSubmit(userName, email, password)} title='Регистрация'>
+      <Form name='register' onSubmit={handleSubmit} title='Регистрация'>
         <InputSection padding='pt-6'>
           <Input
             name={'userName'}

@@ -5,7 +5,7 @@ export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_FAILED = 'CREATE_USER_FAILED';
 
-export const createUserRequest = ({name, email, password}) => {
+export const createUserRequest = (name, email, password) => {
   return {
     type: CREATE_USER_REQUEST,
     name, email, password
@@ -25,20 +25,20 @@ export const createUserFailed = () => {
   }
 }
 
-export function createUser({name, email, password}) {
+export function createUser(name, email, password) {
   return function (dispatch) {
-    dispatch(createUserRequest({name, email, password}))
+    dispatch(createUserRequest(name, email, password))
     fetch(`${apiConfig.baseUrl}/auth/register`, {
       method: 'POST',
       headers: apiConfig.headers,
       body: JSON.stringify({
-        name,
-        email,
-        password
+        'name': name,
+        'email': email,
+        'password': password
       })
     })
     .then(checkResponse)
-    .then((response) => console.log((response.user)))
+    .then((response) => createUserSuccess(response))
     .catch(dispatch(createUserFailed()))
   }
 }
