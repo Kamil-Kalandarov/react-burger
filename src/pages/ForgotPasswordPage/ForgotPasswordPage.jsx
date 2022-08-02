@@ -3,47 +3,76 @@ import styles from './forgotPasswordPage.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Form from "../../components/Form/Form";
 import InputSection from "../../components/Form/InputSection/InputSection";
-import { Link, useHistory } from "react-router-dom";
-import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
+import { apiConfig } from "../../constans/apiConfig";
+import { checkResponse } from "../../services/api";
+import { emailRegExp, submitValidation } from "../../utils/validation";
+import Preloader from '../../components/Preloader/Preloader'
 
 export const ForgotPasswordPage = () => {
 
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const buttonDisabled = email && !emailError ? false : true
 
-  const history = useHistory();
+  const emailValidation = useCallback(() => {
+    email && setEmailError(!emailRegExp.test(email));
+  }, [email]);
 
-  const onSubmit = (data) => {
-    console.log(data)
-  };
+  const onEmailFocus = useCallback(() => {
+    setEmailError(false);
+  });
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault(e);
+      setIsLoading(true)
+      fetch(`${apiConfig.baseUrl}/password-reset`, {
+        method: 'POST',
+        header: apiConfig.headers,
+        body: JSON.stringify({
+          'email': email
+        })
+      })
+      .then(checkResponse)
+      .then(setIsLoading(false))
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err.status))
+    }
+  );
 
   return (
     <main className={styles.forgotPasswordPage}>
-      <Form name='login' onSubmit={handleSubmit(onSubmit)} title='Восстановление пароля'>
-        <InputSection padding='pt-6'>
-          <Input
-          {...register('e-mail', {
-            required: true,
-          })}
-          type={'email'}
-          placeholder={'укажите e-mail'}
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-          error={false}
-          errorText={'Ошибка'}
-          size={'default'}
-          />
-        </InputSection>
-        <div className={`${styles.forgotPasswordPage__submitBtnContainer} pt-6`}>
-          <Button type="primary" size="medium">Восстановить</Button>
-        </div>
-        <div className={`${styles.forgotPasswordPage__autorisationInfo} pt-20`}>
-          <p className='text text_type_main-default'>Вспомнили пароль?
-            <Link className={styles.forgotPasswordPage__link} to='/login'>Войти</Link>
-          </p>
-        </div>
-      </Form>
+      {isLoading ? 
+        (<Preloader />) :
+        (<Form name='login' onSubmit={handleSubmit} title='Восстановление пароля'>
+          <InputSection padding='pt-6'>
+            <Input
+            name={'email'}
+            type={'email'}
+            placeholder={'укажите e-mail'}
+            onChange={e => setEmail(e.target.value)}
+            onFocus={onEmailFocus}
+            onBlur={emailValidation}
+            value={email}
+            error={emailError}
+            errorText={'email некорректный'}
+            size={'default'}
+            />
+          </InputSection>
+          <div className={`${styles.forgotPasswordPage__submitBtnContainer} pt-6`}>
+            <Button type="primary" size="medium" disabled={buttonDisabled}>Восстановить</Button>
+          </div>
+          <div className={`${styles.forgotPasswordPage__autorisationInfo} pt-20`}>
+            <p className='text text_type_main-default'>Вспомнили пароль?
+              <Link className={styles.forgotPasswordPage__link} to='/login'>Войти</Link>
+            </p>
+          </div>
+        </Form>
+        )
+      }
     </main>
   )
 }

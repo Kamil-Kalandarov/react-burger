@@ -17,7 +17,6 @@ export const createUserReducer = (state = userInitialState, action) => {
       return {
         ...state,
         createUserRequest: true,
-        user: action.payload
       }
     }
     case CREATE_USER_SUCCESS: {

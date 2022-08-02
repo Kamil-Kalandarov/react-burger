@@ -38,7 +38,7 @@ export function createUser(name, email, password) {
       })
     })
     .then(checkResponse)
-    .then((response) => createUserSuccess(response))
+    .then((response) => createUserSuccess(response)) 
     .catch(dispatch(createUserFailed()))
   }
 }
