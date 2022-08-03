@@ -2,7 +2,7 @@ import {
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILED 
-} from "../actions/user";
+} from "../actions/register";
 
 const userInitialState = {
   user: null,

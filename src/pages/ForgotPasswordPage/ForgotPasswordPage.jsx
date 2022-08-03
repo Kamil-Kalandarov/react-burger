@@ -3,17 +3,18 @@ import styles from './forgotPasswordPage.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Form from "../../components/Form/Form";
 import InputSection from "../../components/Form/InputSection/InputSection";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { apiConfig } from "../../constans/apiConfig";
 import { checkResponse } from "../../services/api";
-import { emailRegExp, submitValidation } from "../../utils/validation";
+import { emailRegExp } from "../../utils/validation";
 import Preloader from '../../components/Preloader/Preloader'
 
 export const ForgotPasswordPage = () => {
 
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [emailError, setEmailError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [canResetPassword, setCanResetPassword] = useState(false)
 
   const buttonDisabled = email && !emailError ? false : true
 
@@ -31,17 +32,24 @@ export const ForgotPasswordPage = () => {
       setIsLoading(true)
       fetch(`${apiConfig.baseUrl}/password-reset`, {
         method: 'POST',
-        header: apiConfig.headers,
+        headers: apiConfig.headers,
         body: JSON.stringify({
           'email': email
         })
       })
       .then(checkResponse)
       .then(setIsLoading(false))
+      .then(setCanResetPassword(true))
       .then((response) => console.log(response))
       .catch((err) => console.log(err.status))
     }
   );
+
+  if(canResetPassword) {
+    return (
+      <Redirect to={{pathname: '/reset-password'}}/>
+    )
+  }
 
   return (
     <main className={styles.forgotPasswordPage}>
@@ -60,7 +68,7 @@ export const ForgotPasswordPage = () => {
             error={emailError}
             errorText={'email некорректный'}
             size={'default'}
-            />
+          />
           </InputSection>
           <div className={`${styles.forgotPasswordPage__submitBtnContainer} pt-6`}>
             <Button type="primary" size="medium" disabled={buttonDisabled}>Восстановить</Button>

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import styles from './registerPage.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { store } from "../../services/store";
-import { createUser } from "../../services/actions/user";
+import { createUser } from "../../services/actions/register";
 import { 
   Input, 
   PasswordInput,
@@ -16,7 +16,7 @@ import { emailRegExp } from "../../utils/validation";
 export const RegisterPage = () => {
 
   const dispatch = useDispatch();
-  const user = useSelector(store => store.user)
+  const user = useSelector(store => store.register)
 
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
