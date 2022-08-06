@@ -40,14 +40,14 @@ export function createUser(name, email, password) {
     })
     .then(checkResponse)
     .then((response) => {
-      let authToken;
+      let accessToken;
       response.headers.forEach(header => {
         if (header.indexOf('Bearer') === 0) {
-          authToken = header.split('Bearer ')[1];
+          accessToken = header.split('Bearer ')[1];
         }
       });
-      if (authToken) {
-        setCookie('accessToken', authToken);
+      if (accessToken) {
+        setCookie('accessToken', accessToken);
     }})
     .then((response) => localStorage.setItem('refreshToken', response.refreshToken))
     .then((response) => createUserSuccess(response)) 

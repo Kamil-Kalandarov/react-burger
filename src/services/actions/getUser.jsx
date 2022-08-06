@@ -1,9 +1,9 @@
 import { apiConfig } from "../../constans/apiConfig";
-import { setCookie } from "../../utils/coockie";
+import { getCookie, setCookie } from "../../utils/coockie";
 import { checkResponse } from "../api";
 
 
-/* export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
 
@@ -25,47 +25,52 @@ export const refreshTokenFailed = () => {
   return {
     type: REFRESH_TOKEN_FAILED,
   }
-} */
+}
 
-export const refreshToken  = () => {
+export const refreshToken  = (refreshToken) => {
   fetch(`${apiConfig.baseUrl}/auth/token`, {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      "token": localStorage.getItem('refresToken')
+      "token": refreshToken
     })
   })
-  .then(checkResponse)
-  .then((response) => console.log(response))
+  .then((response) => {
+    checkResponse()
+    console.log(response)
+  })
 }
 
-export const fetchWithRefresh = async(url, options) => {
-  try {
-    const response = await fetch(url, options)
-    const data = await checkResponse(response)
-    return data
-  } catch(err) {
-    if (err.message === 'jwt espired') {
-      const refreshData = await refreshToken()
-      if (!refreshData.success) {
-        return Promise.reject(refreshData)
-      }
-      localStorage.setItem('refresToken', refreshData.refreshToken)
-      setCookie('accessToken', refreshData.accessToken)
-
-      options.headers.authorization = refreshData.accessToken
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          ...options.headers,
-          authorization: refreshData.accessToken
-        }
-      });
-      const data = await(checkResponse(response))
-      return data
+export const fetchWithRefresh = (url, options) => {
+  return function (dispatch) {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) {
+      throw new Error('Token does not exist in storage');
     } else {
-      return Promise.reject(err)
-    }
+      dispatch(refreshTokenRequest(refreshToken))
+      .then(refreshToken(refreshToken))
+      .then((response) => {
+        let accessToken;
+        response.headers.forEach(header => {
+          if (header.indexOf('Bearer') === 0) {
+            accessToken = header.split('Bearer ')[1];
+          }
+        });
+        if (accessToken) {
+        setCookie('accessToken', accessToken);
+       }})
+      .then((response) => localStorage.setItem('refreshToken', response.refreshToken))
+      .then((response) => {
+        options = {
+          ...options,
+          headers: {
+            ...options.headers,
+            authorization: response.accessToken
+          }
+        }
+      })
+      .catch(dispatch(refreshTokenFailed()))
+    } 
   }
 }
 
@@ -105,7 +110,6 @@ export function getUser (accessToken) {
     })
     .then(fetchWithRefresh())
     .then(checkResponse)
-    .then((response) => console.log(response))
     .catch(dispatch(getUserFailed()))
   }
 }
@@ -128,8 +132,10 @@ export const userAuthCheked = () => {
 
 export function checkUserAuth () {
   return function (dispatch) {
+    const accessToken = getCookie('accessToken')
     if(!accessToken) {
-      dispatch(getUser()).finally(() => {
+      dispatch(getUser(accessToken))
+      .finally(() => {
         dispatch(checkUserAuth())
       })
     } else {

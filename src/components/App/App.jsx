@@ -9,12 +9,14 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage
 } from '../../pages/pages';
-import { getUser } from '../../services/actions/getUser';
+import { checkUserAuth, getUser, refreshToken } from '../../services/actions/getUser';
 
 
 const App = () => {
 
-
+  useEffect(() => {
+    refreshToken()
+  })
 
   return (
     <Router>

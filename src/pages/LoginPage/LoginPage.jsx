@@ -15,7 +15,7 @@ import { emailRegExp } from "../../utils/validation";
 
 export const LoginPage = () => {
 
-  const { user, loginRequest, loginSuccess, loginFailed } = useSelector(store => store.login)
+  const { user, loginRequest } = useSelector(store => store.login)
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');

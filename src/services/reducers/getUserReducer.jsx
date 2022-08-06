@@ -4,7 +4,9 @@ import {
   GET_USER_FAILED,
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
-  REFRESH_TOKEN_FAILED
+  REFRESH_TOKEN_FAILED,
+  USER_AUTH_CHECK,
+  USER_AUTH_CHECKED
 } from '../actions/getUser';
 
 const userDataState = {
@@ -13,7 +15,9 @@ const userDataState = {
   getUserFailed: false,
   refreshTokenRequest: false,
   refreshTokenSuccess: false,
-  refreshTokenFailed: false
+  refreshTokenFailed: false,
+  userAuthCheck: false,
+  userAuthChecked: false,
 }
 
 export const getUserReducer = (state = userDataState, action) => {
@@ -38,7 +42,7 @@ export const getUserReducer = (state = userDataState, action) => {
         getUserFailed: true
       }
     }
-/*     case REFRESH_TOKEN_REQUEST: {
+    case REFRESH_TOKEN_REQUEST: {
       return {
         ...state,
         refreshTokenRequest: true
@@ -57,7 +61,21 @@ export const getUserReducer = (state = userDataState, action) => {
         refreshTokenRequest: false,
         refreshTokenFailed: true
       }
-    } */
+    }
+    case USER_AUTH_CHECK: {
+      return {
+        ...state,
+        userAuthCheck: true,
+        userAuthChecked: false
+      }
+    }
+    case USER_AUTH_CHECKED: {
+      return {
+        ...state,
+        userAuthCheck: false,
+        userAuthChecked: true,
+      }
+    }
     default: {
       return state
     }
