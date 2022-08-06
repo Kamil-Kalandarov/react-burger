@@ -21,13 +21,11 @@ export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault()
       dispatch(login(email, password))
-      setIsLoggedIn(true)
     },
     [dispatch, email, password]
   );
@@ -40,7 +38,7 @@ export const LoginPage = () => {
     setEmailError(false)
   })
 
-  if(isLoggedIn) {
+  if(user !== null) {
     return (
       <Redirect to={{pathname: '/'}}/>
     )

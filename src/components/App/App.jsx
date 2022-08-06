@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { 
@@ -9,9 +9,13 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage
 } from '../../pages/pages';
+import { getUser } from '../../services/actions/getUser';
 
 
 const App = () => {
+
+
+
   return (
     <Router>
       <AppHeader />

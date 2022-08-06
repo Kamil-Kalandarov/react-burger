@@ -1,5 +1,6 @@
 import { apiConfig } from "../../constans/apiConfig";
 import { checkResponse } from "../api";
+import { setCookie } from "../../utils/coockie";
 
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
@@ -38,6 +39,17 @@ export function createUser(name, email, password) {
       })
     })
     .then(checkResponse)
+    .then((response) => {
+      let authToken;
+      response.headers.forEach(header => {
+        if (header.indexOf('Bearer') === 0) {
+          authToken = header.split('Bearer ')[1];
+        }
+      });
+      if (authToken) {
+        setCookie('accessToken', authToken);
+    }})
+    .then((response) => localStorage.setItem('refreshToken', response.refreshToken))
     .then((response) => createUserSuccess(response)) 
     .catch(dispatch(createUserFailed()))
   }

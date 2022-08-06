@@ -5,6 +5,7 @@ import { orderDetailsRducer } from "./orderDetailsReducer";
 import { burgerConstructorReducer } from "./burgerConstructorReducer";
 import { createUserReducer } from "./registerReducer";
 import { LoginReducer } from "./loginReducer";
+import { getUserReducer } from "./getUserReducer";
 
 export const rootReducer = combineReducers({
   initialIngredients: initialIngredientsReducer,
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
   orderDetails: orderDetailsRducer,
   constructorIngredients: burgerConstructorReducer,
   register: createUserReducer,
-  login: LoginReducer
+  login: LoginReducer,
+  getUser: getUserReducer
 })
