@@ -39,17 +39,13 @@ export function login(email, password) {
     })
     .then(checkResponse)
     .then((response) => {
-      let accessToken;
-      response.headers.forEach(header => {
-        if (header.indexOf('Bearer') === 0) {
-          accessToken = header.split('Bearer ')[1];
-        }
-      });
+      const accessToken = response.accessToken.split(('Bearer ')[1])
+      localStorage.setItem('refreshToken', response.refreshToken)
       if (accessToken) {
-        setCookie('accessToken', accessToken);
-    }})
-    .then((response) => localStorage.setItem('refreshToken', response.refreshToken))
-    .then((response) => loginSuccess(response))
+        setCookie('accessToken', accessToken)
+        loginSuccess(response)
+      }
+    })
     .catch(dispatch(loginFailed()))
   }
 }

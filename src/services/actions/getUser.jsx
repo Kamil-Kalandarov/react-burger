@@ -27,50 +27,38 @@ export const refreshTokenFailed = () => {
   }
 }
 
-export const refreshToken  = (refreshToken) => {
+export const refreshToken  = () => {
   fetch(`${apiConfig.baseUrl}/auth/token`, {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
-      "token": refreshToken
+      token: localStorage.getItem('refreshToken')
     })
   })
+  .then(checkResponse)
   .then((response) => {
-    checkResponse()
-    console.log(response)
+    if (!response.succcess) {
+      return Promise.reject(response)
+    }
+    localStorage.setItem('refreshToken', response.refreshToken)
+    setCookie('accessToken', response.accessToken.split(('Bearer ')[1]))
+    return response
   })
 }
 
-export const fetchWithRefresh = (url, options) => {
-  return function (dispatch) {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) {
-      throw new Error('Token does not exist in storage');
+export const fetchWithRefresh = async(url, options) => {
+  try {
+    const response = await fetch(url, options)
+    return await checkResponse(response)
+  } catch (err) {
+    if (err.message = 'jwt expired') {
+      const refreshData = await refreshToken()
+      options.headers.authorization = refreshData.accessToken
+      const response = await fetch(url, options)
+      return await checkResponse(response)
     } else {
-      dispatch(refreshTokenRequest(refreshToken))
-      .then(refreshToken(refreshToken))
-      .then((response) => {
-        let accessToken;
-        response.headers.forEach(header => {
-          if (header.indexOf('Bearer') === 0) {
-            accessToken = header.split('Bearer ')[1];
-          }
-        });
-        if (accessToken) {
-        setCookie('accessToken', accessToken);
-       }})
-      .then((response) => localStorage.setItem('refreshToken', response.refreshToken))
-      .then((response) => {
-        options = {
-          ...options,
-          headers: {
-            ...options.headers,
-            authorization: response.accessToken
-          }
-        }
-      })
-      .catch(dispatch(refreshTokenFailed()))
-    } 
+      return Promise.reject(err)
+    }
   }
 }
 
@@ -85,10 +73,10 @@ export const getUserRequest = (accessToken) => {
   }
 }
 
-export const getUserSuccess = (accessToken) => {
+export const getUserSuccess = (user) => {
   return {
     type: GET_USER_SUCCESS,
-    payload: accessToken
+    payload: user
   }
 }
 
@@ -100,16 +88,17 @@ export const getUserFailed = () => {
 
 export function getUser (accessToken) {
   return function (dispatch) {
+    console.log('getUser')
     dispatch(getUserRequest(accessToken))
-    fetch(`${apiConfig.baseUrl}/auth/user`, {
+    fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
       method: 'POST',
       headers: apiConfig.headers,
       body: JSON.stringify({
         'authorization': accessToken
       })
     })
-    .then(fetchWithRefresh())
     .then(checkResponse)
+    .then((response) => dispatch(getUserSuccess(response.user)))
     .catch(dispatch(getUserFailed()))
   }
 }
@@ -143,3 +132,38 @@ export function checkUserAuth () {
     }
   }
 }
+
+
+
+/* export const fetchWithRefresh = (url, options) => {
+  return function (dispatch) {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) {
+      throw new Error('Token does not exist in storage');
+    } else {
+      dispatch(refreshTokenRequest(refreshToken))
+      .then(refreshToken(refreshToken))
+      .then((response) => {
+        let accessToken
+        localStorage.setItem('refreshToken', response.refreshToken)
+        response.headers.forEach(header => {
+          if (header.indexOf('Bearer') === 0) {
+            accessToken = header.split('Bearer ')[1];
+          }
+        });
+        if (accessToken) {
+        setCookie('accessToken', accessToken);
+       }})
+      .then((response) => {
+        options = {
+          ...options,
+          headers: {
+            ...options.headers,
+            authorization: response.accessToken
+          }
+        }
+      })
+      .catch(dispatch(refreshTokenFailed()))
+    } 
+  }
+} */

@@ -10,13 +10,16 @@ import {
   ResetPasswordPage
 } from '../../pages/pages';
 import { checkUserAuth, getUser, refreshToken } from '../../services/actions/getUser';
+import { useDispatch } from 'react-redux';
 
 
 const App = () => {
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    refreshToken()
-  })
+    dispatch(checkUserAuth())
+  }, [dispatch])
 
   return (
     <Router>

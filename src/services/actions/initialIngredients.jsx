@@ -15,8 +15,7 @@ export const setCurrentTab = (currentTab) => {
 
 export const getIngredientsRequest = () => {
   return {
-    type: GET_INGRDEIENTS_REQUEST,
-    payload: true
+    type: GET_INGRDEIENTS_REQUEST
   }
 }
 

@@ -22,7 +22,6 @@ const BurgerConstructor = () => {
 
   const dispatch = useDispatch();
   
-  const currentOrderNumber = useSelector(store => store.orderDetails.currentOrderNumber);
   const bun = useSelector(store => store.constructorIngredients.bun);
   const fillings = useSelector(store => store.constructorIngredients.fillings);
   const allConstructorIngredients = useSelector(store => store.constructorIngredients)
@@ -31,7 +30,6 @@ const BurgerConstructor = () => {
     return (bun ? bun.price * 2 : 0) + fillings.reduce((prev, next) => prev + next.price, 0);
   }, [bun, fillings]);
 
-  const fillingsIds = fillings.map((filling) => filling.id)
 
   const handleDrop = (ingredient) => {
     dispatch(addIngredient(ingredient))
