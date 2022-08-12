@@ -1,9 +1,9 @@
 .header {
   background-color: #1C1C21;
   margin: 0 auto;
-  width: 100%;
   display: flex;
   justify-content: center;
+  max-width: 100%;
 }
 
 .header__nav {
@@ -37,3 +37,9 @@
  padding-right: 288px;
  cursor: pointer;
 }
+
+/* @media screen and (max-width: 1279px) {
+  .header__logo {
+    padding-right: 112px;
+  }
+} */

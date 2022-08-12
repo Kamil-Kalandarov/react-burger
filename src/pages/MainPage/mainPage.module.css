@@ -1,10 +1,4 @@
 .mainPage {
-  max-height: 100vh;
-  margin: 0 auto;
-  display: grid;
-}
-
-.mainPage__flexComponents {
   max-width: 1240px;
   margin: 0 auto;
   display: grid;

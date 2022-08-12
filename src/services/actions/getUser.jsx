@@ -66,10 +66,9 @@ export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
 
-export const getUserRequest = (accessToken) => {
+export const getUserRequest = () => {
   return {
-    type: GET_USER_REQUEST,
-    accessToken
+    type: GET_USER_REQUEST
   }
 }
 
@@ -82,30 +81,27 @@ export const getUserSuccess = (user) => {
 
 export const getUserFailed = () => {
   return {
-    type: GET_USER_FAILED
+    type: GET_USER_FAILED,
   }
 }
 
-export function getUser (accessToken) {
+export function getUser () {
   return function (dispatch) {
     console.log('getUser')
-    dispatch(getUserRequest(accessToken))
-    fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
-      method: 'POST',
-      headers: apiConfig.headers,
-      body: JSON.stringify({
-        'authorization': accessToken
-      })
+    dispatch(getUserRequest())
+    return fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
+      headers: {
+        ...apiConfig.headers, 
+        'authorization': `Barear ${getCookie('accessToken')}`
+      },
     })
-    .then(checkResponse)
     .then((response) => dispatch(getUserSuccess(response.user)))
     .catch(dispatch(getUserFailed()))
   }
 }
 
 
-export const USER_AUTH_CHECK = 'USER_AUTH_CHECKED';
-export const USER_AUTH_CHECKED = 'USER_AUTH_CHECKED';
+export const USER_AUTH_CHECK = 'USER_AUTH_CHECK';
 
 export const userAuthChek = () => {
   return {
@@ -113,57 +109,14 @@ export const userAuthChek = () => {
   }
 }
 
-export const userAuthCheked = () => {
-  return {
-    type: USER_AUTH_CHECKED,
-  }
-}
-
-export function checkUserAuth () {
+export const checkUserAuth = () => {
   return function (dispatch) {
-    const accessToken = getCookie('accessToken')
-    if(!accessToken) {
-      dispatch(getUser(accessToken))
+    if (getCookie('accessToken')) {
+      dispatch(getUser())
       .finally(() => {
-        dispatch(checkUserAuth())
+        dispatch(userAuthChek())
       })
-    } else {
-      dispatch(userAuthCheked())
-    }
-  }
+    dispatch(userAuthChek())
+    };
+  };
 }
-
-
-
-/* export const fetchWithRefresh = (url, options) => {
-  return function (dispatch) {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) {
-      throw new Error('Token does not exist in storage');
-    } else {
-      dispatch(refreshTokenRequest(refreshToken))
-      .then(refreshToken(refreshToken))
-      .then((response) => {
-        let accessToken
-        localStorage.setItem('refreshToken', response.refreshToken)
-        response.headers.forEach(header => {
-          if (header.indexOf('Bearer') === 0) {
-            accessToken = header.split('Bearer ')[1];
-          }
-        });
-        if (accessToken) {
-        setCookie('accessToken', accessToken);
-       }})
-      .then((response) => {
-        options = {
-          ...options,
-          headers: {
-            ...options.headers,
-            authorization: response.accessToken
-          }
-        }
-      })
-      .catch(dispatch(refreshTokenFailed()))
-    } 
-  }
-} */

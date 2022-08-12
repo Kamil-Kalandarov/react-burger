@@ -4,6 +4,7 @@ import { LoginPage } from "./LoginPage/LoginPage";
 import { RegisterPage } from "./RegisterPage/RegisterPage";
 import { ForgotPasswordPage } from "./ForgotPasswordPage/ForgotPasswordPage";
 import { ResetPasswordPage } from "./ResetPasswordPage/ResetPasswordPage";
+import { IngredientDetailsPage } from "./IngredientDetailsPage/IngredientDetailsPage";
 
 export { 
   MainPage, 
@@ -11,5 +12,6 @@ export {
   LoginPage, 
   RegisterPage, 
   ForgotPasswordPage, 
-  ResetPasswordPage 
+  ResetPasswordPage,
+  IngredientDetailsPage
 };

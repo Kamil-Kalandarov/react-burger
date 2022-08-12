@@ -7,17 +7,21 @@ import {
   LoginPage,
   RegisterPage, 
   ForgotPasswordPage,
-  ResetPasswordPage
+  ResetPasswordPage,
+  IngredientDetailsPage
 } from '../../pages/pages';
-import { checkUserAuth, getUser, refreshToken } from '../../services/actions/getUser';
-import { useDispatch } from 'react-redux';
+import { checkUserAuth } from '../../services/actions/getUser';
+import { useDispatch, useSelector } from 'react-redux';
+import { getInitialIngredients } from '../../services/actions/initialIngredients';
 
 
 const App = () => {
 
   const dispatch = useDispatch()
+  /* const ingredients = useSelector(store => store.initialIngredients.ingredients) */
 
   useEffect(() => {
+    dispatch(getInitialIngredients())
     dispatch(checkUserAuth())
   }, [dispatch])
 
@@ -42,6 +46,9 @@ const App = () => {
         </Route>
         <Route path='/reset-password' exact={true}>
           <ResetPasswordPage />
+        </Route>
+        <Route path='/ingredients/:ingredientId' exact={true}>
+          <IngredientDetailsPage />
         </Route>
       </Switch>
     </Router>

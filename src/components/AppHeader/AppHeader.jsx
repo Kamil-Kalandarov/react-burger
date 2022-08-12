@@ -2,8 +2,11 @@ import React from 'react';
 import styles from './header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const AppHeader = () => {
+
+  const { user } = useSelector(store => store.getUser)
   
   const location = useLocation()
   console.log('pathname', location.pathname)
@@ -33,7 +36,7 @@ const AppHeader = () => {
           className={`${styles.header__menuItemLink} p-5`} 
           activeClassName={styles.header__menuItemLink_active}>
           <ProfileIcon type={location.pathname === '/login' ? 'primary' : 'secondary'}/>
-          <p className='text text_type_main-default ml-2'>Личный кабинет</p>
+          <p className='text text_type_main-default ml-2'>Личный кабинет</p>)
         </NavLink>
       </nav>
     </header>

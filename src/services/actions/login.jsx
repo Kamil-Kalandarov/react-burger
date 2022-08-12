@@ -6,29 +6,29 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 
-export const loginRequest = (email, password) => {
+export const loginRequest = () => {
   return {
-    type: LOGIN_REQUEST,
-    email, password
+    type: LOGIN_REQUEST
   }
 }
 
-export const loginSuccess = (email, password) => {
+export const loginSuccess = (response) => {
   return {
     type: LOGIN_SUCCESS,
-    payload: email, password
+    payload: response.user
   }
 }
 
-export const loginFailed = () => {
+export const loginFailed = (err) => {
   return {
     type: LOGIN_FAILED,
+    payload: err.message
   }
 }
 
 export function login(email, password) {
   return function (dispatch) {
-    dispatch(loginRequest(email, password))
+    dispatch(loginRequest())
     fetch(`${apiConfig.baseUrl}/auth/login`, {
       method: 'POST',
       headers: apiConfig.headers,
@@ -39,13 +39,13 @@ export function login(email, password) {
     })
     .then(checkResponse)
     .then((response) => {
-      const accessToken = response.accessToken.split(('Bearer ')[1])
+      const accessToken = response.accessToken.split('Bearer ')[1]
       localStorage.setItem('refreshToken', response.refreshToken)
       if (accessToken) {
         setCookie('accessToken', accessToken)
-        loginSuccess(response)
+        dispatch(loginSuccess(response))
       }
     })
-    .catch(dispatch(loginFailed()))
+    .catch((err) => dispatch(loginFailed(err)))
   }
 }

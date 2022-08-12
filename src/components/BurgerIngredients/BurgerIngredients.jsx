@@ -1,15 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import styles from './burgerIngredients.module.css';
 import Tabs from '../Tabs/Tabs';
-import { getInitialIngredients } from '../../services/actions/initialIngredients';
 import IngredientsItemsList from '../IngredientsItemsList/IngredientsItemsList';
 
 /* Выбор ингредиентов для бургера */
 const BurgerIngredients = () => {
   const initialIngredients = useSelector(store => store.initialIngredients.ingredients);
-  const dispatch = useDispatch()
 
   const buns = initialIngredients.filter((ingredeint) => ingredeint.type === 'bun');
   const sauces = initialIngredients.filter((ingredeint) => ingredeint.type === 'sauce');
@@ -18,10 +16,6 @@ const BurgerIngredients = () => {
   const [ bunsRef, inViewBuns ] = useInView({ threshold: 0 });
   const [ saucesRef, inViewSauces ] = useInView({ threshold: 0 });
   const [ mainsRef, inViewMains ] = useInView({ threshold: 0 });
-
-  useEffect(() => {
-    dispatch(getInitialIngredients())
-  }, [dispatch])
 
   return (
       <section className={`${styles.burgerIngredients} pt-10 mr-10`}>
