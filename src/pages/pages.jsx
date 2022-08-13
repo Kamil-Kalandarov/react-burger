@@ -1,4 +1,5 @@
 import { MainPage } from "./MainPage/MainPage";
+import { FeedPage } from "./FeedPage/FeedPage";
 import { ProfilePage } from "./ProfilePage/ProfilePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { RegisterPage } from "./RegisterPage/RegisterPage";
@@ -8,6 +9,7 @@ import { IngredientDetailsPage } from "./IngredientDetailsPage/IngredientDetails
 
 export { 
   MainPage, 
+  FeedPage,
   ProfilePage,
   LoginPage, 
   RegisterPage, 

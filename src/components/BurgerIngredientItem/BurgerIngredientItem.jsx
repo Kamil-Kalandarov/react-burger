@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from './burgerIngredientItem.module.css';
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../Modal/Modal";
@@ -10,20 +10,21 @@ import { openIngredientDetailsModal } from "../../services/actions/ingredientDet
 
 const BurgerIngredientItem = ({ ingredient, counter }) => {
 
-/*   console.log(ingredient); */
+  const location = useLocation();
+  /* console.log('location', location); */
 
-  const dispatch = useDispatch();
+  /* const dispatch = useDispatch() */;
 
-  const [isIngredientsDetailsOpened, setIsIngredientsDetailsOpened] = useState(false);
+  /* const [isIngredientsDetailsOpened, setIsIngredientsDetailsOpened] = useState(false); */
 
-  const handleIngredientClick = (ingredient) => {
+/*   const handleIngredientClick = (ingredient) => {
     dispatch(openIngredientDetailsModal(ingredient))
     setIsIngredientsDetailsOpened(true)
-  };
+  }; */
 
-  const closeIngredientModal = () => {
+  /* const closeIngredientModal = () => {
     setIsIngredientsDetailsOpened(false)
-  };
+  }; */
 
   const [{ isDragging }, dragRef] = useDrag({
     type: 'ingredient',
@@ -38,9 +39,14 @@ const BurgerIngredientItem = ({ ingredient, counter }) => {
   return (
     <>
       <li className='pl-4 pr-2 pb-10'  /* style={{opacity}} */>
-        <Link className={styles.cardElement__link} to={`/ingredients/${ingredient._id}`}>
+        <Link 
+          className={styles.cardElement__link} 
+          to={{
+            pathname: `/ingredients/${ingredient._id}`,
+            state: { background: location }
+          }}>
           <article className={styles.cardElement} 
-            onClick={() => handleIngredientClick(ingredient)} ref={dragRef}>
+            /* onClick={() => handleIngredientClick(ingredient)} */ ref={dragRef}>
             <Counter count={counter} size="default" />
             <div className='pl-4 pb-1 pr-4'>
               <img src={ingredient.image}/>
@@ -53,11 +59,11 @@ const BurgerIngredientItem = ({ ingredient, counter }) => {
           </article>
         </Link>
       </li>
-    {isIngredientsDetailsOpened && (
+ {/*    {isIngredientsDetailsOpened && (
       <Modal onCloseClick={closeIngredientModal}>
         <IngredientDetails />
       </Modal>
-    )}
+    )} */}
     </>
   )
 };

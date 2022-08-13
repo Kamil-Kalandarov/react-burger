@@ -7,10 +7,11 @@ import { useParams } from "react-router-dom";
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const IngredientDetails = () => {
   
-  const params = useParams()
+  const {ingredientId} = useParams()
   const ingredients = useSelector(store => store.initialIngredients.ingredients)
-  console.log(params)
-  const ingredient = ingredients.find((ingredient) => ingredient._id === params.ingredientId)
+  /* console.log('ingredients', ingredients); */
+  const ingredient = ingredients.find((ingredient) => ingredient._id === ingredientId)
+  /* console.log('ingredient', ingredient); */
 
   return (
     <div className={`${styles.ingredientDetails} pt-10 pb-15 pl-10 pr-10`}>
@@ -40,9 +41,5 @@ const IngredientDetails = () => {
     </div>
   );
 };
-
-/* IngredientDetails.propTypes = {
-  ingredient: PropTypesIngredientsData.isRequired
-}; */
 
 export default IngredientDetails;
