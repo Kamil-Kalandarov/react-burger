@@ -1,16 +1,27 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from './profilePage.module.css';
 import Form from "../../components/Form/Form";
 import InputSection from "../../components/Form/InputSection/InputSection";
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../services/actions/logout";
 
 export const ProfilePage = () => {
 
-    const [email, setEmail] = useState('')
-    const handleSubmit = (e) => {
-      e.preventDefault()
-    }
+  const dispatch = useDispatch();
+
+  /* const user  = useSelector(store => store.getUser.user);
+  console.log(user); */
+
+  const exitProfile = useCallback((e) => {
+    dispatch(logout())
+  })
+
+  const [email, setEmail] = useState('')
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  };
   
   return (
     <main className={styles.profilePage}>
@@ -31,6 +42,7 @@ export const ProfilePage = () => {
           <li className="pt-9">
             <NavLink 
               to='/login' 
+              onClick={exitProfile}
               className={`${styles.profilePage__navigationLink} text text_type_main-medium`}
               activeClassName={styles.profilePage__navigationLink_active}>Выход</NavLink>
           </li>

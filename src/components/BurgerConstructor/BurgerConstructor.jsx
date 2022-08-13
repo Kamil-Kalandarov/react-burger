@@ -33,18 +33,18 @@ const BurgerConstructor = () => {
 
   const fillingsIds = fillings.map((filling) => filling.id)
 
-  const handleDrop = (ingredient) => {
+  const handleDrop = useCallback((ingredient) => {
     dispatch(addIngredient(ingredient))
-  }
+  })
 
-  const handleOrder =(orderedIngredients) => {
+  const handleOrder = useCallback((orderedIngredients) => {
       dispatch(postOrder([
         orderedIngredients.bun._id,
         ...orderedIngredients.fillings.map((filling) => filling._id),
         orderedIngredients.bun._id,
       ]))
     setOrderDetailsOpened(true)
-  }
+  })
 
   const handleClose = useCallback(() => {
     setOrderDetailsOpened(false)
