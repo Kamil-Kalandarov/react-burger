@@ -19,19 +19,31 @@ export const RegisterPage = () => {
   const user = useSelector(store => store.register)
 
   const [userName, setUserName] = useState('');
+  const [userNameError, setUserNameError] = useState(false)
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false)
   const [password, setPassword] = useState('');
 
-  const buttonDisabled = userName && email && password && !emailError ? false : true
+  const buttonDisabled = userName && email && password && !emailError && !userNameError ? false : true
+
+  const userNameValidation = useCallback(() => {
+    userName.length < 3 ? setUserNameError(true) : setUserNameError(false)
+  }, [userName]);
 
   const emailValidation = useCallback(() => {
     email && setEmailError(!emailRegExp.test(email));
   }, [email]);
 
+  const onNameFocus = useCallback(() => {
+    setUserNameError(false);
+  });
 
-  const handleSubmit = useCallback(
-    (e) => {
+  const onEmailFocus = useCallback(() => {
+    setEmailError(false);
+  });
+
+
+  const handleSubmit = useCallback((e) => {
       e.preventDefault();
       dispatch(createUser(userName, email, password))
     },
@@ -47,7 +59,11 @@ export const RegisterPage = () => {
             type={'text'}
             placeholder={'Имя'}
             onChange={e => setUserName(e.target.value)}
+            onBlur={userNameValidation}
+            onFocus={onNameFocus}
             value={userName}
+            error={userNameError}
+            errorText={'имя слишком короткое'}
             size={'default'}
           />
         </InputSection>
@@ -58,6 +74,7 @@ export const RegisterPage = () => {
             placeholder={'e-mail'}
             onChange={e => setEmail(e.target.value)}
             onBlur={emailValidation}
+            onFocus={onEmailFocus}
             value={email}
             error={emailError}
             errorText={'email некорректный'}

@@ -33,7 +33,7 @@ const App = () => {
     dispatch(checkUserAuth())
   }, [dispatch])
 
-  const closeIngredientModal = useCallback((e) => {
+  const closeIngredientModal = useCallback(() => {
     history.goBack()
   }, [history])
 

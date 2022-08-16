@@ -35,3 +35,8 @@
   padding-left: 300px;
   margin: 0;
 }
+
+.profilePage__formButtons {
+  display: flex;
+  justify-content: flex-end;
+}

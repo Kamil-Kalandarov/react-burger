@@ -6,16 +6,15 @@ export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_FAILED = 'CREATE_USER_FAILED';
 
-export const createUserRequest = (name, email, password) => {
+export const createUserRequest = () => {
   return {
     type: CREATE_USER_REQUEST,
-    name, email, password
   }
 }
 
 export const createUserSuccess = ({name, email, password}) => {
   return {
-    type: CREATE_USER_REQUEST,
+    type: CREATE_USER_SUCCESS,
     payload: {name, email, password}
   }
 }

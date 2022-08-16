@@ -6,6 +6,7 @@ import { burgerConstructorReducer } from "./burgerConstructorReducer";
 import { createUserReducer } from "./registerReducer";
 import { LoginReducer } from "./loginReducer";
 import { getUserReducer } from "./getUserReducer";
+import { updateUserReducer } from "./updateUserDataReducer";
 
 export const rootReducer = combineReducers({
   initialIngredients: initialIngredientsReducer,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   constructorIngredients: burgerConstructorReducer,
   register: createUserReducer,
   login: LoginReducer,
-  getUser: getUserReducer
+  getUser: getUserReducer,
+  updateUserData: updateUserReducer
 })
