@@ -23,7 +23,7 @@ const AppHeader = () => {
           <p className={'text text_type_main-default ml-2'}>Конструктор</p>
         </NavLink>
         <NavLink 
-          to='*' 
+          to='/feed' 
           className={`${styles.header__menuItemLink} p-5`} 
           activeClassName={styles.header__menuItemLink_active}>
           <ListIcon type={location.pathname === '/' ? 'primary' : 'secondary'}/>
@@ -33,7 +33,7 @@ const AppHeader = () => {
           <Logo />
         </Link>
         <NavLink 
-          to='/login' 
+          to={user ? '/profile' : '/login'} 
           className={`${styles.header__menuItemLink} p-5`} 
           activeClassName={styles.header__menuItemLink_active}>
           <ProfileIcon type={location.pathname === '/login' ? 'primary' : 'secondary'}/>

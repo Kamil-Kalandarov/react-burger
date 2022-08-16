@@ -12,10 +12,10 @@ export const logoutRequest = () => {
   }
 }
 
-export const logouSuccess = (/* response */) => {
+export const logoutSuccess = (response) => {
   return {
     type: LOGOUT_SUCCESS,
-   /*  payload: response.user */
+    payload: response
   }
 }
 
@@ -41,7 +41,7 @@ export function logout() {
       deleteCookie('accessToken')
       localStorage.removeItem('refreshToken')
       console.log('logout')
-      dispatch(logouSuccess(response))
+      dispatch(logoutSuccess(response))
     })
     .catch((err) => dispatch(logputFailed(err)))
   }

@@ -5,19 +5,18 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAILED,
-  USER_AUTH_CHECK,
-  USER_AUTH_CHECKED
+  USER_AUTH_CHECK
 } from '../actions/getUser';
 
 const userDataState = {
+  user: null,
   getUserRequest: false,
   getUserSuccess: false,
   getUserFailed: false,
   refreshTokenRequest: false,
   refreshTokenSuccess: false,
   refreshTokenFailed: false,
-  userAuthCheck: false,
-  userAuthChecked: false,
+  userAuthCheck: false
 }
 
 export const getUserReducer = (state = userDataState, action) => {
@@ -32,7 +31,8 @@ export const getUserReducer = (state = userDataState, action) => {
       return {
         ...state,
         getUserRequest: false,
-        getUserSuccess: true
+        getUserSuccess: true,
+        user: action.payload
       }
     }
     case GET_USER_FAILED: {
@@ -65,15 +65,7 @@ export const getUserReducer = (state = userDataState, action) => {
     case USER_AUTH_CHECK: {
       return {
         ...state,
-        userAuthCheck: true,
-        userAuthChecked: false
-      }
-    }
-    case USER_AUTH_CHECKED: {
-      return {
-        ...state,
-        userAuthCheck: false,
-        userAuthChecked: true,
+        userAuthCheck: true
       }
     }
     default: {

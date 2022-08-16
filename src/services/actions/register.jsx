@@ -40,17 +40,18 @@ export function createUser(name, email, password) {
     })
     .then(checkResponse)
     .then((response) => {
-      let accessToken;
+      let accessToken
+      localStorage.setItem('refreshToken', response.refreshToken)
       response.headers.forEach(header => {
         if (header.indexOf('Bearer') === 0) {
           accessToken = header.split('Bearer ')[1];
         }
       });
       if (accessToken) {
-        setCookie('accessToken', accessToken);
-    }})
-    .then((response) => localStorage.setItem('refreshToken', response.refreshToken))
-    .then((response) => createUserSuccess(response)) 
+        setCookie('accessToken', accessToken)
+        createUserSuccess(response)
+      }
+    })
     .catch(dispatch(createUserFailed()))
   }
 }

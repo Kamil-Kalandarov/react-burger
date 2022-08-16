@@ -40,7 +40,7 @@ export const LoginPage = () => {
 
   if(user !== null) {
     return (
-      <Redirect to={{pathname: '/'}}/>
+      <Redirect to={{pathname: '/profile'}}/>
     )
   }
 

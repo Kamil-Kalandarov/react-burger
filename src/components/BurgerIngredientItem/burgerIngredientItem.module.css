@@ -11,7 +11,7 @@
   opacity: 50%;
 }
 
-.cardPrice {
+.cardElement__price {
   display: grid;
   grid-template-columns: max-content min-content;
   justify-content: center;
@@ -19,7 +19,12 @@
   gap: 9px;
 }
 
-.cardName {
+.cardElement__name {
   margin: 0;
   text-align: center;
+}
+
+.cardElement__link {
+  color: inherit;
+  text-decoration: none;
 }

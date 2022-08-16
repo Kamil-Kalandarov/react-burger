@@ -24,7 +24,7 @@ export const LoginReducer = (state = loginInitialState, action) => {
         ...state,
         loginRequest: false,
         loginSuccess: 'success',
-        user: action.psayload
+        user: action.payload
       }
     }
     case LOGIN_FAILED: {
@@ -32,7 +32,7 @@ export const LoginReducer = (state = loginInitialState, action) => {
         ...state,
         loginRequest: false,
         loginFailed: true,
-        user: action.psayload
+        user: action.payload
       }
     }
     default: {

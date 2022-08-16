@@ -11,9 +11,6 @@ export const ProfilePage = () => {
 
   const dispatch = useDispatch();
 
-  /* const user  = useSelector(store => store.getUser.user);
-  console.log(user); */
-
   const exitProfile = useCallback((e) => {
     dispatch(logout())
   })

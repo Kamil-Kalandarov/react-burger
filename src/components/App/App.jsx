@@ -40,7 +40,7 @@ const App = () => {
   return (
     <>
       <AppHeader />
-      <Switch background={background || location}>
+      <Switch location={background || location}>
         <Route path='/' exact={true}>
           <MainPage />
         </Route>
@@ -50,18 +50,18 @@ const App = () => {
         <ProtectedRoute path='/profile' exact={true}>
           <ProfilePage />
         </ProtectedRoute>
-        <Route path='/login' exact={true}>
+        <ProtectedRoute onlyUnAuth={true} path='/login' exact={true}>
           <LoginPage />
-        </Route>
-        <Route path='/register' exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute onlyUnAuth={true} path='/register' exact={true}>
           <RegisterPage />
-        </Route>
-        <Route path='/forgot-password' exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute onlyUnAuth={true} path='/forgot-password' exact={true}>
           <ForgotPasswordPage />
-        </Route>
-        <Route path='/reset-password' exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute onlyUnAuth={true} path='/reset-password' exact={true}>
           <ResetPasswordPage />
-        </Route>
+        </ProtectedRoute>
         <Route path='/ingredients/:ingredientId' exact={true}>
           <IngredientDetailsPage />
         </Route>
