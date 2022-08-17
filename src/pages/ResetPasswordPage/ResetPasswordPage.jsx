@@ -11,12 +11,14 @@ import Form from "../../components/Form/Form";
 import InputSection from "../../components/Form/InputSection/InputSection";
 import { Link } from "react-router-dom";
 import Preloader from "../../components/Preloader/Preloader";
+import { Redirect } from "react-router-dom";
 
 export const ResetPasswordPage = () => {
 
   const [newPassword, setNewPassword] = useState('');
   const [token, setToken] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isPasswordReseted, setIsPasswordReseted] = useState(false);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -31,13 +33,18 @@ export const ResetPasswordPage = () => {
         })
       })
       .then(checkResponse)
-      .then(setIsLoading(false))
-      .then((response) => console.log(response))
+      .then(setIsLoading(false), setIsPasswordReseted(true))
       .catch((err) => console.log(err.status))
     }
   );
 
   const buttonDisabled = newPassword && token ? false : true;
+
+  if (isPasswordReseted) {
+    return (
+      <Redirect to={{pathname: '/login'}}/>
+    )
+  }
 
   return (
     <main className={styles.resetPasswordPage}>

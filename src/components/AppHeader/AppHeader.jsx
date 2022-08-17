@@ -1,4 +1,5 @@
 import React from 'react';
+import { store } from '../../services/store';
 import styles from './header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink, useLocation } from 'react-router-dom';
@@ -6,8 +7,7 @@ import { useSelector } from 'react-redux';
 
 const AppHeader = () => {
 
-  const user  = useSelector(store => store.getUser.user)
-  console.log(user);
+  const user  = useSelector(store => store.user.user)
   
   const location = useLocation()
   console.log('pathname', location.pathname)
@@ -26,7 +26,7 @@ const AppHeader = () => {
           to='/feed' 
           className={`${styles.header__menuItemLink} p-5`} 
           activeClassName={styles.header__menuItemLink_active}>
-          <ListIcon type={location.pathname === '/' ? 'primary' : 'secondary'}/>
+          <ListIcon type={location.pathname === '/feed' ? 'primary' : 'secondary'}/>
           <p className='text text_type_main-default ml-2'>Лента заказов</p>
         </NavLink>
         <Link to='/' className={styles.header__logo}>
@@ -36,7 +36,7 @@ const AppHeader = () => {
           to={user ? '/profile' : '/login'} 
           className={`${styles.header__menuItemLink} p-5`} 
           activeClassName={styles.header__menuItemLink_active}>
-          <ProfileIcon type={location.pathname === '/login' ? 'primary' : 'secondary'}/>
+          <ProfileIcon type={location.pathname === '/profile' ? 'primary' : 'secondary'}/>
           <p className='text text_type_main-default ml-2'>{user ? user.name : 'Личный кабинет'}</p>
         </NavLink>
       </nav>

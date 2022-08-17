@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styles from './registerPage.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { store } from "../../services/store";
+import { useDispatch } from 'react-redux';
 import { createUser } from "../../services/actions/register";
 import { 
   Input, 
@@ -16,31 +15,24 @@ import { emailRegExp } from "../../utils/validation";
 export const RegisterPage = () => {
 
   const dispatch = useDispatch();
-  const user = useSelector(store => store.register)
 
   const [userName, setUserName] = useState('');
-  const [userNameError, setUserNameError] = useState(false)
+  const [userNameError, setUserNameError] = useState(false);
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false)
+  const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState('');
 
-  const buttonDisabled = userName && email && password && !emailError && !userNameError ? false : true
-
-  const userNameValidation = useCallback(() => {
-    userName.length < 3 ? setUserNameError(true) : setUserNameError(false)
+  const userNameValidation = useCallback((e) => {
+    const newUserNameValue = e.target.value
+    setUserName(newUserNameValue)
+    newUserNameValue.length < 3 ? setUserNameError(true) : setUserNameError(false)
   }, [userName]);
 
-  const emailValidation = useCallback(() => {
-    email && setEmailError(!emailRegExp.test(email));
+  const emailValidation = useCallback((e) => {
+    const newEmailValue = e.target.value
+    setEmail(newEmailValue)
+    newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
-
-  const onNameFocus = useCallback(() => {
-    setUserNameError(false);
-  });
-
-  const onEmailFocus = useCallback(() => {
-    setEmailError(false);
-  });
 
 
   const handleSubmit = useCallback((e) => {
@@ -50,6 +42,8 @@ export const RegisterPage = () => {
     [dispatch, userName, email, password]
   );
 
+  const buttonDisabled = userName && email && password && !emailError && !userNameError ? false : true
+
   return (
     <main className={styles.registerPage}>
       <Form name='register' onSubmit={handleSubmit} title='Регистрация'>
@@ -58,12 +52,10 @@ export const RegisterPage = () => {
             name={'userName'}
             type={'text'}
             placeholder={'Имя'}
-            onChange={e => setUserName(e.target.value)}
-            onBlur={userNameValidation}
-            onFocus={onNameFocus}
+            onChange={userNameValidation}
             value={userName}
             error={userNameError}
-            errorText={'имя слишком короткое'}
+            errorText={'должно быть не меньше 3 символов'}
             size={'default'}
           />
         </InputSection>
@@ -72,9 +64,7 @@ export const RegisterPage = () => {
             name={'e-mail'}
             type={'text'}
             placeholder={'e-mail'}
-            onChange={e => setEmail(e.target.value)}
-            onBlur={emailValidation}
-            onFocus={onEmailFocus}
+            onChange={emailValidation}
             value={email}
             error={emailError}
             errorText={'email некорректный'}

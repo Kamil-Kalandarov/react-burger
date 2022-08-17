@@ -15,7 +15,7 @@ import { emailRegExp } from "../../utils/validation";
 
 export const LoginPage = () => {
 
-  const { user, loginRequest } = useSelector(store => store.login)
+  const { user, loginRequest } = useSelector(store => store.user)
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -30,13 +30,13 @@ export const LoginPage = () => {
     [dispatch, email, password]
   );
 
-  const emailValidation = useCallback(() => {
-    email && setEmailError(!emailRegExp.test(email));
+  const emailValidation = useCallback((e) => {
+    const newEmailValue = e.target.value
+    setEmail(newEmailValue)
+    newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
 
-  const onEmailFocus = useCallback(() => {
-    setEmailError(false)
-  })
+  const buttonDisabled = email && password && !emailError ? false : true
 
   if(user !== null) {
     return (
@@ -53,9 +53,7 @@ export const LoginPage = () => {
             <Input
               name={'email'}
               placeholder={'e-mail'}
-              onChange={e => setEmail(e.target.value)}
-              onBlur={emailValidation}
-              onFocus={onEmailFocus}
+              onChange={emailValidation}
               type={'email'}
               value={email}
               error={emailError}
@@ -71,7 +69,7 @@ export const LoginPage = () => {
             />
           </InputSection>
           <div className={`${styles.loginPage__submitBtnContainer} pt-6`}>
-            <Button type="primary" size="medium">Войти</Button>
+            <Button type="primary" size="medium" disabled={buttonDisabled}>Войти</Button>
           </div>
           <div className={`${styles.loginPage__autorisationInfo} pt-20`}>
             <p className='text text_type_main-default'>Вы — новый пользователь?

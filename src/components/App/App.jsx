@@ -17,6 +17,7 @@ import {
 import { checkUserAuth } from '../../services/actions/getUser';
 import { useDispatch } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
+import OrderDetails from '../OrderDetails/OrderDetails';
 
 
 
@@ -24,9 +25,8 @@ const App = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const location = useLocation()
-/*   console.log('location', location); */
   const background = location.state?.background
- /*  console.log('background', background) */
+
 
   useEffect(() => {
     dispatch(getInitialIngredients())
@@ -41,33 +41,33 @@ const App = () => {
     <>
       <AppHeader />
       <Switch location={background || location}>
-        <Route path='/' exact={true}>
+        <Route path='/' exact>
           <MainPage />
         </Route>
-        <Route path='/feed' exact={true}>
+        <Route path='/feed' exact>
           <FeedPage />
         </Route>
-        <ProtectedRoute path='/profile' exact={true}>
+        <ProtectedRoute path='/profile' exact>
           <ProfilePage />
         </ProtectedRoute>
-        <ProtectedRoute onlyUnAuth={true} path='/login' exact={true}>
+        <ProtectedRoute onlyUnAuth={true} path='/login' exact>
           <LoginPage />
         </ProtectedRoute>
-        <ProtectedRoute onlyUnAuth={true} path='/register' exact={true}>
+        <ProtectedRoute onlyUnAuth={true} path='/register' exact>
           <RegisterPage />
         </ProtectedRoute>
-        <ProtectedRoute onlyUnAuth={true} path='/forgot-password' exact={true}>
+        <ProtectedRoute onlyUnAuth={true} path='/forgot-password' exact>
           <ForgotPasswordPage />
         </ProtectedRoute>
-        <ProtectedRoute onlyUnAuth={true} path='/reset-password' exact={true}>
+        <ProtectedRoute onlyUnAuth={true} path='/reset-password' exact>
           <ResetPasswordPage />
         </ProtectedRoute>
-        <Route path='/ingredients/:ingredientId' exact={true}>
+        <Route path='/ingredients/:ingredientId' exact>
           <IngredientDetailsPage />
         </Route>
       </Switch>
       {background &&
-        <Route path='/ingredients/:ingredientId' exact={true}>
+        <Route path='/ingredients/:ingredientId' exact>
           <Modal onCloseClick={closeIngredientModal}>
             <IngredientDetails />
           </Modal>

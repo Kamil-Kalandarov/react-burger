@@ -14,6 +14,7 @@ import FiilingConstructorElement from './FillingConstructorElement/FillingConstr
 import EmptyConstructorElement from './EmptyConstructorElement/EmptyConstructorElement';
 import EmptyBunTop from './EmptyBunTop/EmptyBunTop'; 
 import EmptyBunBottom from './EmptyBunBottom/EmptyBunBottom';
+import { useHistory } from 'react-router-dom';
 
 
 /* Конструктор бургера */
@@ -21,8 +22,10 @@ const BurgerConstructor = () => {
   const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false);
 
   const dispatch = useDispatch();
+
+  const history = useHistory()
   
-  const currentOrderNumber = useSelector(store => store.orderDetails.currentOrderNumber);
+  const user = useSelector(store => store.user.user)
   const bun = useSelector(store => store.constructorIngredients.bun);
   const fillings = useSelector(store => store.constructorIngredients.fillings);
   const allConstructorIngredients = useSelector(store => store.constructorIngredients)
@@ -38,12 +41,16 @@ const BurgerConstructor = () => {
   })
 
   const handleOrder = useCallback((orderedIngredients) => {
-      dispatch(postOrder([
-        orderedIngredients.bun._id,
-        ...orderedIngredients.fillings.map((filling) => filling._id),
-        orderedIngredients.bun._id,
-      ]))
-    setOrderDetailsOpened(true)
+      if (user) {
+        dispatch(postOrder([
+          orderedIngredients.bun._id,
+          ...orderedIngredients.fillings.map((filling) => filling._id),
+          orderedIngredients.bun._id,
+        ]))
+        setOrderDetailsOpened(true)
+      } else {
+        history.replace({pathname: '/login'})
+      }
   })
 
   const handleClose = useCallback(() => {

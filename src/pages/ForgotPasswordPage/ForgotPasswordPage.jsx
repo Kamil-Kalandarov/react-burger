@@ -16,15 +16,15 @@ export const ForgotPasswordPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [canResetPassword, setCanResetPassword] = useState(false)
 
-  const buttonDisabled = email && !emailError ? false : true
-
-  const emailValidation = useCallback(() => {
-    email && setEmailError(!emailRegExp.test(email));
+  const emailValidation = useCallback((e) => {
+    const newEmailValue = e.target.value
+    setEmail(newEmailValue)
+    newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
 
-  const onEmailFocus = useCallback(() => {
+ /*  const onEmailFocus = useCallback(() => {
     setEmailError(false);
-  });
+  }); */
 
   const handleSubmit = useCallback(
     (e) => {
@@ -45,6 +45,8 @@ export const ForgotPasswordPage = () => {
     }
   );
 
+  const buttonDisabled = email && !emailError ? false : true
+
   if(canResetPassword) {
     return (
       <Redirect to={{pathname: '/reset-password'}}/>
@@ -61,9 +63,9 @@ export const ForgotPasswordPage = () => {
             name={'email'}
             type={'email'}
             placeholder={'укажите e-mail'}
-            onChange={e => setEmail(e.target.value)}
-            onFocus={onEmailFocus}
-            onBlur={emailValidation}
+            onChange={emailValidation}
+            /* onFocus={onEmailFocus}
+            onBlur={emailValidation} */
             value={email}
             error={emailError}
             errorText={'email некорректный'}

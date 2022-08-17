@@ -29,6 +29,10 @@
   color: #ffff;
 }
 
+.header__menuItemLink_inactive {
+  color: #8585AD;
+}
+
 .header__logo {
  display: flex;
  align-items: center;

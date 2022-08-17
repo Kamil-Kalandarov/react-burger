@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { store } from "../../services/store";
 import styles from './profilePage.module.css';
 import Form from "../../components/Form/Form";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,22 +15,19 @@ import RequestInfo from "../../components/RequestInfo/RequestInfo";
 
 export const ProfilePage = () => {
 
-  const user = useSelector(store => store.getUser.user)
-  const { updateUserRequest, updateUserSuccess, updateUserFailed } = useSelector(store => store.updateUserData)
+  const {user, updateUserRequest, updateUserSuccess, updateUserFailed } = useSelector(store => store.user)
   const dispatch = useDispatch();
 
   const [userName, setUserName] = useState('');
-  const [userNameError, setUserNameError] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
   const [buttonIsVisible, setButtonsVisible] = useState(false)
   const [requestInfo, setRequestInfo] = useState(false)
 
   useEffect(() => {
     setUserName(user.name)
     setEmail(user.email)
-  })
+  }, [])
 
   const exitProfile = useCallback(() => {
     dispatch(logout())
@@ -68,28 +66,10 @@ export const ProfilePage = () => {
       e.preventDefault()
       setUserName(user.name)
       setEmail(user.email)
-      setPasswordError('')
+      setPassword('')
       setButtonsVisible(false)
     }
   )
-
-  const userNameValidation = useCallback(() => {
-    userName.length < 3 ? setUserNameError(true) : setUserNameError(false)
-  }, [userName]);
-
-  const passwordValidation = useCallback(() => {
-    password.length < 6 ? setPasswordError(true) : setPasswordError(false)
-  }, [password])
-
-  const onNameFocus = useCallback(() => {
-    setUserNameError(false);
-  });
-  const onPasswordFocus = useCallback(() => {
-    setPasswordError(false);
-  });
-  
-  const buttonDisabled = email && userName && password && !userNameError 
-    && !passwordError && password.length >= 6 ? false : true
 
   const handleClose = useCallback(() => {
     setRequestInfo(false)
@@ -131,10 +111,7 @@ export const ProfilePage = () => {
               type={'text'}
               placeholder={'Имя'}
               onChange={onInputNameChange}
-              onFocus={onNameFocus}
-              onBlur={userNameValidation}
               value={userName}
-              error={userNameError}
               errorText={'имя слишком короткое'}
               size={'default'}
               icon={'EditIcon'}
@@ -153,10 +130,7 @@ export const ProfilePage = () => {
               type={'text'}
               placeholder={'Пароль'}
               onChange={onInputPasswordChange}
-              onFocus={onPasswordFocus}
-              onBlur={passwordValidation}
               value={password}
-              error={passwordError}
               errorText={'Пароль слишком короткий'}
               size={'default'}
               icon={'EditIcon'}
@@ -165,7 +139,7 @@ export const ProfilePage = () => {
           {buttonIsVisible && (
           <div className={styles.profilePage__formButtons}>
             <Button type='secondary' size='medium' onClick={handleCancel}>Отмена</Button>
-            <Button type='primary' size='medium' disabled={buttonDisabled}>Сохранить</Button>
+            <Button type='primary' size='medium'>Сохранить</Button>
           </div> 
           )}     
         </Form>)

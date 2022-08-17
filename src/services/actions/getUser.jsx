@@ -1,5 +1,3 @@
-
-
 import { apiConfig } from "../../constans/apiConfig";
 import { getCookie, setCookie } from "../../utils/coockie";
 import { checkResponse } from "../api";
@@ -8,6 +6,11 @@ import { checkResponse } from "../api";
 export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
+
 
 export const refreshTokenRequest = (refreshToken) => {
   return {
@@ -63,10 +66,6 @@ export const fetchWithRefresh = async(url, options) => {
     }
   }
 }
-
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 export const getUserRequest = () => {
   return {
