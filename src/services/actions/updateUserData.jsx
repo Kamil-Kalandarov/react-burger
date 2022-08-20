@@ -41,7 +41,7 @@ export function updateUserData(name, email, password) {
       })
     })
     .then(checkResponse)
-    .then((response) => dispatch(updateUserSuccess(response.user)))
-    .catch(dispatch(updateUserFailed()))
+    .then((response) => dispatch(updateUserSuccess(response)))
+    .catch(() => dispatch(updateUserFailed()))
   }
 }

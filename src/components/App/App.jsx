@@ -17,7 +17,6 @@ import {
 import { checkUserAuth } from '../../services/actions/getUser';
 import { useDispatch } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
-import OrderDetails from '../OrderDetails/OrderDetails';
 
 
 

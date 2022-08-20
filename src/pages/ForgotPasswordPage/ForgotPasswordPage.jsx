@@ -40,7 +40,6 @@ export const ForgotPasswordPage = () => {
       .then(checkResponse)
       .then(setIsLoading(false))
       .then(setCanResetPassword(true))
-      .then((response) => console.log(response))
       .catch((err) => console.log(err.status))
     }
   );

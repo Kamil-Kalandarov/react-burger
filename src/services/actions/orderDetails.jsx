@@ -38,6 +38,6 @@ export function postOrder (orderedIngredients) {
     })
     .then(checkResponse)
     .then((response) => dispatch(getOrderDetailsSuccess(response.order.number)))
-    .catch(dispatch(getOrderDetailsFailed()))
+    .catch(() => dispatch(getOrderDetailsFailed()))
   }
 }

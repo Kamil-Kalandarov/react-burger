@@ -34,8 +34,6 @@ const BurgerConstructor = () => {
     return (bun ? bun.price * 2 : 0) + fillings.reduce((prev, next) => prev + next.price, 0);
   }, [bun, fillings]);
 
-  const fillingsIds = fillings.map((filling) => filling.id)
-
   const handleDrop = useCallback((ingredient) => {
     dispatch(addIngredient(ingredient))
   })

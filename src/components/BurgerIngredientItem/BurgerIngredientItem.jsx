@@ -11,20 +11,6 @@ import { openIngredientDetailsModal } from "../../services/actions/ingredientDet
 const BurgerIngredientItem = ({ ingredient, counter }) => {
 
   const location = useLocation();
-  /* console.log('location', location); */
-
-  /* const dispatch = useDispatch() */;
-
-  /* const [isIngredientsDetailsOpened, setIsIngredientsDetailsOpened] = useState(false); */
-
-/*   const handleIngredientClick = (ingredient) => {
-    dispatch(openIngredientDetailsModal(ingredient))
-    setIsIngredientsDetailsOpened(true)
-  }; */
-
-  /* const closeIngredientModal = () => {
-    setIsIngredientsDetailsOpened(false)
-  }; */
 
   const [{ isDragging }, dragRef] = useDrag({
     type: 'ingredient',
@@ -34,19 +20,18 @@ const BurgerIngredientItem = ({ ingredient, counter }) => {
     })
   });
 
- /*  const opacity = isDragging ? 0 : 1 */
+  const opacity = isDragging ? 0 : 1
 
   return (
     <>
-      <li className='pl-4 pr-2 pb-10'  /* style={{opacity}} */>
+      <li className='pl-4 pr-2 pb-10'  style={{opacity}}>
         <Link 
           className={styles.cardElement__link} 
           to={{
             pathname: `/ingredients/${ingredient._id}`,
             state: { background: location }
           }}>
-          <article className={styles.cardElement} 
-            /* onClick={() => handleIngredientClick(ingredient)} */ ref={dragRef}>
+          <article className={styles.cardElement} ref={dragRef}>
             <Counter count={counter} size="default" />
             <div className='pl-4 pb-1 pr-4'>
               <img src={ingredient.image}/>
@@ -59,11 +44,6 @@ const BurgerIngredientItem = ({ ingredient, counter }) => {
           </article>
         </Link>
       </li>
- {/*    {isIngredientsDetailsOpened && (
-      <Modal onCloseClick={closeIngredientModal}>
-        <IngredientDetails />
-      </Modal>
-    )} */}
     </>
   )
 };

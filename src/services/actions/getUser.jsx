@@ -33,7 +33,7 @@ export const refreshTokenFailed = () => {
 }
 
 export const refreshToken  = () => {
-  fetch(`${apiConfig.baseUrl}/auth/token`, {
+  return fetch(`${apiConfig.baseUrl}/auth/token`, {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify({
@@ -42,11 +42,11 @@ export const refreshToken  = () => {
   })
   .then(checkResponse)
   .then((response) => {
-    if (!response.succcess) {
+    if (!response.success) {
       return Promise.reject(response)
     }
     localStorage.setItem('refreshToken', response.refreshToken)
-    setCookie('accessToken', response.accessToken.split(('Bearer ')[1]))
+    setCookie('accessToken', response.accessToken.split('Bearer ')[1])
     return response
   })
 }
@@ -56,7 +56,7 @@ export const fetchWithRefresh = async(url, options) => {
     const response = await fetch(url, options)
     return await checkResponse(response)
   } catch (err) {
-    if (err.message = 'jwt expired') {
+    if (err.message === 'jwt expired') {
       const refreshData = await refreshToken()
       options.headers.authorization = refreshData.accessToken
       const response = await fetch(url, options)
@@ -97,7 +97,7 @@ export function getUser () {
       },
     })
     .then((response) => dispatch(getUserSuccess(response.user)))
-    .catch(dispatch(getUserFailed()))
+    .catch(() => dispatch(getUserFailed()))
   }
 }
 
@@ -117,7 +117,7 @@ export const checkUserAuth = () => {
       .finally(() => {
         dispatch(userAuthChek())
       })
-    dispatch(userAuthChek())
+      dispatch(userAuthChek())
     };
   };
 }

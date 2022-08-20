@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './ingredientDetails.module.css';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../services/store";
 import { useParams } from "react-router-dom";
+import { getInitialIngredients } from "../../services/actions/initialIngredients";
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const IngredientDetails = () => {
   
-  const {ingredientId} = useParams()
+  const { ingredientId } = useParams()
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getInitialIngredients())
+  }, [dispatch])
+
   const ingredients = useSelector(store => store.initialIngredients.ingredients)
-  /* console.log('ingredients', ingredients); */
   const ingredient = ingredients.find((ingredient) => ingredient._id === ingredientId)
-  /* console.log('ingredient', ingredient); */
+  console.log(ingredient)
 
   return (
     <div className={`${styles.ingredientDetails} pt-10 pb-15 pl-10 pr-10`}>

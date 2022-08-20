@@ -51,6 +51,6 @@ export function createUser(name, email, password) {
         createUserSuccess(response)
       }
     })
-    .catch(dispatch(createUserFailed()))
+    .catch(() => dispatch(createUserFailed()))
   }
 }

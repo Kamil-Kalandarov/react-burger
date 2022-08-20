@@ -33,34 +33,29 @@ export const ProfilePage = () => {
     dispatch(logout())
   });
 
-  const onInputNameChange = useCallback((e) => {
+  const onInputNameChange = (e) => {
       const newNameValue = e.target.value
       setUserName(newNameValue)
       setButtonsVisible(true)
-    }
-  );
+  };
 
-  const onInputEmailChange = useCallback((e) => {
+  const onInputEmailChange = (e) => {
       const newEmailValue = e.target.value
       setEmail(newEmailValue)
       setButtonsVisible(true)
-    }
-  );
+  };
 
-  const onInputPasswordChange = useCallback((e) => {
+  const onInputPasswordChange = (e) => {
       const newPasswordValue = e.target.value
       setPassword(newPasswordValue)
       setButtonsVisible(true)
-    }
-  );
+  };
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = (e) => {
       e.preventDefault()
       dispatch(updateUserData(userName, email, password))
       setRequestInfo(true)
-    },
-    [dispatch, userName, email, password]
-  );
+  };
 
   const handleCancel = useCallback((e) => {
       e.preventDefault()
@@ -69,7 +64,7 @@ export const ProfilePage = () => {
       setPassword('')
       setButtonsVisible(false)
     }
-  )
+  );
 
   const handleClose = useCallback(() => {
     setRequestInfo(false)
