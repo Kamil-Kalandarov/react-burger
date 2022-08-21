@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import styles from './burgerIngredientItem.module.css';
-import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { openIngredientDetailsModal } from "../../services/actions/ingredientDetails";
 
 const BurgerIngredientItem = ({ ingredient, counter }) => {
 

@@ -32,42 +32,6 @@ const ProtectedRoute = ({ onlyUnAuth = false, children, ...rest }) => {
   return (
     <Route {...rest}>{children}</Route>
   )
-
-  /* return (
-    <Route
-      {...rest}
-      render={() =>
-        user ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location }
-            }}
-          />
-        )
-      }
-    />
-  ); */
-
-  /* if (!userAuthCheck) {
-    return <Preloader />
-  }
-
-  if (user) {
-    return  <Redirect to='/profile' />
-  }
-
-  if (!user) {
-    return <Redirect to={{
-      pathname: '/login',
-      state: {from: location}
-    }}/>
-  }
-
-  return <Route {...rest}>{children}</Route> */
-
 }
 
 export default ProtectedRoute;

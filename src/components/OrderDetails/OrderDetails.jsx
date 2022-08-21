@@ -34,9 +34,4 @@ const OrderDetails = () => {
     }
 };
 
- /* Проверка типов данных, полученных на вход */
-/* OrderDetails.propTypes = {
-  currentOrderNumber: PropTypes.object.isRequired
-};  */
-
 export default OrderDetails;

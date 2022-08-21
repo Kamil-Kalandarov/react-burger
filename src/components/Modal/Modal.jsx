@@ -4,7 +4,6 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './modal.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import PropTypes from "prop-types";
-import { useLocation } from 'react-router-dom';
 
 const reactModalCOntainer = document.querySelector('#react-modals')
 

@@ -6,7 +6,7 @@ import { store } from "../../services/store";
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const RequestInfo = () => {
   
-  const { updateUserRequest, updateUserSuccess, updateUserFailed } = useSelector(store => store.user)
+  const { updateUserRequest, updateUserFailed } = useSelector(store => store.user)
 
   return (
     <div className={`${styles.requestInfo} pt-10 pb-15 pl-10 pr-10`}>
