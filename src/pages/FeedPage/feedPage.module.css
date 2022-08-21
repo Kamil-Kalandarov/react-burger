@@ -1,0 +1,19 @@
+.feed {
+  display: grid;
+}
+
+.feed__cardsWrapper {
+  max-width: 600px;
+  max-height: 716px;
+  overflow:auto;
+  margin-bottom: 40px;
+}
+
+.feed__cardsWrapper::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.feed__cardsWrapper::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+} 

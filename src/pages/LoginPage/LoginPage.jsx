@@ -36,6 +36,8 @@ export const LoginPage = () => {
     newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
 
+
+
   const buttonDisabled = email && password && !emailError ? false : true
 
   if(user !== null) {

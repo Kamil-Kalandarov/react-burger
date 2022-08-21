@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import styles from './burgerIngredients.module.css';
 import Tabs from '../Tabs/Tabs';
-import IngredientsItemsList from '../IngredientsItemsList/IngredientsItemsList';
+import IngredientsItemsList from './IngredientsItemsList/IngredientsItemsList';
 
 /* Выбор ингредиентов для бургера */
 const BurgerIngredients = () => {
