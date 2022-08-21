@@ -1,19 +1,12 @@
-.feed {
+.feedPage {
+  max-height: 100vh;
+  margin: 0 auto;
   display: grid;
 }
 
-.feed__cardsWrapper {
-  max-width: 600px;
-  max-height: 716px;
-  overflow:auto;
-  margin-bottom: 40px;
+.feedPage__gridComponent {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
-
-.feed__cardsWrapper::-webkit-scrollbar {
-  width: 8px;
-  background-color: #2F2F37;
-}
-
-.feed__cardsWrapper::-webkit-scrollbar-thumb {
-  background-color: #8585AD;
-} 

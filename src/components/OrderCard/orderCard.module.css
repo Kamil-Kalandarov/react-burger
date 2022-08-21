@@ -1,0 +1,8 @@
+.orderCard {
+  max-width: 584px;
+  max-height: 214px;
+}
+
+.orderCard__ingredientsList {
+  list-style: none;
+}

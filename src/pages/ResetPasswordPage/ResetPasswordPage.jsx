@@ -12,6 +12,7 @@ import InputSection from "../../components/Form/InputSection/InputSection";
 import { Link } from "react-router-dom";
 import Preloader from "../../components/Preloader/Preloader";
 import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const ResetPasswordPage = () => {
 
@@ -19,6 +20,8 @@ export const ResetPasswordPage = () => {
   const [token, setToken] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordReseted, setIsPasswordReseted] = useState(false);
+
+  const forgotPasswordSuccess = useSelector(store => store.user.forgotPasswordSuccess)
 
   const handleSubmit = useCallback(
     (e) => {
@@ -44,7 +47,14 @@ export const ResetPasswordPage = () => {
     return (
       <Redirect to={{pathname: '/login'}}/>
     )
+  };
+
+  if (!forgotPasswordSuccess) {
+    return (
+      <Redirect to={"/forgot-password"} />
+    )
   }
+
 
   return (
     <main className={styles.resetPasswordPage}>

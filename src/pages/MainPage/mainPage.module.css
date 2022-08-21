@@ -4,7 +4,7 @@
   display: grid;
 }
 
-.mainPage__flexComponents {
+.mainPage__gridComponent {
   max-width: 1240px;
   margin: 0 auto;
   display: grid;

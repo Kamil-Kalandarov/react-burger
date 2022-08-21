@@ -8,8 +8,12 @@ import { apiConfig } from "../../constans/apiConfig";
 import { checkResponse } from "../../services/api";
 import { emailRegExp } from "../../utils/validation";
 import Preloader from '../../components/Preloader/Preloader'
+import { forgotPassword } from "../../services/actions/forgotPassword";
+import { useDispatch } from "react-redux";
 
 export const ForgotPasswordPage = () => {
+
+  const dispatch = useDispatch()
 
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
@@ -22,11 +26,14 @@ export const ForgotPasswordPage = () => {
     newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
 
- /*  const onEmailFocus = useCallback(() => {
-    setEmailError(false);
-  }); */
 
-  const handleSubmit = useCallback(
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault(e)
+    dispatch(forgotPassword(email))
+    setCanResetPassword(true)
+  });
+
+  /* const handleSubmit = useCallback(
     (e) => {
       e.preventDefault(e);
       setIsLoading(true)
@@ -42,13 +49,13 @@ export const ForgotPasswordPage = () => {
       .then(setCanResetPassword(true))
       .catch((err) => console.log(err.status))
     }
-  );
+  ); */
 
   const buttonDisabled = email && !emailError ? false : true
 
   if(canResetPassword) {
     return (
-      <Redirect to={{pathname: '/reset-password'}}/>
+      <Redirect to={'/reset-password'} />
     )
   }
 
@@ -63,8 +70,6 @@ export const ForgotPasswordPage = () => {
             type={'email'}
             placeholder={'укажите e-mail'}
             onChange={emailValidation}
-            /* onFocus={onEmailFocus}
-            onBlur={emailValidation} */
             value={email}
             error={emailError}
             errorText={'email некорректный'}

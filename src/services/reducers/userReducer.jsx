@@ -29,6 +29,12 @@ import {
   LOGOUT_FAILED
 } from '../actions/logout';
 
+import {
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILED
+} from '../actions/forgotPassword';
+
 const userInitialState = {
   user: null,
   
@@ -53,6 +59,10 @@ const userInitialState = {
   logoutRequest: false,
   logoutSuccess: false,
   logoutFailed: false,
+
+  forgotPasswordRequest: false,
+  forgotPasswordSuccess: false,
+  forgotPasswordFailed: false
 }
 
 export const userReducer = (state = userInitialState, action) => {
@@ -170,6 +180,27 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         logoutRequest: false,
         logoutFailed: true,
+      }
+    }
+
+    case FORGOT_PASSWORD_REQUEST: { 
+      return {
+        ...state,
+        forgotPasswordRequest: true,
+      }
+    }
+    case FORGOT_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        forgotPasswordRequest: false,
+        forgotPasswordSuccess: true,
+      }
+    }
+    case FORGOT_PASSWORD_FAILED: {
+      return {
+        ...state,
+        forgotPasswordRequest: false,
+        forgotPasswordFailed: true,
       }
     }
 
