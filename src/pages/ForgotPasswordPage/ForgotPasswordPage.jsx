@@ -4,8 +4,6 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import Form from "../../components/Form/Form";
 import InputSection from "../../components/Form/InputSection/InputSection";
 import { Link, Redirect } from "react-router-dom";
-import { apiConfig } from "../../constans/apiConfig";
-import { checkResponse } from "../../services/api";
 import { emailRegExp } from "../../utils/validation";
 import Preloader from '../../components/Preloader/Preloader'
 import { forgotPassword } from "../../services/actions/forgotPassword";
@@ -32,24 +30,6 @@ export const ForgotPasswordPage = () => {
     dispatch(forgotPassword(email))
     setCanResetPassword(true)
   });
-
-  /* const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault(e);
-      setIsLoading(true)
-      fetch(`${apiConfig.baseUrl}/password-reset`, {
-        method: 'POST',
-        headers: apiConfig.headers,
-        body: JSON.stringify({
-          'email': email
-        })
-      })
-      .then(checkResponse)
-      .then(setIsLoading(false))
-      .then(setCanResetPassword(true))
-      .catch((err) => console.log(err.status))
-    }
-  ); */
 
   const buttonDisabled = email && !emailError ? false : true
 

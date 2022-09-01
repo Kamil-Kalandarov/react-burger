@@ -203,7 +203,6 @@ export const userReducer = (state = userInitialState, action) => {
         forgotPasswordFailed: true,
       }
     }
-
     default: {
       return state
     }

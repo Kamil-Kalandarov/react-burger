@@ -3,28 +3,23 @@
   grid-template-rows: min-content min-content;
 }
 
-.orders__ordersWrapper {
-  max-width: 600px;
-  max-height: 716px;
-  overflow:auto;
-  margin-bottom: 40px;
-}
-
 .orders__ordersList {
-  max-width: 600px;
+  display: grid;
+  gap: 16px;
+  width: 594px;
+  overflow: auto;
+  margin-bottom: 40px;
+  padding-right: 8px;
   max-height: 716px;
   list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 0;
+  padding-left: 0;
 }
 
-.orders__ordersWrapper::-webkit-scrollbar {
+.orders__ordersList::-webkit-scrollbar {
   width: 8px;
   background-color: #2F2F37;
 }
 
-.orders__ordersWrapper::-webkit-scrollbar-thumb {
+.orders__ordersList::-webkit-scrollbar-thumb {
   background-color: #8585AD;
 } 

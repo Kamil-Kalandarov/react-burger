@@ -17,6 +17,8 @@ import {
 import { checkUserAuth } from '../../services/actions/getUser';
 import { useDispatch } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
+import OrderInfo from '../OrderInfo/OrderInfo';
+import { OrderInfoPage } from '../../pages/OrderInfoPage/OrderInfoPage';
 
 
 
@@ -33,7 +35,7 @@ const App = () => {
     dispatch(checkUserAuth())
   }, [dispatch])
 
-  const closeIngredientModal = useCallback(() => {
+  const closeModal = useCallback(() => {
     history.goBack()
   }, [history])
 
@@ -43,9 +45,6 @@ const App = () => {
       <Switch location={background || location}>
         <Route path='/' exact>
           <MainPage />
-        </Route>
-        <Route path='/feed' exact>
-          <FeedPage />
         </Route>
         <ProtectedRoute path='/profile' exact>
           <ProfilePage />
@@ -65,14 +64,29 @@ const App = () => {
         <Route path='/ingredients/:ingredientId' exact>
           <IngredientDetailsPage />
         </Route>
+        <Route path='/feed' exact>
+          <FeedPage />
+        </Route>
+        <Route path='/order-info' exact>
+          <OrderInfoPage />
+        </Route>
       </Switch>
+
       {background &&
         <Route path='/ingredients/:ingredientId' exact>
-          <Modal onCloseClick={closeIngredientModal}>
+          <Modal onCloseClick={closeModal}>
             <IngredientDetails />
           </Modal>
         </Route>
       }
+
+      {/* {background &&
+        <Route path='/feed/:orderId' exact>
+          <Modal onCloseClick={closeModal}>
+            <OrderInfo />
+          </Modal>
+        </Route>
+      } */}
     </>
   );
 }
