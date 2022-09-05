@@ -5,9 +5,4 @@ export const apiConfig = {
   }
 };
 
-export const wsApiConfig = {
-  baseUrl: 'wss://norma.nomoreparties.space/orders/all',
-  headers: {
-    'content-Type': 'application/json;charset=utf-8'
-  }
-}
+export const wsUrl = 'wss://norma.nomoreparties.space/orders/all';

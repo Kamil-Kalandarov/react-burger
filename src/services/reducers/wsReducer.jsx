@@ -50,7 +50,8 @@ export const wsReducer = (state = wsInitialState, action) => {
     case WS_GET_DATA: {
       return {
         ...state,
-        orders: action.payload.orders
+        orders: action.payload.orders,
+        total: action.payload.total
       }
     }
     default: {

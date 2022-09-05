@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { rootReducer } from './reducers/rootReducer';
 import { socketMiddleware } from './middleware/socket-middleware';
 import { 
-  wsStart, 
+  WS_CONNECTION_START,
   wsSuccess, 
   wsFailed, 
   wsClosed, 
@@ -11,7 +11,7 @@ import {
 } from './actions/ws';
 
  const wsActions = {
-  wsStart: wsStart,
+  wsStart: WS_CONNECTION_START,
   wsSuccess: wsSuccess,
   wsFailed: wsFailed,
   wsClosed: wsClosed,

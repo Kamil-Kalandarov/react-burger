@@ -6,7 +6,8 @@ export const socketMiddleware = (wsActions) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
       const { wsStart, wsSuccess, wsFailed, wsClosed, wsGetOrder } = wsActions;
-      if (type === wsStart) {
+
+      if (type === wsStart.toString()) {
         console.log('wsStart');
         socket = new WebSocket(payload);
       }

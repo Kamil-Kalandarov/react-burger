@@ -43,17 +43,6 @@
 }
 
 .orderCard__ingredient {
-  /* width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  background: linear-gradient(#1c1c21, #1c1c21) padding-box,
-    linear-gradient(45deg, #801ab2, #4c4cff) border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px;
-  box-sizing: border-box; */
   margin-left: -16px;
 }
 

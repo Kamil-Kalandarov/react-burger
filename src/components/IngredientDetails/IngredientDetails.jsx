@@ -10,7 +10,6 @@ const IngredientDetails = () => {
 
   const ingredients = useSelector(store => store.initialIngredients.ingredients)
   const ingredient = ingredients.find((ingredient) => ingredient._id === ingredientId)
-  console.log(ingredient)
 
   return (
     <div className={`${styles.ingredientDetails} pt-10 pb-15 pl-10 pr-10`}>
