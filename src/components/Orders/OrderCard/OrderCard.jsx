@@ -22,14 +22,13 @@ const OrderCard = ({ order }) => {
   }, [order.ingredients, initialIngredients]);
 
 
-
   return (
     <li className={styles.orderCard}>
       <Link 
           className={styles.orderCard__link} 
           to={{
-            pathname: `/order/${order._id}`,
-            state: { background: location }
+            pathname: `/feed/${order._id}`,
+            /* state: { background: location } */
           }}>
         <article className={`${styles.orderCard__card} pt-6 pb-6 pl-6 pr-6`}>
           <div className={styles.orderCard__header}>

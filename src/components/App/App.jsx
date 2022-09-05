@@ -67,7 +67,7 @@ const App = () => {
         <Route path='/feed' exact>
           <FeedPage />
         </Route>
-        <Route path='/order-info' exact>
+        <Route path='/feed/:orderId' exact>
           <OrderInfoPage />
         </Route>
       </Switch>
@@ -80,7 +80,7 @@ const App = () => {
         </Route>
       }
 
-      {/* {background &&
+     {/*  {background &&
         <Route path='/feed/:orderId' exact>
           <Modal onCloseClick={closeModal}>
             <OrderInfo />
