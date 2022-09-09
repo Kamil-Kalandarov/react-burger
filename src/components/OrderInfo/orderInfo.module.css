@@ -25,18 +25,6 @@
   max-height: 304px;
 }
 
-/* .orders__ordersList {
-  display: grid;
-  gap: 16px;
-  width: 594px;
-  overflow: auto;
-  margin-bottom: 40px;
-  padding-right: 8px;
-  max-height: 716px;
-  list-style: none;
-  padding-left: 0;
-}
- */
 .orderInfo__ingredientsList::-webkit-scrollbar {
   width: 8px;
   background-color: #2F2F37;
@@ -45,11 +33,6 @@
 .orderInfo__ingredientsList::-webkit-scrollbar-thumb {
   background-color: #8585AD;
 } 
-
-
-
-
-
 
 .orderInfo__totalPrice {
   display: flex;

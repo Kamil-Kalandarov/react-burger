@@ -5,21 +5,30 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import IngredientOrderIcon from "../../IngredientOrderIcon/IngredientOrderIcon";
 import { useSelector } from "react-redux";
 import { formatDate } from "../../../utils/formatDate";
+import LastIngredientOrderIcon from "../../IngredientOrderIcon/LastIngredientOrderIcon/LastIngredientOrderIcon";
 
 const OrderCard = ({ order }) => {
 
   const initialIngredients = useSelector(store => store.initialIngredients.ingredients)
+  
   const location = useLocation();
 
-  const getIngredientsId = (() => {
-    return (
-      Array.from(order.ingredients.map((ingredientId) => {
-        return initialIngredients.find((ingredient) => {
+  const getIngredientsId = useMemo(() => {
+    return  order?.ingredients.map((ingredientId) => {
+        return initialIngredients?.find((ingredient) => {
           return ingredientId === ingredient._id
         })
-      }))
-    )
-  }, [order.ingredients, initialIngredients]);
+      })
+  }, [order?.ingredients, initialIngredients]);
+
+  const totalOrder = useMemo(() => {
+    return getIngredientsId?.reduce((prev, next) => {
+      if (next?.type === "bun") {
+        return (prev += next.price * 2);
+      }
+      return (prev += next ? next.price : 0);
+    }, 0);
+  }, [getIngredientsId]);
 
 
   return (
@@ -28,34 +37,38 @@ const OrderCard = ({ order }) => {
           className={styles.orderCard__link} 
           to={{
             pathname: `/feed/${order._id}`,
-            /* state: { background: location } */
+            state: { background: location }
           }}>
         <article className={`${styles.orderCard__card} pt-6 pb-6 pl-6 pr-6`}>
           <div className={styles.orderCard__header}>
             <p className={`${styles.orderCard__number} text text_type_digits-default`}>#{order.number}</p>
-            <p className={`${styles.orderCard__date} text text_type_main-default text_color_inactive`}>
+            <p className='text text_type_main-default text_color_inactive'>
               {formatDate(order.createdAt)}
             </p>
           </div>
-          <h3 className={`${styles.orderCard__name} text ext_type_main-medium`}>{order.name}</h3>
+          <h3 className={`${styles.orderCard__name} text text_type_main-medium`}>{order.name}</h3>
           <div className={styles.orderCard__orderedBurgerInfo}>
             <ul className={styles.orderCard__ingredientsList}>
-              {getIngredientsId[0].map((ingredient, index) => {
-                return (
-                  <li className={styles.orderCard__ingredient} key={index}>
-                    <IngredientOrderIcon ingredientImg={ingredient.image_mobile}/>
-                  </li>
-                )
+              {Array.from(new Set(getIngredientsId))?.map((ingredient, index) => {
+                if (index < 5) {
+                  return (
+                    <li className={styles.orderCard__ingredient} 
+                        key={index} 
+                        style={{zIndex: `${getIngredientsId.length - index}`}}>
+                      <IngredientOrderIcon ingredient={ingredient}/>
+                    </li>
+                )}
+                if (index === 6) {
+                  return (
+                    <li className={styles.orderCard__ingredient} key={index}>
+                      <LastIngredientOrderIcon ingredient={ingredient} getIngredientsId={getIngredientsId}/>  
+                    </li>
+                  )
+                }
               })}
             </ul>
             <div className={styles.orderCard__price}>
-              <p className='text text_type_digits-default pt-1'>
-                { getIngredientsId.reduce((prev, next) => {
-                  return (
-                    prev + next.price * next.price, 0
-                  )}
-                )}
-              </p>
+              <p className='text text_type_digits-default pt-1'>{totalOrder}</p>
               <CurrencyIcon type='primary'/>
             </div>
           </div>

@@ -15,7 +15,12 @@
 }
 
 .orderCard__ingredientsList {
-  list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  max-width: 305px;
+  overflow: hidden;
 }
 
 .orderCard__header {
@@ -30,16 +35,14 @@
   margin: 0;
 }
 
+.orderCard__name {
+  max-height: 30px;
+  overflow: hidden;
+}
+
 .orderCard__orderedBurgerInfo {
   display: flex;
   justify-content: space-between;
-}
-
-.orderCard__ingredientsList {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .orderCard__ingredient {
@@ -47,7 +50,20 @@
 }
 
 .orderCard__ingredient:first-child {
-  margin: 0;
+  margin-left: 0;
+}
+
+.orderCard__ingredient_last {
+  position: absolute;
+  background-color: #131316;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
 .orderCard__price {
