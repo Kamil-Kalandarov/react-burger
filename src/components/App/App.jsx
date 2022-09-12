@@ -15,13 +15,15 @@ import {
   IngredientDetailsPage
 } from '../../pages/pages';
 import { checkUserAuth } from '../../services/actions/getUser';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
 import OrderInfo from '../OrderInfo/OrderInfo';
 import { OrderInfoPage } from '../../pages/OrderInfoPage/OrderInfoPage';
 
 
 const App = () => {
+
+  const orders = useSelector(store => store.ws.orders)
   
   const dispatch = useDispatch();
   const history = useHistory();
@@ -79,13 +81,13 @@ const App = () => {
         </Route>
       }
 
-      {/* {background &&
+      {background &&
         <Route path='/feed/:orderNumber' exact>
           <Modal onCloseClick={closeModal}>
-            <OrderInfo />
+            <OrderInfo orders={orders}/>
           </Modal>
         </Route>
-      } */}
+      }
     </>
   );
 }

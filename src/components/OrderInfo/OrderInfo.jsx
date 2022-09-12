@@ -35,7 +35,7 @@ const OrderInfo = ({ orders }) => {
         })}
       </ul>
       <div className={`${styles.orderInfo__footer} mt-10`}>
-        <p className='text text_type_main-default text_color_inactive'>{/* {formatDate(order?.createdAt)} */}</p>
+        <p className='text text_type_main-default text_color_inactive'>{formatDate(order?.createdAt)}</p>
         <div className={styles.orderInfo__totalPrice}>
           <span className='text text_type_digits-default'>510</span>
           <CurrencyIcon type='primary'/>

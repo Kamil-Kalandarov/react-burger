@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   align-self: center;
-  max-width: 640px;
-  max-height: 620px;
+  padding: 40px 40px 60px 40px;
 }
 
 .orderInfo__number {
@@ -20,7 +19,7 @@
   list-style: none;
   overflow: auto;
   gap: 16px;
-  padding-left: 0;
+  padding: 0;
   margin: 0;
   max-height: 304px;
 }
