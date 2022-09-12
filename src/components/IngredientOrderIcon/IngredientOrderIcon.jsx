@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './ingredientOrderIcon.module.css';
 
-const IngredientOrderIcon = ({ingredient}) => {
+const IngredientOrderIcon = ({ ingredient }) => {
+  
   return (
     <div className={styles.ingredientOrderIconContainer}>
-      <img className={styles.ingredientOrderIconContainer__icon} src={ingredient.image} alt='ингредиент' />
+      <img className={styles.ingredientOrderIconContainer__icon} src={ingredient?.image_mobile} alt='ингредиент' />
     </div>
   );
 };

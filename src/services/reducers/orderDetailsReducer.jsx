@@ -25,7 +25,7 @@ export const orderDetailsRducer = (state = orderDetailsInitialState, action) => 
       return {
         ...state,
         orederRequest: false,
-        orderSuccess: 'success',
+        orderSuccess: true,
         currentOrderNumber: action.payload
       }
     }

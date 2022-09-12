@@ -36,17 +36,17 @@ const OrderCard = ({ order }) => {
       <Link 
           className={styles.orderCard__link} 
           to={{
-            pathname: `/feed/${order._id}`,
+            pathname: `/feed/${order.number}`,
             state: { background: location }
           }}>
         <article className={`${styles.orderCard__card} pt-6 pb-6 pl-6 pr-6`}>
           <div className={styles.orderCard__header}>
-            <p className={`${styles.orderCard__number} text text_type_digits-default`}>#{order.number}</p>
+            <p className={`${styles.orderCard__number} text text_type_digits-default`}>#{order?.number}</p>
             <p className='text text_type_main-default text_color_inactive'>
-              {formatDate(order.createdAt)}
+              {formatDate(order?.createdAt)}
             </p>
           </div>
-          <h3 className={`${styles.orderCard__name} text text_type_main-medium`}>{order.name}</h3>
+          <h3 className={`${styles.orderCard__name} text text_type_main-medium`}>{order?.name}</h3>
           <div className={styles.orderCard__orderedBurgerInfo}>
             <ul className={styles.orderCard__ingredientsList}>
               {Array.from(new Set(getIngredientsId))?.map((ingredient, index) => {

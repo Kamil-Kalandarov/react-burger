@@ -21,23 +21,22 @@ import OrderInfo from '../OrderInfo/OrderInfo';
 import { OrderInfoPage } from '../../pages/OrderInfoPage/OrderInfoPage';
 
 
-
 const App = () => {
   
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const location = useLocation()
-  const background = location.state?.background
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  const background = location.state?.background;
 
 
   useEffect(() => {
     dispatch(getInitialIngredients())
     dispatch(checkUserAuth())
-  }, [dispatch])
+  }, [dispatch]);
 
   const closeModal = useCallback(() => {
     history.goBack()
-  }, [history])
+  }, [history]);
 
   return (
     <>
@@ -67,7 +66,7 @@ const App = () => {
         <Route path='/feed' exact>
           <FeedPage />
         </Route>
-        <Route path='/feed/:orderId' exact>
+        <Route path='/feed/:orderNumber' exact>
           <OrderInfoPage />
         </Route>
       </Switch>
@@ -80,8 +79,8 @@ const App = () => {
         </Route>
       }
 
-     {/*  {background &&
-        <Route path='/feed/:orderId' exact>
+      {/* {background &&
+        <Route path='/feed/:orderNumber' exact>
           <Modal onCloseClick={closeModal}>
             <OrderInfo />
           </Modal>

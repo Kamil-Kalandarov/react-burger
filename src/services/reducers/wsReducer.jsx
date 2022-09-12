@@ -51,7 +51,8 @@ export const wsReducer = (state = wsInitialState, action) => {
       return {
         ...state,
         orders: action.payload.orders,
-        total: action.payload.total
+        total: action.payload.total,
+        totalToday: action.payload.totalToday
       }
     }
     default: {

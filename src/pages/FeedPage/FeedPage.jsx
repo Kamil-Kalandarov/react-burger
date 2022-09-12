@@ -11,18 +11,21 @@ export const FeedPage = () => {
 
   const dispatch = useDispatch()
 
+  const { wsConnecting, wsConnected, orders } = useSelector(store => store.ws)
+
   useEffect(() => {
     dispatch(wsStart(wsUrl))
     return () => {
       dispatch(wsClosed())
     }
-  }, [dispatch])
+  }, [dispatch]);
+
 
   return (
     <section className={styles.feedPage}>
       <main className={styles.feedPage__gridComponent}>
         <Orders />
-        <OrderStatistic />
+        <OrderStatistic />      
       </main>
     </section>
   )
