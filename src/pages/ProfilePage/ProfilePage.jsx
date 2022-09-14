@@ -43,6 +43,7 @@ export const ProfilePage = () => {
           <li>
             <NavLink 
               to='/profile' 
+              exact
               className={`${styles.profilePage__navigationLink} text text_type_main-medium`}
               activeClassName={styles.profilePage__navigationLink_active}>Профиль</NavLink>
           </li>

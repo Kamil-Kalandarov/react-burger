@@ -17,7 +17,7 @@ import {
   UserOrderInfoPage
 } from '../../pages/pages';
 import { checkUserAuth } from '../../services/actions/getUser';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
 import OrderInfo from '../OrderInfo/OrderInfo';
 
@@ -45,7 +45,10 @@ const App = () => {
         <Route path='/' exact>
           <MainPage />
         </Route>
-        <ProtectedRoute path='/profile' exact>
+        <Route path='/profile/orders/:orderNumber' exact>
+          <UserOrderInfoPage />
+        </Route>
+        <ProtectedRoute path='/profile'>
           <ProfilePage />
         </ProtectedRoute>
         <ProtectedRoute onlyUnAuth={true} path='/login' exact>
@@ -68,9 +71,6 @@ const App = () => {
         </Route>
         <Route path='/feed/:orderNumber' exact>
           <OrderInfoPage />
-        </Route>
-        <Route path='/profile/orders/:orderNumber' exact>
-          <UserOrderInfoPage />
         </Route>
       </Switch>
 
