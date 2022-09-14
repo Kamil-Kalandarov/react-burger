@@ -12,14 +12,14 @@ import {
   RegisterPage, 
   ForgotPasswordPage,
   ResetPasswordPage,
-  IngredientDetailsPage
+  IngredientDetailsPage,
+  OrderInfoPage,
+  UserOrderInfoPage
 } from '../../pages/pages';
 import { checkUserAuth } from '../../services/actions/getUser';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
 import OrderInfo from '../OrderInfo/OrderInfo';
-import { OrderInfoPage } from '../../pages/OrderInfoPage/OrderInfoPage';
-import Orders from '../Orders/Orders';
 
 
 const App = () => {
@@ -69,6 +69,9 @@ const App = () => {
         <Route path='/feed/:orderNumber' exact>
           <OrderInfoPage />
         </Route>
+        <Route path='/profile/orders/:orderNumber' exact>
+          <UserOrderInfoPage />
+        </Route>
       </Switch>
 
       {background &&
@@ -81,6 +84,14 @@ const App = () => {
 
       {background &&
         <Route path='/feed/:orderNumber' exact>
+          <Modal onCloseClick={closeModal}>
+            <OrderInfo />
+          </Modal>
+        </Route>
+      }
+
+      {background &&
+        <Route path='/profile/orders/:orderNumber' exact>
           <Modal onCloseClick={closeModal}>
             <OrderInfo />
           </Modal>

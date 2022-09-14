@@ -66,10 +66,10 @@ export const ProfilePage = () => {
       </div>
       <Switch>
         <Route path='/profile' exact>
-          <UserOrders orders={orders}/>
+          <ProfileFrom />
         </Route>
         <Route path='/profile/orders' exact>
-          <ProfileFrom />
+          <UserOrders orders={orders}/>
         </Route>
       </Switch>
     </main>

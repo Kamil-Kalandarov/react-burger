@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './userOrders.module.css';
 import UserOrderCard from "./UserOrderCard/UserOrderCard";
+import Preloader from "../Preloader/Preloader";
 
 const UserOrders = ({orders}) => {
 

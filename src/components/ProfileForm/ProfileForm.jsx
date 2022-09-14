@@ -63,7 +63,7 @@ const ProfileFrom = () => {
   })
 
   return (
-    <>
+    <div className={styles.profileForm}>
       {updateUserRequest && !updateUserFailed ? (<Preloader />) :
       (<Form name='profile' onSubmit={handleSubmit}>
         <InputSection>
@@ -112,7 +112,7 @@ const ProfileFrom = () => {
         </Modal>
       )
       }
-    </>
+    </div>
   )
 };
 

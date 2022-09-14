@@ -30,13 +30,12 @@ const UserOrderCard = ({ order }) => {
     }, 0);
   }, [getIngredientsId]);
 
-
   return (
     <li className={styles.userOrderCard}>
       <Link 
           className={styles.userOrderCard__link} 
           to={{
-            pathname: `/feed/${order.number}`,
+            pathname: `/profile/orders/${order.number}`,
             state: { background: location }
           }}>
         <article className={`${styles.userOrderCard__card} pt-6 pb-6 pl-6 pr-6`}>

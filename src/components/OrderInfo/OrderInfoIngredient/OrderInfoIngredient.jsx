@@ -5,7 +5,7 @@ import IngredientOrderIcon from "../../IngredientOrderIcon/IngredientOrderIcon";
 
 const OrderInfoIngredient = ({ ingredient, myKey, quantity }) => {
 
-  const price = quantity * ingredient.price
+  const price = quantity * ingredient?.price
 
   return (
     <li className={styles.orderInfoIngredient__ingredientItem} key={myKey}>

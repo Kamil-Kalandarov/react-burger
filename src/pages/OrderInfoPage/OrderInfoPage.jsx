@@ -8,7 +8,6 @@ import { wsStart, wsClosed } from "../../services/actions/ws";
 export const OrderInfoPage = () => {
 
   const dispatch = useDispatch();
-  /* const orders = useSelector(store => store.ws.orders) */
 
   useEffect(() => {
     dispatch(wsStart(wsUrl))
@@ -19,7 +18,7 @@ export const OrderInfoPage = () => {
 
   return (
     <section className={styles.orderInfoPage}>
-      <OrderInfo /* orders={orders} *//>
+      <OrderInfo />
     </section>
   ) 
 }

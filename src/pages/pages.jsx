@@ -7,6 +7,7 @@ import { ForgotPasswordPage } from "./ForgotPasswordPage/ForgotPasswordPage";
 import { ResetPasswordPage } from "./ResetPasswordPage/ResetPasswordPage";
 import { IngredientDetailsPage } from "./IngredientDetailsPage/IngredientDetailsPage";
 import { OrderInfoPage } from "./OrderInfoPage/OrderInfoPage";
+import { UserOrderInfoPage } from "./UserOrderInfoPage/UserOrderInfoPage";
 
 export { 
   MainPage, 
@@ -17,5 +18,6 @@ export {
   ForgotPasswordPage, 
   ResetPasswordPage,
   IngredientDetailsPage,
-  OrderInfoPage
+  OrderInfoPage,
+  UserOrderInfoPage
 };
