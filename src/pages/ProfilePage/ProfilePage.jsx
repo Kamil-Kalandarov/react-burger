@@ -13,11 +13,11 @@ import Preloader from "../../components/Preloader/Preloader";
 import Modal from "../../components/Modal/Modal";
 import RequestInfo from "../../components/RequestInfo/RequestInfo"; */
 import ProfileFrom from "../../components/ProfileForm/ProfileForm";
-import Orders from "../../components/Orders/Orders";
 import { Switch, Route } from 'react-router-dom';
 import { wsStart, wsClosed } from "../../services/actions/ws";
 import { wsUserUrl } from "../../constans/apiConfig";
 import { getCookie } from "../../utils/coockie";
+import UserOrders from "../../components/UserOrders/UserOrders";
 
 export const ProfilePage = () => {
 
@@ -38,7 +38,7 @@ export const ProfilePage = () => {
 
   return (
     <main className={styles.profilePage}>
-      <div>
+      <div className={styles.profilePage__navigationContainer}>
         <ul className={styles.profilePage__navigationList}>
           <li>
             <NavLink 
@@ -66,7 +66,7 @@ export const ProfilePage = () => {
       </div>
       <Switch>
         <Route path='/profile' exact>
-          <Orders orders={orders}/>
+          <UserOrders orders={orders}/>
         </Route>
         <Route path='/profile/orders' exact>
           <ProfileFrom />
