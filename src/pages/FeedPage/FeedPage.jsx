@@ -11,8 +11,6 @@ export const FeedPage = () => {
 
   const dispatch = useDispatch()
 
-  const { wsConnecting, wsConnected, orders } = useSelector(store => store.ws)
-
   useEffect(() => {
     dispatch(wsStart(wsUrl))
     return () => {

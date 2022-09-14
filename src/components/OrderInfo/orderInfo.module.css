@@ -1,4 +1,6 @@
 .orderInfo {
+  min-width: 520px;
+  max-width: 620px;
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -14,12 +16,16 @@
   color: #00CCCC;
 }
 
+.orderInfo__status_type_canceled {
+  color: red;
+}
+
 .orderInfo__ingredientsList {
   display: grid;
   list-style: none;
   overflow: auto;
   gap: 16px;
-  padding: 0;
+  padding: 0 24px 0 0;
   margin: 0;
   max-height: 304px;
 }

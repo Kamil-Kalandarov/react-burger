@@ -19,17 +19,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
 import OrderInfo from '../OrderInfo/OrderInfo';
 import { OrderInfoPage } from '../../pages/OrderInfoPage/OrderInfoPage';
+import Orders from '../Orders/Orders';
 
 
 const App = () => {
-
-  const orders = useSelector(store => store.ws.orders)
   
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const background = location.state?.background;
-
 
   useEffect(() => {
     dispatch(getInitialIngredients())
@@ -84,7 +82,7 @@ const App = () => {
       {background &&
         <Route path='/feed/:orderNumber' exact>
           <Modal onCloseClick={closeModal}>
-            <OrderInfo orders={orders}/>
+            <OrderInfo /* orders={orders} *//>
           </Modal>
         </Route>
       }
