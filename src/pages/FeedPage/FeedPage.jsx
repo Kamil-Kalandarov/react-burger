@@ -9,7 +9,8 @@ import { wsClosed, wsStart } from "../../services/actions/ws";
 
 export const FeedPage = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const orders = useSelector(store => store.ws.orders);
 
   useEffect(() => {
     dispatch(wsStart(wsUrl))
@@ -22,7 +23,7 @@ export const FeedPage = () => {
   return (
     <section className={styles.feedPage}>
       <main className={styles.feedPage__gridComponent}>
-        <Orders />
+        <Orders orders={orders}/>
         <OrderStatistic />      
       </main>
     </section>

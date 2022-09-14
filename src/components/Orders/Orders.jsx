@@ -1,11 +1,8 @@
 import React from "react";
 import styles from './orders.module.css';
 import OrderCard from "./OrderCard/OrderCard";
-import { useSelector } from "react-redux";
 
-const Orders = () => {
-
-  const orders = useSelector(store => store.ws.orders)
+const Orders = ({orders}) => {
 
   return (
     <section className={`${styles.orders} pt-10 mr-10`}>

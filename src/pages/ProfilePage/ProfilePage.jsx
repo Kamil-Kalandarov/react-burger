@@ -15,14 +15,26 @@ import RequestInfo from "../../components/RequestInfo/RequestInfo"; */
 import ProfileFrom from "../../components/ProfileForm/ProfileForm";
 import Orders from "../../components/Orders/Orders";
 import { Switch, Route } from 'react-router-dom';
+import { wsStart, wsClosed } from "../../services/actions/ws";
+import { wsUserUrl } from "../../constans/apiConfig";
+import { getCookie } from "../../utils/coockie";
 
 export const ProfilePage = () => {
 
   const dispatch = useDispatch();
+  const orders = useSelector(store => store.ws.orders);
 
   const exitProfile = useCallback(() => {
     dispatch(logout())
   });
+
+  useEffect(() => {
+    const accessToken = getCookie('accessToken')
+    dispatch(wsStart(`${wsUserUrl}?token=${accessToken}`))
+    return () => {
+      dispatch(wsClosed())
+    }
+  }, [dispatch]);
 
   return (
     <main className={styles.profilePage}>
@@ -54,10 +66,10 @@ export const ProfilePage = () => {
       </div>
       <Switch>
         <Route path='/profile' exact>
-          <ProfileFrom />
+          <Orders orders={orders}/>
         </Route>
         <Route path='/profile/orders' exact>
-          <Orders />
+          <ProfileFrom />
         </Route>
       </Switch>
     </main>

@@ -82,7 +82,7 @@ const App = () => {
       {background &&
         <Route path='/feed/:orderNumber' exact>
           <Modal onCloseClick={closeModal}>
-            <OrderInfo /* orders={orders} *//>
+            <OrderInfo />
           </Modal>
         </Route>
       }

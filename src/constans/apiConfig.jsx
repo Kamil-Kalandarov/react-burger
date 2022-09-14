@@ -6,3 +6,4 @@ export const apiConfig = {
 };
 
 export const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
+export const wsUserUrl = 'wss://norma.nomoreparties.space/orders';
