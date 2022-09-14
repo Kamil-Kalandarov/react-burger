@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.be123a2d.css",
-    "main.js": "./static/js/main.4ebeb860.js",
+    "main.css": "./static/css/main.1f70b7fc.css",
+    "main.js": "./static/js/main.9c056454.js",
     "static/js/787.2b4cbca8.chunk.js": "./static/js/787.2b4cbca8.chunk.js",
     "static/media/JetBrainsMono-Bold.woff": "./static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
     "static/media/JetBrainsMono-Regular.woff": "./static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
@@ -12,12 +12,12 @@
     "static/media/order accpeted-popup-graphics.png": "./static/media/order accpeted-popup-graphics.2df2f9e11760e692cc09.png",
     "static/media/iceland.woff2": "./static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
     "index.html": "./index.html",
-    "main.be123a2d.css.map": "./static/css/main.be123a2d.css.map",
-    "main.4ebeb860.js.map": "./static/js/main.4ebeb860.js.map",
+    "main.1f70b7fc.css.map": "./static/css/main.1f70b7fc.css.map",
+    "main.9c056454.js.map": "./static/js/main.9c056454.js.map",
     "787.2b4cbca8.chunk.js.map": "./static/js/787.2b4cbca8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.be123a2d.css",
-    "static/js/main.4ebeb860.js"
+    "static/css/main.1f70b7fc.css",
+    "static/js/main.9c056454.js"
   ]
 }
