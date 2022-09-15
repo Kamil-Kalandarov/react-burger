@@ -1,0 +1,31 @@
+.registerPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 180px;
+  width: 100%;
+}
+
+.registerPage__submitBtnContainer {
+  height: 56px;
+  margin: 0 auto;
+}
+
+.registerPage__autorisationInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #8585AD;
+}
+
+.registerPage__link {
+  color: #4c4cff;
+  text-decoration: none;
+  padding-left: 8px;
+}
+
+.registerPage__link:hover {
+  opacity: 0.5;
+}

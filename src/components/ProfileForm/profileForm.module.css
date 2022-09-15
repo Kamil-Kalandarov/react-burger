@@ -1,0 +1,10 @@
+.profileForm {
+  padding-top: 120px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.profileForm__buttons {
+  display: flex;
+  justify-content: flex-end;
+}

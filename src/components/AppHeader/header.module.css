@@ -18,14 +18,19 @@
   align-items: center;
   cursor: pointer;
   text-decoration: none;
+  color: #8585AD;
 }
 
 .header__menuItemLink:hover {
   opacity: 50%;
 }
 
-.header__menuItemLink:visited {
-  color: #fff;
+.header__menuItemLink_active {
+  color: #ffff;
+}
+
+.header__menuItemLink_inactive {
+  color: #8585AD;
 }
 
 .header__logo {

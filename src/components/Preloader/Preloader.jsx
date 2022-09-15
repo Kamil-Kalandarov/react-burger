@@ -4,7 +4,9 @@ import preloaderImage from './images/spiner-loader.gif'
 
 const Preloader = () => {
   return (
-    <img className={styles.preloader} src={preloaderImage} alt='preloaderImage'/>
+    <section className={styles.preloader}>
+      <div className={styles.preloader__icon} /* src={preloaderImage}  */></div>
+    </section>
   )
 }
 

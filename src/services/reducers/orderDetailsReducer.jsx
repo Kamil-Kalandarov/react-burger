@@ -18,14 +18,14 @@ export const orderDetailsRducer = (state = orderDetailsInitialState, action) => 
       return {
         ...state,
         orederRequest: true,
-        orderIngredients: action.payload
+        orderedIngredients: action.payload
       }
     }
     case GET_ORDER_DETAILS_SUCCESS: {
       return {
         ...state,
         orederRequest: false,
-        orderSuccess: 'success',
+        orderSuccess: true,
         currentOrderNumber: action.payload
       }
     }

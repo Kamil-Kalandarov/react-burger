@@ -1,0 +1,7 @@
+.inputSection > div {
+  width: 100%;
+}
+
+.inputSection > div > div {
+  width: 100%;
+}

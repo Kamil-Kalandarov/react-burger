@@ -1,0 +1,50 @@
+.orderInfo {
+  min-width: 520px;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 40px 40px 60px 40px;
+}
+
+.orderInfo__number {
+  align-self: center;
+  margin: 0;
+}
+
+.orderInfo__status {
+  color: #00CCCC;
+}
+
+.orderInfo__status_type_canceled {
+  color: red;
+}
+
+.orderInfo__ingredientsList {
+  display: grid;
+  list-style: none;
+  overflow: auto;
+  gap: 16px;
+  padding: 0 24px 0 0;
+  margin: 0;
+  max-height: 304px;
+}
+
+.orderInfo__ingredientsList::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.orderInfo__ingredientsList::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+} 
+
+.orderInfo__totalPrice {
+  display: flex;
+  gap: 9px;
+}
+
+.orderInfo__footer {
+  display: flex;
+  justify-content: space-between;
+}

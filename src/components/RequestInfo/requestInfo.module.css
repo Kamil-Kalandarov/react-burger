@@ -1,0 +1,22 @@
+.requestInfo {
+  display: grid;
+  grid-template-rows: min-content max-content;
+  justify-items: center;
+}
+
+.requestInfo__title {
+  padding-top: 14px;
+  max-height: 64px;
+  width: 640px;
+  margin: 0;
+}
+
+.requestInfo__content {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.requestInfo__name {
+  text-align: center;
+}

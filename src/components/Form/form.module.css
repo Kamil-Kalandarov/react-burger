@@ -1,0 +1,10 @@
+.form {
+  max-width: 480px;
+  display: grid;
+  width: 100%;
+}
+
+.form__title {
+  text-align: center;
+  margin: 0;
+}

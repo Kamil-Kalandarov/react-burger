@@ -1,0 +1,31 @@
+.ingredientOrderIconContainer {
+  width: 64px;
+  height: 64px;
+  z-index: 1;
+  position: relative;
+  border-radius: 100px;
+  background: linear-gradient(45deg, #801ab2 0, #4c4cff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ingredientOrderIconContainer::before {
+  position: absolute;
+  content: '';
+  top: 2px;
+  left: 2px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  background-color: #1c1c21;
+  z-index: -1;
+}
+
+.ingredientOrderIconContainer__icon {
+  height: 56px;
+  width: 66px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}

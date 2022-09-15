@@ -42,7 +42,7 @@ export function getInitialIngredients() {
     })
     .then(checkResponse)
     .then((response) => dispatch(addIngredients(response.data)))
-    .catch(dispatch(getiIngrdientsFailed()))
+    .catch(() => dispatch(getiIngrdientsFailed()))
   }
 }
 

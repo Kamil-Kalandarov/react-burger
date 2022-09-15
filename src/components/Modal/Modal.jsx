@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './modal.module.css';
@@ -9,10 +9,11 @@ const reactModalCOntainer = document.querySelector('#react-modals')
 
 /* Передача props для модального окна, используются в компоненте App */
 const Modal = ({onCloseClick, children}) => {
+
   /* Хендлер нажатия на клваишу 'Escape' */
-  const handleEscKeydownModal = (event) => {
+  const handleEscKeydownModal = useCallback((event) => {
     event.key === 'Escape' && onCloseClick()
-  };
+  });
 
   /* Монитрование случателя нажатия клваиши 'Escape' */
   useEffect(() => {

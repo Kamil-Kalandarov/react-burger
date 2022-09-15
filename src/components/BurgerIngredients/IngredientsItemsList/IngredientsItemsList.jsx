@@ -2,6 +2,7 @@ import React, { forwardRef, useMemo } from "react";
 import styles from './ingredientsItemsList.module.css';
 import { useSelector } from "react-redux";
 import BurgerIngredientItem from "../BurgerIngredientItem/BurgerIngredientItem";
+import Preloader from "../../Preloader/Preloader";
 
 const IngredientsItemsList = forwardRef(({
   title,

@@ -1,5 +1,6 @@
 import { apiConfig } from "../../constans/apiConfig";
 import { checkResponse } from "../api";
+import { getCookie } from "../../utils/coockie";
 
 export const GET_ORDER_DETAILS_REQUEST = 'GET_ORDER_DETAILS_REQUEST';
 export const GET_ORDER_DETAILS_SUCCESS = 'GET_ORDER_DETAILS_SUCCESS';
@@ -31,13 +32,16 @@ export function postOrder (orderedIngredients) {
     dispatch(getOrderDetailsRequest(orderedIngredients))
     fetch(`${apiConfig.baseUrl}/orders`, {
       method: 'POST',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers, 
+        'authorization': `Barear ${getCookie('accessToken')}`
+      },
       body: JSON.stringify({
         "ingredients": orderedIngredients
       })
     })
     .then(checkResponse)
     .then((response) => dispatch(getOrderDetailsSuccess(response.order.number)))
-    .catch(dispatch(getOrderDetailsFailed()))
+    .catch(() => dispatch(getOrderDetailsFailed()))
   }
 }

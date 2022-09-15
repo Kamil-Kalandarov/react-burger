@@ -1,23 +1,103 @@
-import React from 'react';
-import styles from './app.module.css';
+import React, { useCallback, useEffect } from 'react';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { 
+  ProfilePage,
+  MainPage, 
+  FeedPage,
+  LoginPage,
+  RegisterPage, 
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  IngredientDetailsPage,
+  OrderInfoPage,
+  UserOrderInfoPage
+} from '../../pages/pages';
+import { checkUserAuth } from '../../services/actions/getUser';
+import { useDispatch } from 'react-redux';
+import { getInitialIngredients } from '../../services/actions/initialIngredients';
+import OrderInfo from '../OrderInfo/OrderInfo';
+
 
 const App = () => {
-  /* Рендер всех компонентов */
+  
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  const background = location.state?.background;
+
+  useEffect(() => {
+    dispatch(getInitialIngredients())
+    dispatch(checkUserAuth())
+  }, [dispatch]);
+
+  const closeModal = useCallback(() => {
+    history.goBack()
+  }, [history]);
+
   return (
-    <section className={styles.app}>
+    <>
       <AppHeader />
-      <main className={styles.app__flexComponents}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
-    </section>
+      <Switch location={background || location}>
+        <Route path='/' exact>
+          <MainPage />
+        </Route>
+        <Route path='/profile/orders/:orderNumber' exact>
+          <UserOrderInfoPage />
+        </Route>
+        <ProtectedRoute path='/profile'>
+          <ProfilePage />
+        </ProtectedRoute>
+        <ProtectedRoute onlyUnAuth={true} path='/login' exact>
+          <LoginPage />
+        </ProtectedRoute>
+        <ProtectedRoute onlyUnAuth={true} path='/register' exact>
+          <RegisterPage />
+        </ProtectedRoute>
+        <ProtectedRoute onlyUnAuth={true} path='/forgot-password' exact>
+          <ForgotPasswordPage />
+        </ProtectedRoute>
+        <ProtectedRoute onlyUnAuth={true} path='/reset-password' exact>
+          <ResetPasswordPage />
+        </ProtectedRoute>
+        <Route path='/ingredients/:ingredientId' exact>
+          <IngredientDetailsPage />
+        </Route>
+        <Route path='/feed' exact>
+          <FeedPage />
+        </Route>
+        <Route path='/feed/:orderNumber' exact>
+          <OrderInfoPage />
+        </Route>
+      </Switch>
+
+      {background &&
+        <Route path='/ingredients/:ingredientId' exact>
+          <Modal onCloseClick={closeModal}>
+            <IngredientDetails />
+          </Modal>
+        </Route>
+      }
+
+      {background &&
+        <Route path='/feed/:orderNumber' exact>
+          <Modal onCloseClick={closeModal}>
+            <OrderInfo />
+          </Modal>
+        </Route>
+      }
+
+      {background &&
+        <Route path='/profile/orders/:orderNumber' exact>
+          <Modal onCloseClick={closeModal}>
+            <OrderInfo />
+          </Modal>
+        </Route>
+      }
+    </>
   );
 }
 

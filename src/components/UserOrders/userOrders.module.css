@@ -1,0 +1,31 @@
+.userOrders {
+  display: grid;
+  grid-template-rows: min-content min-content;
+  padding-top: 40px;
+  margin-right: 0;
+  max-width: 844px;
+  width: 100%;
+}
+
+.userOrders__ordersList {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  overflow: auto;
+  padding-right: 8px;
+  max-height: 716px;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 40px;
+  margin-right: 0;
+}
+
+.userOrders__ordersList::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.userOrders__ordersList::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+} 
