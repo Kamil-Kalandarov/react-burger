@@ -1,4 +1,4 @@
-export const formatDate = (date) => {
+export const formatDate = (date: string) => {
   const formatter = new Intl.DateTimeFormat("ru", {
     hour: 'numeric',
     minute: 'numeric',
@@ -9,7 +9,7 @@ export const formatDate = (date) => {
 
   const today = new Date();
 
-  function diffSubtract(dayOne, dayTwo) {
+  function diffSubtract(dayOne: any, dayTwo: any) {
     return Math.ceil((dayOne - dayTwo) / 86400000);
   }
 
@@ -22,7 +22,7 @@ export const formatDate = (date) => {
     timeZone: 'Europe/Moscow'
   });
 
-  const formatDay = (dateOfOrder, dayQty) => {
+  const formatDay = (dateOfOrder: Date, dayQty: number) => {
     if (formatterForFay.format(today) === formatterForFay.format(dateOfOrder)) {
       return 'Cегодня'
     }

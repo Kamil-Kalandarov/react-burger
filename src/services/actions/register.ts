@@ -1,10 +1,27 @@
+import { TUser, TError } from './../../utils/types';
 import { apiConfig } from "../../constans/apiConfig";
 import { checkResponse } from "../api";
 import { setCookie } from "../../utils/coockie";
 
-export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
-export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
-export const CREATE_USER_FAILED = 'CREATE_USER_FAILED';
+export const CREATE_USER_REQUEST: 'CREATE_USER_REQUEST' = 'CREATE_USER_REQUEST';
+export const CREATE_USER_SUCCESS: 'CREATE_USER_SUCCESS' = 'CREATE_USER_SUCCESS';
+export const CREATE_USER_FAILED: 'CREATE_USER_FAILED' = 'CREATE_USER_FAILED';
+
+
+export interface ICreateUserRequest {
+  readonly type: typeof CREATE_USER_REQUEST;
+}
+
+export interface ICreateUserSuccess {
+  readonly type: typeof CREATE_USER_SUCCESS
+    readonly payload: TUser
+}
+
+
+export interface createUserFailed {
+  readonly type: typeof CREATE_USER_SUCCESS
+    readonly payload: string
+}
 
 export const createUserRequest = () => {
   return {
@@ -12,20 +29,21 @@ export const createUserRequest = () => {
   }
 }
 
-export const createUserSuccess = ({name, email, password}) => {
+export const createUserSuccess = (response: TUser) => {
   return {
     type: CREATE_USER_SUCCESS,
-    payload: {name, email, password}
+    payload: response.user
   }
 }
 
-export const createUserFailed = () => {
+export const createUserFailed = (err: TError) => {
   return {
     type: CREATE_USER_FAILED,
+    payload: err.message
   }
 }
 
-export function createUser(name, email, password) {
+export function createUser(name: string, email: string, password: string) {
   return function (dispatch) {
     dispatch(createUserRequest(name, email, password))
     fetch(`${apiConfig.baseUrl}/auth/register`, {
@@ -51,6 +69,11 @@ export function createUser(name, email, password) {
         createUserSuccess(response)
       }
     })
-    .catch(() => dispatch(createUserFailed()))
+    .catch((err) => dispatch(createUserFailed(err)))
   }
-}
+};
+
+export type TRegistrationActions = 
+  | ICreateUserRequest
+  | ICreateUserSuccess
+  | createUserFailed
