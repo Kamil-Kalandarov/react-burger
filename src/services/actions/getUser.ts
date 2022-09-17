@@ -1,8 +1,9 @@
-import { TError } from './../../utils/types';
+import { TError } from '../../utils/types/dataTypes';
 import { apiConfig } from "../../constans/apiConfig";
 import { getCookie, setCookie } from "../../utils/coockie";
 import { checkResponse } from "../api";
-import { TUser } from "../../utils/types";
+import { TUser } from "../../utils/types/dataTypes";
+import { AppDispatch, AppThunk } from '../../utils/types';
 
 
 export const REFRESH_TOKEN_REQUEST: 'REFRESH_TOKEN_REQUEST' = 'REFRESH_TOKEN_REQUEST';
@@ -20,7 +21,7 @@ export interface IRefreshTokenRequest {
 
 export interface IRefreshTokenSuccess {
   readonly type: typeof REFRESH_TOKEN_SUCCESS;
-    readonly payload: string;
+    payload: string;
 }
 
 export interface IRefreshTokenFailed {
@@ -66,7 +67,8 @@ export const refreshToken  = () => {
   })
 }
 
-export const fetchWithRefresh = async(url:string, options: { [key: string]: string }) => {
+
+export const fetchWithRefresh = async(url:string, options: { [key: string]: string } ) => {
   try {
     const response = await fetch(url, options)
     return await checkResponse(response)
@@ -88,12 +90,12 @@ export interface IGetUserRequest {
 
 export interface IGetUserSuccess {
   readonly type: typeof GET_USER_SUCCESS;
-    readonly payload: TUser
+    payload: TUser
 }
 
 export interface IGetUserFailed {
   readonly type: typeof GET_USER_FAILED;
-    readonly payload: string
+    payload: string
 }
 
 export const getUserRequest = (): IGetUserRequest => {
@@ -116,8 +118,8 @@ export const getUserFailed = (err: TError): IGetUserFailed  => {
   }
 }
 
-export function getUser () {
-  return function (dispatch) {
+export const getUser: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     console.log('getUser')
     dispatch(getUserRequest())
     return fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
@@ -126,8 +128,8 @@ export function getUser () {
         'authorization': `Barear ${getCookie('accessToken')}`
       },
     })
-    .then((response) => dispatch(getUserSuccess(response.user)))
-    .catch(() => dispatch(getUserFailed()))
+    .then((response) => dispatch(getUserSuccess(response)))
+    .catch((err) => dispatch(getUserFailed(err)))
   }
 }
 
@@ -144,8 +146,8 @@ export const userAuthChek = (): IUserAuthChek => {
   }
 }
 
-export const checkUserAuth = () => {
-  return function (dispatch) {
+export const checkUserAuth: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     if (getCookie('accessToken')) {
       dispatch(getUser())
       .finally(() => {

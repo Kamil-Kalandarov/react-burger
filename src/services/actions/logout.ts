@@ -1,7 +1,8 @@
-import { TError, TUser } from './../../utils/types';
+import { TError, TUser } from '../../utils/types/dataTypes';
 import { apiConfig } from "../../constans/apiConfig";
 import { checkResponse } from "../api";
 import { deleteCookie } from "../../utils/coockie";
+import { AppDispatch, AppThunk } from '../../utils/types';
 
 export const LOGOUT_REQUEST: 'LOGOUT_REQUEST' = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS: 'LOGOUT_SUCCESS' = 'LOGOUT_SUCCESS';
@@ -13,36 +14,36 @@ export interface ILogoutRequest {
 
 export interface ILogoutSuccess {
   readonly type: typeof LOGOUT_SUCCESS;
-    readonly payload: null
+    payload: null
 }
 
 export interface ILogputFailed {
   readonly type: typeof LOGOUT_FAILED;
-    readonly payload: string
+    payload: string
 }
 
-export const logoutRequest = () => {
+export const logoutRequest = (): ILogoutRequest  => {
   return {
     type: LOGOUT_REQUEST
   }
 }
 
-export const logoutSuccess = (response: TUser) => {
+export const logoutSuccess = (response: null): ILogoutSuccess => {
   return {
     type: LOGOUT_SUCCESS,
     payload: response
   }
 }
 
-export const logputFailed = (err:TError) => {
+export const logputFailed = (err:TError): ILogputFailed => {
   return {
     type: LOGOUT_FAILED,
     payload: err.message
   }
 }
 
-export function logout() {
-  return function (dispatch) {
+export const logout: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     dispatch(logoutRequest())
     fetch(`${apiConfig.baseUrl}/auth/logout`, {
       method: 'POST',
