@@ -15,14 +15,20 @@ export type TIngredients = {
   count?: number;
 };
 
+export type TOrder = {
+  createdAt: string,
+  ingredients: ReadonlyArray<TIngredients>,
+  name: string,
+  number: number,
+  status: string,
+  updatedAt: string,
+  _id: string,
+};
+
 export type TOrders = {
-  createdAt: string
-  ingredients: Array<string>
-  name: string
-  number: number
-  status: string
-  updatedAt: string
-  _id: string
+  orders: Array<TOrder>,
+  total: number,
+  totalToday: number
 };
 
 export type TUser = {

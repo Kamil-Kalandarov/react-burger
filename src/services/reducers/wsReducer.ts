@@ -5,18 +5,30 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_DATA,
 } from '../actions/ws';
+import { TWsActions } from '../actions/ws';
+import { TOrder } from './../../utils/types/dataTypes';
 
-const wsInitialState = {
+type TWsInitialState = {
+  wsConnecting: boolean,
+  wsConnected: boolean,
+  wsFailed: string,
+  wsClosed: boolean,
+  orders: Array<TOrder>,
+  total: number,
+  totalToday: number
+}
+
+const wsInitialState: TWsInitialState = {
   wsConnecting: false,
   wsConnected: false,
   wsFailed: '',
   wsClosed: false,
   orders: [],
   total: 0,
-  totalToday: 0,
+  totalToday: 0
 }
 
-export const wsReducer = (state = wsInitialState, action) => {
+export const wsReducer = (state = wsInitialState, action: TWsActions): TWsInitialState => {
   switch (action.type) {
     case WS_CONNECTION_START: {
       return {

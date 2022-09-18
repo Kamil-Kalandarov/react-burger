@@ -8,7 +8,7 @@ import { TIngredients } from '../../utils/types/dataTypes';
 
 type TOrderDetailsInitialState = {
   orderedIngredients: ReadonlyArray<TIngredients>,
-  currentOrderNumber: number | null | string
+  currentOrderNumber: number | null | string,
   orederRequest: boolean,
   orderSuccess: boolean,
   orderfailed: boolean
