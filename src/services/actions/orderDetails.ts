@@ -12,7 +12,7 @@ export const EMPTY_CONSTRUCTOR: 'EMPTY_CONSTRUCTOR' = 'EMPTY_CONSTRUCTOR';
 
 export interface IGetOrderDetailsRequest {
   readonly type: typeof GET_ORDER_DETAILS_REQUEST;
-    orderedIngredients: TIngredients
+    /* orderedIngredients: TIngredients */
 };
 
 export interface IGetOrderDetailsSuccess {
@@ -25,10 +25,10 @@ export interface IGetOrderDetailsFailed {
     payload: string
 }
 
-export const getOrderDetailsRequest = (orderedIngredients: TIngredients): IGetOrderDetailsRequest => {
+export const getOrderDetailsRequest = (/* orderedIngredients: TIngredients */): IGetOrderDetailsRequest => {
   return {
     type: GET_ORDER_DETAILS_REQUEST,
-    orderedIngredients
+    /* orderedIngredients */
   }
 };
 
@@ -48,7 +48,7 @@ export const getOrderDetailsFailed = (err: TError): IGetOrderDetailsFailed => {
 
 export const postOrder: AppThunk = (orderedIngredients) => {
   return function (dispatch: AppDispatch) {
-    dispatch(getOrderDetailsRequest(orderedIngredients))
+    dispatch(getOrderDetailsRequest(/* orderedIngredients */))
     fetch(`${apiConfig.baseUrl}/orders`, {
       method: 'POST',
       headers: {

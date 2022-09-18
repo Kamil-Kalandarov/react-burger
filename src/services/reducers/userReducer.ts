@@ -35,7 +35,53 @@ import {
   FORGOT_PASSWORD_FAILED
 } from '../actions/forgotPassword';
 
-const userInitialState = {
+import { TUser } from '../../utils/types/dataTypes';
+import { TRegistrationActions } from '../actions/register';
+import { TloginActions } from '../actions/login';
+import { TLogoutActions } from './../actions/logout';
+import { TGetUserActions } from '../actions/getUser';
+import { TUpdateUserDaraActions } from '../actions/updateUserData';
+import { TForgotPasswordActions } from '../actions/forgotPassword';
+
+type TUserActions = 
+  | TRegistrationActions
+  | TloginActions
+  | TLogoutActions
+  | TGetUserActions
+  | TUpdateUserDaraActions
+  | TForgotPasswordActions
+
+type TUserInitialState = {
+  user: TUser | null
+
+  createUserRequest: boolean,
+  createUserSuccess: boolean | string,
+  createUserFailed: boolean,
+
+  loginRequest: boolean,
+  loginSuccess: boolean | string,
+  loginFailed: boolean,
+
+  getUserRequest: boolean,
+  getUserSuccess: boolean,
+  getUserFailed: boolean,
+
+  userAuthCheck: boolean,
+
+  updateUserRequest: boolean,
+  updateUserSuccess: boolean,
+  updateUserFailed: boolean,
+
+  logoutRequest: boolean,
+  logoutSuccess: boolean | string,
+  logoutFailed: boolean,
+
+  forgotPasswordRequest: boolean,
+  forgotPasswordSuccess: boolean,
+  forgotPasswordFailed: boolean
+}
+
+const userInitialState: TUserInitialState = {
   user: null,
   
   createUserRequest: false,
@@ -65,7 +111,7 @@ const userInitialState = {
   forgotPasswordFailed: false
 }
 
-export const userReducer = (state = userInitialState, action) => {
+export const userReducer = (state = userInitialState, action: TUserActions): TUserInitialState => {
   switch(action.type) {
     case CREATE_USER_REQUEST: {
       return {

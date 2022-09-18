@@ -4,20 +4,28 @@ import {
   GET_INGRDEIENTS_FAILED,
   TAB_SWITCH
 } from '../actions/initialIngredients';
+import { TIngredients } from './../../utils/types/dataTypes';
+import { TInitialIngredientsActions } from './../actions/initialIngredients';
 
-/* Начальный стейт ингредиентов */
-const initialIngredients = {
+type TInitialIngredientsState = {
+  ingredients: ReadonlyArray<TIngredients>,
+  currentTab: string,
+  ingredientsRequest: boolean,
+  ingredientsFailed: boolean,
+  isLoading: boolean,
+  error: null | string
+}
+
+const initialIngredients: TInitialIngredientsState = {
   ingredients: [],
   currentTab: 'buns',
   ingredientsRequest: false,
   ingredientsFailed: false,
   isLoading: false,
-  error: null
+  error: null 
 }
-/* Reducer начальных ингредиентов */
-export const initialIngredientsReducer = (state = initialIngredients, action) => {
+export const initialIngredientsReducer = (state = initialIngredients, action: TInitialIngredientsActions): TInitialIngredientsState => {
   switch (action.type) {
-    /* Переключени табов */
     case TAB_SWITCH: {
       return {
         ...state,

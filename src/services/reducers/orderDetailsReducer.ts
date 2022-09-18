@@ -3,6 +3,16 @@ import {
   GET_ORDER_DETAILS_SUCCESS,
   GET_ORDER_DETAILS_FAILED
 } from '../actions/orderDetails';
+import { TOrderDetailsActions } from '../actions/orderDetails';
+import { TIngredients } from '../../utils/types/dataTypes';
+
+type TOrderDetailsInitialState = {
+  orderedIngredients: ReadonlyArray<TIngredients>,
+  currentOrderNumber: number | null | string
+  orederRequest: boolean,
+  orderSuccess: boolean,
+  orderfailed: boolean
+}
 
 const orderDetailsInitialState = {
   orderedIngredients: [],
@@ -12,13 +22,13 @@ const orderDetailsInitialState = {
   orderfailed: false
 }
 
-export const orderDetailsRducer = (state = orderDetailsInitialState, action) => {
+export const orderDetailsRducer = (state = orderDetailsInitialState, action: TOrderDetailsActions): TOrderDetailsInitialState => {
   switch (action.type) {
     case GET_ORDER_DETAILS_REQUEST: {
       return {
         ...state,
         orederRequest: true,
-        orderedIngredients: action.payload
+/*         orderedIngredients: action.payload */
       }
     }
     case GET_ORDER_DETAILS_SUCCESS: {

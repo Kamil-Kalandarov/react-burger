@@ -67,7 +67,9 @@ export const refreshToken  = () => {
   })
 }
 
-export const fetchWithRefresh = async(url:string, options: any/* { [key: string]: string } */ ) => {
+
+
+export const fetchWithRefresh = async(url:string, options: { [key: string]: string }) => {
   try {
     const response = await fetch(url, options)
     return await checkResponse(response)
@@ -126,7 +128,7 @@ export const getUser: AppThunk = () => {
       headers: {
         ...apiConfig.headers, 
         'authorization': `Barear ${getCookie('accessToken')}`
-      },
+      } as HeadersInit,
     })
     .then((response) => dispatch(getUserSuccess(response)))
     .catch((err) => dispatch(getUserFailed(err)))

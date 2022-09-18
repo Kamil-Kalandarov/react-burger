@@ -20,7 +20,7 @@ export interface ICreateUserSuccess {
 
 
 export interface createUserFailed {
-  readonly type: typeof CREATE_USER_SUCCESS;
+  readonly type: typeof CREATE_USER_FAILED;
     payload: string
 };
 
