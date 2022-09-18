@@ -67,17 +67,17 @@ export const refreshToken  = () => {
   })
 }
 
-
-export const fetchWithRefresh = async(url:string, options: { [key: string]: string } ) => {
+export const fetchWithRefresh = async(url:string, options: any/* { [key: string]: string } */ ) => {
   try {
     const response = await fetch(url, options)
     return await checkResponse(response)
   } catch (err) {
-    if (err.message === 'jwt expired') {
-      const refreshData = await refreshToken()
-      options.headers.authorization = refreshData.accessToken
-      const response = await fetch(url, options)
-      return await checkResponse(response)
+      const typedError = err as Error
+      if (typedError?.message === 'jwt expired') {
+        const refreshData = await refreshToken()
+        options.headers.authorization = refreshData.accessToken
+        const response = await fetch(url, options)
+        return await checkResponse(response)
     } else {
       return Promise.reject(err)
     }
