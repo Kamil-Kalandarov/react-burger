@@ -14,7 +14,7 @@ type TOrderDetailsInitialState = {
   orderfailed: boolean
 }
 
-const orderDetailsInitialState = {
+const orderDetailsInitialState: TOrderDetailsInitialState = {
   orderedIngredients: [],
   currentOrderNumber: null,
   orederRequest: false,

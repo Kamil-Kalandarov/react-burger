@@ -6,7 +6,7 @@ type TIngredientDetailInitialState = {
   ingredient: TIngredients | null
 }
 
-const ingredientDetailInitialState = {
+const ingredientDetailInitialState: TIngredientDetailInitialState = {
   ingredient: null
 }
 

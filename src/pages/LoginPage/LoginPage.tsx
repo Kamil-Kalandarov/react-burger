@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useCallback, useState, FC, FormEvent, ChangeEvent } from "react";
+/* import { useSelector, useDispatch } from 'react-redux'; */
+import { useSelector, useDispatch } from "../../services/hooks";
 import styles from './loginPage.module.css';
 import { 
   Input, 
@@ -13,30 +14,28 @@ import { login } from "../../services/actions/login";
 import Preloader from "../../components/Preloader/Preloader";
 import { emailRegExp } from "../../utils/validation";
 
-export const LoginPage = () => {
+export const LoginPage: FC = () => {
 
   const { user, loginRequest } = useSelector(store => store.user)
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>('');
 
   const handleSubmit = useCallback(
-    (e) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       dispatch(login(email, password))
     },
     [dispatch, email, password]
   );
 
-  const emailValidation = useCallback((e) => {
+  const emailValidation = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const newEmailValue = e.target.value
     setEmail(newEmailValue)
     newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
-
-
 
   const buttonDisabled = email && password && !emailError ? false : true
 

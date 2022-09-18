@@ -14,7 +14,7 @@ import { TBurgerConstructorActions } from './../../services/actions/burgerConstr
 import { TInitialIngredientsActions } from './../../services/actions/initialIngredients';
 
 type TApplicationActions = 
-  TGetUserActions
+  | TGetUserActions
   | TloginActions 
   | TLogoutActions 
   | TRegistrationActions 
