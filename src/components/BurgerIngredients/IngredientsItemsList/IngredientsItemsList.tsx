@@ -1,9 +1,16 @@
 import React, { forwardRef, useMemo } from "react";
 import styles from './ingredientsItemsList.module.css';
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../services/hooks";
 import BurgerIngredientItem from "../BurgerIngredientItem/BurgerIngredientItem";
+import { TIngredients } from "../../../utils/types/dataTypes";
 
-const IngredientsItemsList = forwardRef(({
+export type TIngredientsList = {
+  title: string;
+  titleId: string;
+  ingredients: TIngredients;
+}
+
+const IngredientsItemsList = forwardRef<HTMLUListElement, TIngredientsList>(({
   title,
   titleId,
   ingredients,
@@ -13,7 +20,7 @@ const IngredientsItemsList = forwardRef(({
 
   const ingredientsCounter = useMemo(() => {
     const { bun, fillings } = constructorIngredients;
-    const counters = {};
+    const counters: { [key: string]: number } = {};
     fillings.forEach((filling) => {
       if(!counters[filling._id]) counters[filling._id] = 0;
       counters[filling._id]++;
@@ -25,7 +32,7 @@ const IngredientsItemsList = forwardRef(({
     <>
       <h3 className='text text_type_main-medium' id={titleId}>{title}</h3>
       <ul className={styles.cardList} ref={ref}>
-        {ingredients.map((ingredient, id) => {
+        {ingredients.map((ingredient: TIngredients, id: number) => {
           return (
             <BurgerIngredientItem 
               ingredient={ ingredient }

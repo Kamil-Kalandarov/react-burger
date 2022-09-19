@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { FC } from "react";
 import styles from './burgerIngredientItem.module.css';
 import { Link, useLocation } from "react-router-dom";
 import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { TIngredients } from "../../../utils/types/dataTypes";
 
-const BurgerIngredientItem = ({ ingredient, counter }) => {
+type TBurgerIngredientItemProps = {
+  ingredient: TIngredients;
+  counter: number;
+}
+
+const BurgerIngredientItem: FC<TBurgerIngredientItemProps> = ({ ingredient, counter })  => {
 
   const location = useLocation();
 

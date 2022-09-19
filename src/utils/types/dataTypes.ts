@@ -1,33 +1,34 @@
 export type TIngredients = {
-  readonly calories: number;
-  readonly carbohydrates: number;
-  readonly fat: number;
-  readonly image: string;
-  readonly image_large: string;
-  readonly image_mobile: string;
-  readonly name: string;
-  readonly price: number;
-  readonly proteins: number;
-  readonly type: "bun" | "main" | "sauce";
-  readonly __v: number;
-  readonly _id: string;
+  [x: string]: any;
+  calories: number;
+  carbohydrates: number;
+  fat: number;
+  image: string;
+  image_large: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  proteins: number;
+  type: "bun" | "main" | "sauce";
+  __v: number;
+  _id: string;
   id?: string;
   count?: number;
 };
 
 export type TOrder = {
-  createdAt: string,
-  ingredients: ReadonlyArray<TIngredients>,
-  name: string,
-  number: number,
-  status: string,
-  updatedAt: string,
-  _id: string,
+  createdAt: string;
+  ingredients: ReadonlyArray<TIngredients>;
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
 };
 
 export type TOrders = {
-  orders: Array<TOrder>,
-  total: number,
+  orders: Array<TOrder>;
+  total: number;
   totalToday: number
 };
 
@@ -37,8 +38,8 @@ export type TUser = {
 }
 
 export type TGetUser = {
-  success: boolean
-  user: TUser
+  success: boolean;
+  user: TUser;
 }
 
 export type TError = {

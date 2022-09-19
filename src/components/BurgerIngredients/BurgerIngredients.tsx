@@ -1,12 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC } from 'react';
+import { useSelector } from '../../services/hooks';
 import { useInView } from 'react-intersection-observer';
 import styles from './burgerIngredients.module.css';
 import Tabs from '../Tabs/Tabs';
 import IngredientsItemsList from './IngredientsItemsList/IngredientsItemsList';
+import { TIngredients } from '../../utils/types/dataTypes';
 
-/* Выбор ингредиентов для бургера */
-const BurgerIngredients = () => {
+
+const BurgerIngredients: FC = () => {
+  
   const initialIngredients = useSelector(store => store.initialIngredients.ingredients);
 
   const buns = initialIngredients.filter((ingredeint) => ingredeint.type === 'bun');

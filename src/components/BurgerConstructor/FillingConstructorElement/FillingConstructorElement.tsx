@@ -1,16 +1,23 @@
-import React, { useRef } from "react";
+import React, { FC, useRef } from "react";
 import styles from "../burgerConstructor.module.css";
 import { ConstructorElement ,DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../../services/hooks";
 import { changeFillingPosition } from "../../../services/actions/burgerConstructor";
 import { deleteIngredient } from "../../../services/actions/burgerConstructor";
+import { TIngredients } from "../../../utils/types/dataTypes";
 
-const FiilingConstructorElement = ({ filling, index, id }) => {
+type TFiilingConstructorElementProps = {
+  filling: TIngredients;
+  index: number;
+  id: string | number;
+}
+
+const FiilingConstructorElement: FC<TFiilingConstructorElementProps> = ({ filling, index, id }) => {
 
   const dispatch = useDispatch()
 
-  const ref = useRef(null)
+  const ref = useRef<HTMLLIElement>(null)
 
   const [{ handlerId }, drop] = useDrop({
     accept: 'newIndex',
@@ -25,37 +32,24 @@ const FiilingConstructorElement = ({ filling, index, id }) => {
       }
       const dragIndex = item.index
       const hoverIndex = index
-      // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return
       }
-      // Determine rectangle on screen
+
       const hoverBoundingRect = ref.current?.getBoundingClientRect()
-      // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      // Determine mouse position
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
       const clientOffset = monitor.getClientOffset()
-      // Get pixels to the top
       const hoverClientY = clientOffset.y - hoverBoundingRect.top
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
+
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
       }
-      // Dragging upwards
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      // Time to actually perform the action
+      
       console.log(dragIndex, hoverIndex)
       dispatch(changeFillingPosition(dragIndex, hoverIndex))
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
       item.index = hoverIndex
     }
   })
@@ -73,7 +67,7 @@ const FiilingConstructorElement = ({ filling, index, id }) => {
   drag(drop(ref))
 
 
-  const handleDelete = (orderedIngredients) => {
+  const handleDelete = (orderedIngredients: TIngredients) => {
     dispatch(deleteIngredient(orderedIngredients))
   }
 

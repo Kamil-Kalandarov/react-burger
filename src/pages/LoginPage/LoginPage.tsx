@@ -14,7 +14,14 @@ import { login } from "../../services/actions/login";
 import Preloader from "../../components/Preloader/Preloader";
 import { emailRegExp } from "../../utils/validation";
 
-export const LoginPage: FC = () => {
+
+declare module 'react' {
+  interface FunctionComponent<P = {}> {
+    (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+  }
+};
+
+export const LoginPage = () => {
 
   const { user, loginRequest } = useSelector(store => store.user)
   const dispatch = useDispatch();

@@ -128,7 +128,7 @@ export const getUser: AppThunk = () => {
       headers: {
         ...apiConfig.headers, 
         'authorization': `Barear ${getCookie('accessToken')}`
-      } as HeadersInit,
+      }
     })
     .then((response) => dispatch(getUserSuccess(response)))
     .catch((err) => dispatch(getUserFailed(err)))

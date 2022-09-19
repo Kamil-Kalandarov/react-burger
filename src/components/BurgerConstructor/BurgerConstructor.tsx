@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useMemo, useCallback, FC } from 'react';
+import { useDispatch, useSelector } from '../../services/hooks';
 import styles from './burgerConstructor.module.css'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,17 +9,18 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import { store } from '../../services/store';
 import { addIngredient, resetConstructor } from '../../services/actions/burgerConstructor';
 import { postOrder } from '../../services/actions/orderDetails';
-import { useDrop } from 'react-dnd';
+import { DropTargetMonitor, useDrop } from 'react-dnd';
 import FiilingConstructorElement from './FillingConstructorElement/FillingConstructorElement';
 import EmptyConstructorElement from './EmptyConstructorElement/EmptyConstructorElement';
 import EmptyBunTop from './EmptyBunTop/EmptyBunTop'; 
 import EmptyBunBottom from './EmptyBunBottom/EmptyBunBottom';
 import { useHistory } from 'react-router-dom';
+import { TIngredients } from '../../utils/types/dataTypes';
 
 
-/* Конструктор бургера */
-const BurgerConstructor = () => {
-  const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false);
+const BurgerConstructor: FC<TIngredients> = () => {
+  
+  const [isOrderDetailsOpened, setOrderDetailsOpened] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -34,22 +35,22 @@ const BurgerConstructor = () => {
     return (bun ? bun.price * 2 : 0) + fillings.reduce((prev, next) => prev + next.price, 0);
   }, [bun, fillings]);
 
-  const handleDrop = useCallback((ingredient) => {
+  const handleDrop = (ingredient: TIngredients) => {
     dispatch(addIngredient(ingredient))
-  })
+  }
 
-  const handleOrder = useCallback((orderedIngredients) => {
+  const handleOrder = (orderedIngredients: TIngredients) => {
       if (user) {
         dispatch(postOrder([
           orderedIngredients.bun._id,
-          ...orderedIngredients.fillings.map((filling) => filling._id),
+          ...orderedIngredients.fillings.map((filling: TIngredients) => filling._id),
           orderedIngredients.bun._id,
         ]))
         setOrderDetailsOpened(true)
       } else {
         history.replace({pathname: '/login'})
       }
-  })
+  }
 
   const handleClose = useCallback(() => {
     setOrderDetailsOpened(false)
@@ -58,14 +59,13 @@ const BurgerConstructor = () => {
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop({ ingredient }, monitor) {
+    drop({ ingredient }: TIngredients, monitor) {
       handleDrop(ingredient)
     },
     collect: (monitor) => ({
       isHover: monitor.isOver()
     })
   })
-
 
   const borderColor = isHover ? 'darkblue' : 'transparent'
 
@@ -89,7 +89,7 @@ const BurgerConstructor = () => {
               { fillings.length > 0 ? (
                 <ul className={`${styles.burgerConstructor__list} pr-4`}>
                   { fillings.map((filling, index) => (
-                  <FiilingConstructorElement key={filling.id} filling={filling} index={index} />
+                  <FiilingConstructorElement key={filling.id} filling={filling} index={index} id={filling._id} />
                 ))}
                 </ul>
                 ) : ( <EmptyConstructorElement>{'Выберите начинку или соус и перенесите ее сюда'}</EmptyConstructorElement>)

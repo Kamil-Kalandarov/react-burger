@@ -9,7 +9,7 @@ import { TBurgerConstructorActions } from '../actions/burgerConstructor';
 
 type TBurgerConstructorInitialState = {
   bun: TIngredients | null
-  fillings: Array<TIngredients>
+  fillings: Array<TIngredients> 
 }
 
 const burgerConstructorInitialState: TBurgerConstructorInitialState = {

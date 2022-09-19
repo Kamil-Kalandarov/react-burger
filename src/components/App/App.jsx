@@ -37,6 +37,7 @@ const App = () => {
   const closeModal = useCallback(() => {
     history.goBack()
   }, [history]);
+  
 
   return (
     <>
