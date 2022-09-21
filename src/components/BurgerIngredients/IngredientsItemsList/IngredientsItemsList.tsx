@@ -7,7 +7,7 @@ import { TIngredients } from "../../../utils/types/dataTypes";
 export type TIngredientsList = {
   title: string;
   titleId: string;
-  ingredients: TIngredients;
+  ingredients: Array<TIngredients>;
 }
 
 const IngredientsItemsList = forwardRef<HTMLUListElement, TIngredientsList>(({

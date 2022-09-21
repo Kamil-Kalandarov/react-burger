@@ -1,17 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { store } from "../../services/store";
 import styles from './profilePage.module.css';
-/* import Form from "../../components/Form/Form";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import InputSection from "../../components/Form/InputSection/InputSection";
-import { EmailInput, Input } from "@ya.praktikum/react-developer-burger-ui-components"; */
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../services/actions/logout";
-/* import { updateUserData } from "../../services/actions/updateUserData";
-import Preloader from "../../components/Preloader/Preloader";
-import Modal from "../../components/Modal/Modal";
-import RequestInfo from "../../components/RequestInfo/RequestInfo"; */
 import ProfileFrom from "../../components/ProfileForm/ProfileForm";
 import { Switch, Route } from 'react-router-dom';
 import { wsStart, wsClosed } from "../../services/actions/ws";

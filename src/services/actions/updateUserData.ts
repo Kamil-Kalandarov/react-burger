@@ -43,7 +43,7 @@ export const updateUserFailed = (err: TError): IUpdateUserFailed => {
 };
 
 export const updateUserData: AppThunk = (name: string, email: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch(updateUserRequest())
     fetch(`${apiConfig.baseUrl}/auth/user`, {
       method: 'PATCH',

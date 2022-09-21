@@ -18,7 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { TIngredients } from '../../utils/types/dataTypes';
 
 
-const BurgerConstructor: FC<TIngredients> = () => {
+const BurgerConstructor: FC = () => {
   
   const [isOrderDetailsOpened, setOrderDetailsOpened] = useState<boolean>(false);
 
@@ -39,17 +39,18 @@ const BurgerConstructor: FC<TIngredients> = () => {
     dispatch(addIngredient(ingredient))
   }
 
-  const handleOrder = (orderedIngredients: TIngredients) => {
-      if (user) {
-        dispatch(postOrder([
-          orderedIngredients.bun._id,
-          ...orderedIngredients.fillings.map((filling: TIngredients) => filling._id),
-          orderedIngredients.bun._id,
-        ]))
-        setOrderDetailsOpened(true)
-      } else {
-        history.replace({pathname: '/login'})
-      }
+  const handleOrder = () => {
+    if (!allConstructorIngredients.bun) return
+    if (user) {
+      dispatch(postOrder([
+        allConstructorIngredients.bun._id,
+        ...allConstructorIngredients.fillings.map((filling) => filling._id),
+        allConstructorIngredients.bun._id,
+      ]))
+      setOrderDetailsOpened(true)
+    } else {
+      history.replace({pathname: '/login'})
+    }
   }
 
   const handleClose = useCallback(() => {
@@ -114,7 +115,7 @@ const BurgerConstructor: FC<TIngredients> = () => {
             <CurrencyIcon type="primary" />
           </div>
             {bun && fillings !== undefined ? 
-              (<Button type="primary" size="large" onClick={() => handleOrder(allConstructorIngredients)}>Оформить заказ</Button>) :
+              (<Button type="primary" size="large" onClick={() => handleOrder()}>Оформить заказ</Button>) :
               (<Button type="primary" size="large" disabled={true}>Оформить заказ</Button>)
             }           
           </div> 
@@ -127,11 +128,5 @@ const BurgerConstructor: FC<TIngredients> = () => {
     </>
   );
 };
-
-/* Проверка типов данных, полученных на вход */
-/* BurgerConstructor.propTypes = {
-  ingredientsId: PropTypes.array,
-  onOrderButtonClick: PropTypes.func.isRequired
-}; */
 
 export default BurgerConstructor;

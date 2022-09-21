@@ -43,7 +43,7 @@ export const loginFailed = (err: TError): ILoginFailed => {
 };
 
 export const login: AppThunk = (email: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch(loginRequest())
     fetch(`${apiConfig.baseUrl}/auth/login`, {
       method: 'POST',

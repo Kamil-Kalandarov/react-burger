@@ -46,3 +46,15 @@ export type TError = {
   success: boolean;
   message: string;
 }
+
+export type TLocation = {
+  background: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: null;
+    key: string;
+  }
+  from: string;
+  state?: object; 
+}

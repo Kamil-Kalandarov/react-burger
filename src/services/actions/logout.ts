@@ -43,7 +43,7 @@ export const logputFailed = (err:TError): ILogputFailed => {
 }
 
 export const logout: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch(logoutRequest())
     fetch(`${apiConfig.baseUrl}/auth/logout`, {
       method: 'POST',

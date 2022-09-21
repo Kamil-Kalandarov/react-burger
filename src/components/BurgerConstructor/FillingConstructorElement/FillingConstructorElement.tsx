@@ -10,7 +10,7 @@ import { TIngredients } from "../../../utils/types/dataTypes";
 type TFiilingConstructorElementProps = {
   filling: TIngredients;
   index: number;
-  id: string | number;
+  id: string;
 }
 
 const FiilingConstructorElement: FC<TFiilingConstructorElementProps> = ({ filling, index, id }) => {
@@ -19,14 +19,9 @@ const FiilingConstructorElement: FC<TFiilingConstructorElementProps> = ({ fillin
 
   const ref = useRef<HTMLLIElement>(null)
 
-  const [{ handlerId }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: 'newIndex',
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      }
-    },
-    hover(item, monitor) {
+    hover(item: {index: number; filling: TIngredients}, monitor) {
       if (!ref.current) {
         return
       }
@@ -36,23 +31,29 @@ const FiilingConstructorElement: FC<TFiilingConstructorElementProps> = ({ fillin
         return
       }
 
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      const clientOffset = monitor.getClientOffset()
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+
+      if (!hoverBoundingRect || !clientOffset) {
+        return
+      };
+      
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
-      }
+      };
+
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
-      }
+      };
       
       console.log(dragIndex, hoverIndex)
       dispatch(changeFillingPosition(dragIndex, hoverIndex))
       item.index = hoverIndex
     }
-  })
+  });
 
   const [{ isDragging }, drag] = useDrag({
     type: 'newIndex',
@@ -67,7 +68,7 @@ const FiilingConstructorElement: FC<TFiilingConstructorElementProps> = ({ fillin
   drag(drop(ref))
 
 
-  const handleDelete = (orderedIngredients: TIngredients) => {
+  const handleDelete = (orderedIngredients: string) => {
     dispatch(deleteIngredient(orderedIngredients))
   }
 
@@ -82,7 +83,7 @@ const FiilingConstructorElement: FC<TFiilingConstructorElementProps> = ({ fillin
           text={filling.name}
           price={filling.price}
           thumbnail={filling.image}
-          handleClose={() => handleDelete(filling.id)}
+          handleClose={() => handleDelete(id)}
         />
       </article>
   </li>

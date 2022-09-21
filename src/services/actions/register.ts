@@ -45,7 +45,7 @@ export const createUserFailed = (err: TError) => {
 };
 
 export const createUser: AppThunk = (name: string, email: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch(createUserRequest())
     fetch(`${apiConfig.baseUrl}/auth/register`, {
       method: 'POST',

@@ -40,7 +40,7 @@ export const forgotPasswordFailed = (err: TError): IForgotPasswordFailed => {
 };
 
 export const forgotPassword: AppThunk = (email: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch(forgotPasswordRequest())
     fetch(`${apiConfig.baseUrl}/password-reset`, {
       method: 'POST',

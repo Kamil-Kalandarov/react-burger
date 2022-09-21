@@ -55,7 +55,7 @@ export const getiIngrdientsFailed = (err: TError): IGetiIngrdientsFailed => {
 }
 
 export const getInitialIngredients: AppThunk = () => {
-  return function(dispatch: AppDispatch)  {
+  return function(dispatch)  {
     dispatch (getIngredientsRequest());
     fetch(`${apiConfig.baseUrl}/ingredients`, {
       headers: apiConfig.headers

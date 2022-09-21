@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { store } from '../../services/store';
 import styles from './header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
+import { TLocation } from '../../utils/types/dataTypes';
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
 
   const user  = useSelector(store => store.user.user)
   
-  const location = useLocation()
+  const location = useLocation<TLocation>()
   console.log('pathname', location.pathname)
 
   return (

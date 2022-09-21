@@ -12,6 +12,7 @@ import { TOrderDetailsActions } from './../../services/actions/orderDetails';
 import { TIngredientDetailsModalActions } from './../../services/actions/ingredientDetails';
 import { TBurgerConstructorActions } from './../../services/actions/burgerConstructor';
 import { TInitialIngredientsActions } from './../../services/actions/initialIngredients';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 
 type TApplicationActions = 
   | TGetUserActions
@@ -29,7 +30,7 @@ type TApplicationActions =
 
 export type RootState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
 
 export type AppThunk<ReturnType = void> = ActionCreator<
   ThunkAction<ReturnType, Action, RootState, TApplicationActions>

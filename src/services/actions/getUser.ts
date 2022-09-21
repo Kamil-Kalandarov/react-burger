@@ -69,15 +69,15 @@ export const refreshToken  = () => {
 
 
 
-export const fetchWithRefresh = async(url:string, options:{ [key: string]: string }) => {
+export const fetchWithRefresh = async(url:string, options: RequestInit) => {
   try {
     const response = await fetch(url, options)
     return await checkResponse(response)
   } catch (err) {
       const typedError = err as Error
       if (typedError?.message === 'jwt expired') {
-        const refreshData = await refreshToken()
-        options.headers.authorization = refreshData.accessToken
+        const refreshData = await refreshToken();
+        (options.headers as {[key: string]: string}).authorization = refreshData.accessToken
         const response = await fetch(url, options)
         return await checkResponse(response)
     } else {
@@ -121,7 +121,7 @@ export const getUserFailed = (err: TError): IGetUserFailed  => {
 }
 
 export const getUser: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     console.log('getUser')
     dispatch(getUserRequest())
     return fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
@@ -149,7 +149,7 @@ export const userAuthChek = (): IUserAuthChek => {
 }
 
 export const checkUserAuth: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     if (getCookie('accessToken')) {
       dispatch(getUser())
       dispatch(userAuthChek())

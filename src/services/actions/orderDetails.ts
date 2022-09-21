@@ -47,7 +47,7 @@ export const getOrderDetailsFailed = (err: TError): IGetOrderDetailsFailed => {
 };
 
 export const postOrder: AppThunk = (orderedIngredients) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch(getOrderDetailsRequest(/* orderedIngredients */))
     fetch(`${apiConfig.baseUrl}/orders`, {
       method: 'POST',
