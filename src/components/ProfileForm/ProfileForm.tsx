@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, FC, SyntheticEvent } from "react";
+import React, { useState, useEffect, FC, SyntheticEvent, ChangeEvent, FormEvent } from "react";
 /* import { useDispatch, useSelector } from "react-redux"; */
 import { useSelector, useDispatch } from "../../services/hooks";
 import { updateUserData } from "../../services/actions/updateUserData";
@@ -27,31 +27,31 @@ const ProfileFrom: FC = () => {
     setEmail(user.email)
   }, [])
 
-  const onInputNameChange = (e: SyntheticEvent<HTMLInputElement>) => {
+  const onInputNameChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newNameValue = e.target.value
       setUserName(newNameValue)
       setButtonsVisible(true)
   };
 
-  const onInputEmailChange = (e) => {
+  const onInputEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newEmailValue = e.target.value
       setEmail(newEmailValue)
       setButtonsVisible(true)
   };
 
-  const onInputPasswordChange = (e) => {
+  const onInputPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
       const newPasswordValue = e.target.value
       setPassword(newPasswordValue)
       setButtonsVisible(true)
   };
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       dispatch(updateUserData(userName, email, password))
       setRequestInfo(true)
   };
 
-  const handleCancel = (e) => {
+  const handleCancel = (e: SyntheticEvent) => {
       e.preventDefault()
       setUserName(user.name)
       setEmail(user.email)

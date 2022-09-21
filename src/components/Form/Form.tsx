@@ -1,7 +1,14 @@
-import React from "react";
+import React, { FC, FormEvent, ReactNode } from "react";
 import styles from './form.module.css';
 
-const Form = ({ name, onSubmit, title, children}) => {
+type TFormProps = {
+  name: string;
+  title: string;
+  children: ReactNode
+  onSubmit: FormEvent
+}
+
+const Form: FC<TFormProps> = ({ name, onSubmit, title, children}) => {
   return (
     <form className={styles.form} name={name} onSubmit={onSubmit}>
       <h2 className={`${styles.form__title} text text_type_main-medium`}>{title}</h2>
