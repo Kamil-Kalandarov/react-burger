@@ -17,7 +17,6 @@ import EmptyBunBottom from './EmptyBunBottom/EmptyBunBottom';
 import { useHistory } from 'react-router-dom';
 import { TIngredients } from '../../utils/types/dataTypes';
 
-
 const BurgerConstructor: FC = () => {
   
   const [isOrderDetailsOpened, setOrderDetailsOpened] = useState<boolean>(false);

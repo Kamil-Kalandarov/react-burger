@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, useCallback, FC, SyntheticEvent } from "react";
+/* import { useDispatch, useSelector } from "react-redux"; */
+import { useSelector, useDispatch } from "../../services/hooks";
 import { updateUserData } from "../../services/actions/updateUserData";
 import styles from './profileForm.module.css';
 import { Input, EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,23 +10,24 @@ import Preloader from "../Preloader/Preloader";
 import Modal from "../Modal/Modal";
 import RequestInfo from "../RequestInfo/RequestInfo";
 
-const ProfileFrom = () => {
 
-  const {user, updateUserRequest, updateUserSuccess, updateUserFailed } = useSelector(store => store.user)
+const ProfileFrom: FC = () => {
+
+  const { user, updateUserRequest, updateUserSuccess, updateUserFailed } = useSelector(store => store.user)
   const dispatch = useDispatch();
 
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [buttonIsVisible, setButtonsVisible] = useState(false)
-  const [requestInfo, setRequestInfo] = useState(false)
+  const [userName, setUserName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [buttonIsVisible, setButtonsVisible] = useState<boolean>(false)
+  const [requestInfo, setRequestInfo] = useState<boolean>(false)
 
   useEffect(() => {
     setUserName(user.name)
     setEmail(user.email)
   }, [])
 
-  const onInputNameChange = (e) => {
+  const onInputNameChange = (e: SyntheticEvent<HTMLInputElement>) => {
       const newNameValue = e.target.value
       setUserName(newNameValue)
       setButtonsVisible(true)
@@ -43,24 +45,23 @@ const ProfileFrom = () => {
       setButtonsVisible(true)
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
       e.preventDefault()
       dispatch(updateUserData(userName, email, password))
       setRequestInfo(true)
   };
 
-  const handleCancel = useCallback((e) => {
+  const handleCancel = (e) => {
       e.preventDefault()
       setUserName(user.name)
       setEmail(user.email)
       setPassword('')
       setButtonsVisible(false)
-    }
-  );
+    };
 
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     setRequestInfo(false)
-  })
+  }
 
   return (
     <div className={styles.profileForm}>

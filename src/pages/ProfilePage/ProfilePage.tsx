@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { store } from "../../services/store";
 import styles from './profilePage.module.css';
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+/* import { useDispatch, useSelector } from "react-redux"; */
+import { useSelector, useDispatch } from "../../services/hooks";
 import { logout } from "../../services/actions/logout";
 import ProfileFrom from "../../components/ProfileForm/ProfileForm";
 import { Switch, Route } from 'react-router-dom';
@@ -11,14 +12,14 @@ import { wsUserUrl } from "../../constans/apiConfig";
 import { getCookie } from "../../utils/coockie";
 import UserOrders from "../../components/UserOrders/UserOrders";
 
-export const ProfilePage = () => {
+export const ProfilePage: FC = () => {
 
   const dispatch = useDispatch();
   const orders = useSelector(store => store.ws.orders);
 
-  const exitProfile = useCallback(() => {
+  const exitProfile = () => {
     dispatch(logout())
-  });
+  };
 
   useEffect(() => {
     const accessToken = getCookie('accessToken')
