@@ -10,7 +10,6 @@ type OrderInfoIngredientProps = {
   quantity: number | undefined
 };
 
-
 const OrderInfoIngredient: React.FC<OrderInfoIngredientProps> = ({ ingredient, myKey, quantity }) => {
 
   return (

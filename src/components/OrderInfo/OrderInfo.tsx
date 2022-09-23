@@ -3,7 +3,6 @@ import styles from './orderInfo.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderInfoIngredient from "./OrderInfoIngredient/OrderInfoIngredient";
 import { useParams } from "react-router-dom";
-
 import { formatDate } from "../../utils/formatDate";
 import Preloader from "../Preloader/Preloader";
 import { useSelector } from "../../services/hooks";

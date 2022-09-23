@@ -6,7 +6,6 @@ type ProtectedRouteProps = {
   onlyUnAuth?: boolean;
 } & RouteProps;
 
-
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ onlyUnAuth = false, children, ...rest }) => {
 
   const user  = useSelector(store => store.user.user);

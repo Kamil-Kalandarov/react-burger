@@ -1,8 +1,7 @@
-import React, { FC, useCallback, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { store } from "../../services/store";
 import styles from './profilePage.module.css';
 import { NavLink } from "react-router-dom";
-/* import { useDispatch, useSelector } from "react-redux"; */
 import { useSelector, useDispatch } from "../../services/hooks";
 import { logout } from "../../services/actions/logout";
 import ProfileFrom from "../../components/ProfileForm/ProfileForm";

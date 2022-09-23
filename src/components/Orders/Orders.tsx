@@ -1,7 +1,6 @@
 import React from "react";
 import styles from './orders.module.css';
 import OrderCard from "./OrderCard/OrderCard";
-import Preloader from "../Preloader/Preloader";
 import { TOrder } from "../../utils/types/dataTypes";
 
 type OrdersProps = {

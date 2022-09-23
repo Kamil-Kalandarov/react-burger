@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer';
 import styles from './burgerIngredients.module.css';
 import Tabs from '../Tabs/Tabs';
 import IngredientsItemsList from './IngredientsItemsList/IngredientsItemsList';
-import { TIngredients } from '../../utils/types/dataTypes';
 
 
 const BurgerIngredients: FC = () => {

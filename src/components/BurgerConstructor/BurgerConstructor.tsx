@@ -9,7 +9,7 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import { store } from '../../services/store';
 import { addIngredient, resetConstructor } from '../../services/actions/burgerConstructor';
 import { postOrder } from '../../services/actions/orderDetails';
-import { DropTargetMonitor, useDrop } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 import FiilingConstructorElement from './FillingConstructorElement/FillingConstructorElement';
 import EmptyConstructorElement from './EmptyConstructorElement/EmptyConstructorElement';
 import EmptyBunTop from './EmptyBunTop/EmptyBunTop'; 

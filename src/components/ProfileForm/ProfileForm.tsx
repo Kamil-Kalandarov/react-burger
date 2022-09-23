@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FC, SyntheticEvent, ChangeEvent, FormEvent } from "react";
-/* import { useDispatch, useSelector } from "react-redux"; */
 import { useSelector, useDispatch } from "../../services/hooks";
 import { updateUserData } from "../../services/actions/updateUserData";
 import styles from './profileForm.module.css';
@@ -9,7 +8,6 @@ import InputSection from "../Form/InputSection/InputSection";
 import Preloader from "../Preloader/Preloader";
 import Modal from "../Modal/Modal";
 import RequestInfo from "../RequestInfo/RequestInfo";
-import { TUser } from "../../utils/types/dataTypes";
 
 
 const ProfileFrom: FC = () => {

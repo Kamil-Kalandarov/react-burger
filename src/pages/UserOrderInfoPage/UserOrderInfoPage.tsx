@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import OrderInfo from "../../components/OrderInfo/OrderInfo";
 import styles from './userOrderInfoPage.module.css';
 import { wsUserUrl } from "../../constans/apiConfig";

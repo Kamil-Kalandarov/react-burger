@@ -1,7 +1,5 @@
 import React from "react";
 import styles from './orderDetails.module.css'
-import PropTypes from "prop-types";
-
 import Preloader from "../Preloader/Preloader";
 import { useSelector } from "../../services/hooks";
 

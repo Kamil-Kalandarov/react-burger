@@ -7,7 +7,7 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_DATA 
 } from "../actions/ws";
-
+    
 
 export const socketMiddleware = (wsActions: TWsActionsTypes): Middleware => {
   return (store: MiddlewareAPI) => {

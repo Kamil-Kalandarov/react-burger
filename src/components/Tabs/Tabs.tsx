@@ -11,6 +11,7 @@ type TTabs = {
 };
 
 const Tabs:React.FC<TTabs> = ({ inViewBuns, inViewSauces, inViewMains }) => { 
+  
   const currentTab = useSelector(store => store.initialIngredients.currentTab);
   const dispatch = useDispatch();
 
