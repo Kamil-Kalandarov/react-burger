@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import styles from './feedPage.module.css';
 import Orders from "../../components/Orders/Orders";
 import OrderStatistic from "../../components/OrderStatistic/OrderStatistic";
-import { useDispatch, useSelector } from "react-redux";
+
 import { wsUrl } from "../../constans/apiConfig";
 import { wsClosed, wsStart } from "../../services/actions/ws";
+import { useDispatch, useSelector } from "../../services/hooks";
 
 export const FeedPage = () => {
 

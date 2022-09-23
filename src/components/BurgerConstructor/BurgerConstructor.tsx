@@ -74,7 +74,7 @@ const BurgerConstructor: FC = () => {
       <section className={`${styles.burgerConstructor} pl-4 mt-25`}>
         <div className={`${styles.burgerConstructor__ingredientsContainer}`} style={{borderColor}} ref={dropTarget}>
           { bun ? (
-            <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2`}>
+            <article className={`${styles.burgerConstructor__cardBunElement} mb-4 ml-8 mr-2`}>
               <ConstructorElement
                 type="top"
                 isLocked={true}
@@ -88,15 +88,16 @@ const BurgerConstructor: FC = () => {
           <div className={styles.burgerConstructor__wrapper}>
               { fillings.length > 0 ? (
                 <ul className={`${styles.burgerConstructor__list} pr-4`}>
-                  { fillings.map((filling, index) => (
-                  <FiilingConstructorElement key={filling.id} filling={filling} index={index} id={filling._id} />
-                ))}
+                  { fillings.map((filling, index) => {
+                   
+                  return <FiilingConstructorElement key={filling.id} filling={filling} index={index} id={filling.id} />
+                  })}
                 </ul>
                 ) : ( <EmptyConstructorElement>{'Выберите начинку или соус и перенесите ее сюда'}</EmptyConstructorElement>)
               }
           </div>
           { bun ? (
-            <article key={bun.id} className={`${styles.burgerConstructor__cardBunElement} ml-8 mr-2 mb-6`}>
+            <article className={`${styles.burgerConstructor__cardBunElement} mt-4 ml-8 mr-2 mb-6`}>
               <ConstructorElement
                 type="bottom"
                 isLocked={true}

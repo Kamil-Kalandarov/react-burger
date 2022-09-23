@@ -1,11 +1,11 @@
-import React, { FC, FormEvent, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import styles from './form.module.css';
 
 type TFormProps = {
   name: string;
-  title: string;
+  title?: string;
   children: ReactNode
-  onSubmit: FormEvent
+  onSubmit: React.FormEventHandler<HTMLFormElement>
 }
 
 const Form: FC<TFormProps> = ({ name, onSubmit, title, children}) => {

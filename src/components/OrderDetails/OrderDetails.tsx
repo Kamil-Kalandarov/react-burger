@@ -1,8 +1,9 @@
 import React from "react";
 import styles from './orderDetails.module.css'
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+
 import Preloader from "../Preloader/Preloader";
+import { useSelector } from "../../services/hooks";
 
 
 /* Соержимое модалки с деталями заказа, которые устанваливаются кликом при формировании заказа */

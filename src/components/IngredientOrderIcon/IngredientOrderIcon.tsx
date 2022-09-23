@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './ingredientOrderIcon.module.css';
+import { TIngredients } from '../../utils/types/dataTypes';
 
-const IngredientOrderIcon = ({ ingredient }) => {
+type IngredientOrderIconProps = {
+  ingredient?: TIngredients;
+};
+
+const IngredientOrderIcon : React.FC<IngredientOrderIconProps> = ({ ingredient }) => {
   
   return (
     <div className={styles.ingredientOrderIconContainer}>

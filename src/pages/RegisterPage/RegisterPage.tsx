@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
 import styles from './registerPage.module.css';
-import { useDispatch } from 'react-redux';
 import { createUser } from "../../services/actions/register";
 import { 
   Input, 
@@ -11,6 +10,7 @@ import Form from "../../components/Form/Form";
 import InputSection from "../../components/Form/InputSection/InputSection";
 import { Link } from "react-router-dom";
 import { emailRegExp } from "../../utils/validation";
+import { useDispatch } from "../../services/hooks";
 
 export const RegisterPage = () => {
 
@@ -22,20 +22,20 @@ export const RegisterPage = () => {
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState('');
 
-  const userNameValidation = useCallback((e) => {
-    const newUserNameValue = e.target.value
+  const userNameValidation = useCallback((e:React.SyntheticEvent) => {
+    const newUserNameValue = (e.target as HTMLInputElement).value
     setUserName(newUserNameValue)
     newUserNameValue.length < 3 ? setUserNameError(true) : setUserNameError(false)
   }, [userName]);
 
-  const emailValidation = useCallback((e) => {
-    const newEmailValue = e.target.value
+  const emailValidation = useCallback((e:React.SyntheticEvent) => {
+    const newEmailValue = (e.target as HTMLInputElement).value
     setEmail(newEmailValue)
     newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
 
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e:React.SyntheticEvent) => {
       e.preventDefault();
       dispatch(createUser(userName, email, password))
     },

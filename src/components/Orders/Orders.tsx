@@ -2,8 +2,13 @@ import React from "react";
 import styles from './orders.module.css';
 import OrderCard from "./OrderCard/OrderCard";
 import Preloader from "../Preloader/Preloader";
+import { TOrder } from "../../utils/types/dataTypes";
 
-const Orders = ({orders}) => {
+type OrdersProps = {
+  orders: TOrder[];
+};
+
+const Orders:React.FC<OrdersProps> = ({orders}) => {
 
   return (
     <section className={`${styles.orders} pt-10 mr-10`}>

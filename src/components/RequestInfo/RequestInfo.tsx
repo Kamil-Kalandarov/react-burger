@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './requestInfo.module.css';
-import { useSelector } from "react-redux";
-import { store } from "../../services/store";
+
+import { useSelector } from "../../services/hooks";
 
 /* Соержимое модалки с ингредиентом, которые устанваливаются кликом по выбранному ингредиенту */
 const RequestInfo = () => {

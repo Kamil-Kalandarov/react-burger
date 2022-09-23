@@ -48,8 +48,6 @@ const FiilingConstructorElement: FC<TFiilingConstructorElementProps> = ({ fillin
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       };
-      
-      console.log(dragIndex, hoverIndex)
       dispatch(changeFillingPosition(dragIndex, hoverIndex))
       item.index = hoverIndex
     }

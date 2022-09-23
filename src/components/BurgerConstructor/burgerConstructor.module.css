@@ -34,7 +34,7 @@
   display: grid;
   gap: 16px;
   margin: 0;
-  padding: 16px 0 16px;
+  padding: 0;
 }
 
 .burgerCOnstructor__listElement {

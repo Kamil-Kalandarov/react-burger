@@ -3,11 +3,16 @@ import styles from './userOrderCard.module.css';
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientOrderIcon from "../../IngredientOrderIcon/IngredientOrderIcon";
-import { useSelector } from "react-redux";
 import { formatDate } from "../../../utils/formatDate";
 import LastIngredientOrderIcon from "../../IngredientOrderIcon/LastIngredientOrderIcon/LastIngredientOrderIcon";
+import { TIngredients, TOrder } from "../../../utils/types/dataTypes";
+import { useSelector } from "../../../services/hooks";
 
-const UserOrderCard = ({ order }) => {
+type TUserOrderCardProps = {
+  order: TOrder;
+};
+
+const UserOrderCard: React.FC<TUserOrderCardProps> = ({ order }) => {
 
   const initialIngredients = useSelector(store => store.initialIngredients.ingredients)
   
@@ -15,7 +20,7 @@ const UserOrderCard = ({ order }) => {
 
   const getIngredientsId = useMemo(() => {
     return  order?.ingredients.map((ingredientId) => {
-        return initialIngredients?.find((ingredient) => {
+        return  initialIngredients?.find((ingredient) => {
           return ingredientId === ingredient._id
         })
       })
@@ -23,13 +28,9 @@ const UserOrderCard = ({ order }) => {
 
   const totalOrder = useMemo(() => {
     return getIngredientsId?.reduce((prev, next) => {
-      if (next?.type === "bun") {
-        return (prev += next.price * 2);
-      }
       return (prev += next ? next.price : 0);
     }, 0);
   }, [getIngredientsId]);
-
   return (
     <li className={styles.userOrderCard}>
       <Link 
@@ -48,7 +49,7 @@ const UserOrderCard = ({ order }) => {
           <h3 className={`${styles.userOrderCard__name} text text_type_main-medium`}>{order?.name}</h3>
           <div className={styles.userOrderCard__orderedBurgerInfo}>
             <ul className={styles.userOrderCard__ingredientsList}>
-              {Array.from(new Set(getIngredientsId))?.map((ingredient, index) => {
+              {Array.from(new Set(getIngredientsId))?.map((ingredient, index) => {                
                 if (index < 5) {
                   return (
                     <li className={styles.userOrderCard__ingredient} 

@@ -10,15 +10,15 @@ export type TIngredients = {
   price: number;
   proteins: number;
   type: "bun" | "main" | "sauce";
-  __v: number;
+
   _id: string;
-  id?: string;
+  id: string;
   count?: number;
 };
 
 export type TOrder = {
   createdAt: string;
-  ingredients: ReadonlyArray<TIngredients>;
+  ingredients: string[];
   name: string;
   number: number;
   status: string;

@@ -2,9 +2,13 @@ import React from "react";
 import styles from './userOrders.module.css';
 import UserOrderCard from "./UserOrderCard/UserOrderCard";
 import Preloader from "../Preloader/Preloader";
+import { TOrder } from "../../utils/types/dataTypes";
 
-const UserOrders = ({orders}) => {
+type TUserOrdersProps = {
+  orders: TOrder[];
+};
 
+const UserOrders: React.FC<TUserOrdersProps> = ({orders}) => { 
   return (
     <section className={`${styles.userOrders} pt-10 mr-10`}>
       <ul className={styles.userOrders__ordersList}>

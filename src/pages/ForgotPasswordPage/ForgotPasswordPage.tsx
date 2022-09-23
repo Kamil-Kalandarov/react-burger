@@ -7,7 +7,7 @@ import { Link, Redirect } from "react-router-dom";
 import { emailRegExp } from "../../utils/validation";
 import Preloader from '../../components/Preloader/Preloader'
 import { forgotPassword } from "../../services/actions/forgotPassword";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 
 export const ForgotPasswordPage = () => {
 
@@ -18,18 +18,18 @@ export const ForgotPasswordPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [canResetPassword, setCanResetPassword] = useState(false)
 
-  const emailValidation = useCallback((e) => {
-    const newEmailValue = e.target.value
+  const emailValidation = useCallback((e: React.SyntheticEvent) => {
+    const newEmailValue = (e.target as HTMLInputElement).value;
     setEmail(newEmailValue)
     newEmailValue && setEmailError(!emailRegExp.test(newEmailValue));
   }, [email]);
 
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault(e)
+  const handleSubmit = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
     dispatch(forgotPassword(email))
     setCanResetPassword(true)
-  });
+  },[email]);
 
   const buttonDisabled = email && !emailError ? false : true
 

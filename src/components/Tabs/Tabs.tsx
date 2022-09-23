@@ -1,11 +1,17 @@
 import React, {useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs.module.css';
 import { setCurrentTab } from '../../services/actions/initialIngredients';
+import { useDispatch, useSelector } from '../../services/hooks';
 
-const Tabs = ({ inViewBuns, inViewSauces, inViewMains }) => { 
-  const currentTab = useSelector(store => store.initialIngredients.currentTab) 
+type TTabs = {
+  inViewBuns: boolean;
+  inViewSauces: boolean;
+  inViewMains: boolean
+};
+
+const Tabs:React.FC<TTabs> = ({ inViewBuns, inViewSauces, inViewMains }) => { 
+  const currentTab = useSelector(store => store.initialIngredients.currentTab);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,9 +25,10 @@ const Tabs = ({ inViewBuns, inViewSauces, inViewMains }) => {
   }, [inViewBuns, inViewSauces, inViewMains])
 
   
-  const handleScroll = (currentTab) => {
+  const handleScroll = (currentTab: string) => {
     dispatch(setCurrentTab(currentTab))
-    document.getElementById(currentTab).scrollIntoView({behavior: "smooth"})
+    const element = document.getElementById(currentTab)
+    if (element) element.scrollIntoView({behavior: "smooth"})
   }
 
   return(

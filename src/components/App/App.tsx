@@ -16,17 +16,18 @@ import {
   OrderInfoPage,
   UserOrderInfoPage
 } from '../../pages/pages';
+import { Location } from "history";
 import { checkUserAuth } from '../../services/actions/getUser';
-import { useDispatch } from 'react-redux';
 import { getInitialIngredients } from '../../services/actions/initialIngredients';
 import OrderInfo from '../OrderInfo/OrderInfo';
+import { useDispatch } from '../../services/hooks';
 
 
 const App = () => {
   
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<{ background: Location }>();
   const background = location.state?.background;
 
   useEffect(() => {

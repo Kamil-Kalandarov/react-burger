@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from './services/store';
 
 
-createRoot(document.getElementById('root')).render (
+createRoot(document.getElementById('root') as HTMLDivElement).render (
     <Provider store={store}>
         <BrowserRouter>
             <App />

@@ -12,7 +12,8 @@ import InputSection from "../../components/Form/InputSection/InputSection";
 import { Link } from "react-router-dom";
 import Preloader from "../../components/Preloader/Preloader";
 import { Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
+
 
 export const ResetPasswordPage = () => {
 
@@ -24,22 +25,21 @@ export const ResetPasswordPage = () => {
   const forgotPasswordSuccess = useSelector(store => store.user.forgotPasswordSuccess)
 
   const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault(e);
+    (e:React.SyntheticEvent) => {
+      e.preventDefault();
       setIsLoading(true)
       fetch(`${apiConfig.baseUrl}/password-reset/reset`, {
         method: 'POST',
         headers: apiConfig.headers,
         body: JSON.stringify({
-          "password": newPassword,
-          "token": token
+          password: newPassword,
+          token: token
         })
       })
       .then(checkResponse)
-      .then(setIsLoading(false), setIsPasswordReseted(true))
+      .then(() => { setIsLoading(false), setIsPasswordReseted(true)})
       .catch((err) => console.log(err.status))
-    }
-  );
+    }, []);
 
   const buttonDisabled = newPassword && token ? false : true;
 
@@ -64,7 +64,6 @@ export const ResetPasswordPage = () => {
           <InputSection padding='pt-6'>
             <PasswordInput 
               name={'new-passord'}
-              placeholder={'Введите новый пароль'}
               onChange={e => setNewPassword(e.target.value)} 
               value={newPassword} />
           </InputSection>

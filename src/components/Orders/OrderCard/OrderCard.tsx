@@ -3,11 +3,15 @@ import styles from './orderCard.module.css';
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientOrderIcon from "../../IngredientOrderIcon/IngredientOrderIcon";
-import { useSelector } from "react-redux";
+
 import { formatDate } from "../../../utils/formatDate";
 import LastIngredientOrderIcon from "../../IngredientOrderIcon/LastIngredientOrderIcon/LastIngredientOrderIcon";
-
-const OrderCard = ({ order }) => {
+import { TOrder } from "../../../utils/types/dataTypes";
+import { useSelector } from "../../../services/hooks";
+type OrderCardProps = {
+  order: TOrder;
+};
+const OrderCard:React.FC<OrderCardProps> = ({ order }) => {
 
   const initialIngredients = useSelector(store => store.initialIngredients.ingredients)
   
@@ -23,9 +27,6 @@ const OrderCard = ({ order }) => {
 
   const totalOrder = useMemo(() => {
     return getIngredientsId?.reduce((prev, next) => {
-      if (next?.type === "bun") {
-        return (prev += next.price * 2);
-      }
       return (prev += next ? next.price : 0);
     }, 0);
   }, [getIngredientsId]);

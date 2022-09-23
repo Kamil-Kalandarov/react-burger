@@ -1,12 +1,17 @@
-import { Route, Redirect, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Route, Redirect, useLocation, RouteProps } from 'react-router-dom';
+import { useSelector } from '../../services/hooks';
 import Preloader from '../Preloader/Preloader';
 
-const ProtectedRoute = ({ onlyUnAuth = false, children, ...rest }) => {
+type ProtectedRouteProps = {
+  onlyUnAuth?: boolean;
+} & RouteProps;
+
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ onlyUnAuth = false, children, ...rest }) => {
 
   const user  = useSelector(store => store.user.user);
   const userAuthCheck = useSelector(store => store.user.userAuthCheck)
-  const location = useLocation();
+  const location = useLocation<{ from: Location}>();
 
   if (!userAuthCheck) {
     <Preloader />

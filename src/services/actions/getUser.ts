@@ -1,4 +1,4 @@
-import { TError } from '../../utils/types/dataTypes';
+import { TError, TGetUser } from '../../utils/types/dataTypes';
 import { apiConfig } from "../../constans/apiConfig";
 import { getCookie, setCookie } from "../../utils/coockie";
 import { checkResponse } from "../api";
@@ -106,10 +106,10 @@ export const getUserRequest = (): IGetUserRequest => {
   }
 }
 
-export const getUserSuccess = (user: TUser): IGetUserSuccess => {
+export const getUserSuccess = (user: TGetUser): IGetUserSuccess => {
   return {
     type: GET_USER_SUCCESS,
-    payload: user
+    payload: user.user
   }
 }
 

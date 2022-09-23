@@ -9,6 +9,7 @@ import InputSection from "../Form/InputSection/InputSection";
 import Preloader from "../Preloader/Preloader";
 import Modal from "../Modal/Modal";
 import RequestInfo from "../RequestInfo/RequestInfo";
+import { TUser } from "../../utils/types/dataTypes";
 
 
 const ProfileFrom: FC = () => {
@@ -17,14 +18,14 @@ const ProfileFrom: FC = () => {
   const dispatch = useDispatch();
 
   const [userName, setUserName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string >('');
   const [password, setPassword] = useState<string>('');
   const [buttonIsVisible, setButtonsVisible] = useState<boolean>(false)
   const [requestInfo, setRequestInfo] = useState<boolean>(false)
 
   useEffect(() => {
-    setUserName(user.name)
-    setEmail(user.email)
+    setUserName(user?.name || "")
+    setEmail(user?.email || "")
   }, [])
 
   const onInputNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,8 +54,8 @@ const ProfileFrom: FC = () => {
 
   const handleCancel = (e: SyntheticEvent) => {
       e.preventDefault()
-      setUserName(user.name)
-      setEmail(user.email)
+      setUserName(user?.name || "")
+      setEmail(user?.email || "")
       setPassword('')
       setButtonsVisible(false)
     };

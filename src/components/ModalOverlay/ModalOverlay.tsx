@@ -3,7 +3,7 @@ import styles from './modalOverlay.module.css';
 import PropTypes from "prop-types";
 
 /* Полупрозрачная подложка под модальное окно */
-const ModalOverlay = ({onClick}) => {
+const ModalOverlay = ({onClick} : { onClick: () => void }) => {
   return (
     <div className={styles.modalOverlay} onClick={onClick}></div>
   );

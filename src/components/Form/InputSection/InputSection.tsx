@@ -1,7 +1,12 @@
 import React from "react";
 import styles from './inputSection.module.css';
 
-const InputSection = ({ children, padding }) => {
+type TInputSectionProps = {
+  padding?: string;
+  children: React.ReactNode
+}
+
+const InputSection: React.FC<TInputSectionProps> = ({ children, padding }) => {
   return (
     <div className={`${styles.inputSection} ${padding}`}>{children}</div>
   )

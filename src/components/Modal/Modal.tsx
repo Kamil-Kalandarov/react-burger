@@ -7,13 +7,18 @@ import PropTypes from "prop-types";
 
 const reactModalCOntainer = document.querySelector('#react-modals')
 
+type TModalProps = {
+  onCloseClick: () => void;
+  children: React.ReactNode;
+};
+
 /* Передача props для модального окна, используются в компоненте App */
-const Modal = ({onCloseClick, children}) => {
+const Modal:React.FC<TModalProps> = ({onCloseClick, children}) => {
 
   /* Хендлер нажатия на клваишу 'Escape' */
-  const handleEscKeydownModal = useCallback((event) => {
+  const handleEscKeydownModal = (event: KeyboardEvent) => {
     event.key === 'Escape' && onCloseClick()
-  });
+  };
 
   /* Монитрование случателя нажатия клваиши 'Escape' */
   useEffect(() => {
@@ -32,7 +37,7 @@ const Modal = ({onCloseClick, children}) => {
       </div>
       <ModalOverlay onClick={onCloseClick}/>
     </>,
-    reactModalCOntainer
+    reactModalCOntainer as HTMLDivElement
   );
 };
 

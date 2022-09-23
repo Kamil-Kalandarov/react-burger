@@ -8,11 +8,10 @@ import { TLocation } from '../../utils/types/dataTypes';
 
 const AppHeader: FC = () => {
 
-  const user  = useSelector(store => store.user.user)
+  const  user  = useSelector(store => store.user.user)
   
   const location = useLocation<TLocation>()
-  console.log('pathname', location.pathname)
-
+ 
   return (
     <header className={`${styles.header} pt-4 pb-4`}>
       <nav className={styles.header__nav}>
