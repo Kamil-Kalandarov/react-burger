@@ -13,6 +13,7 @@ import { TIngredientDetailsModalActions } from './../../services/actions/ingredi
 import { TBurgerConstructorActions } from './../../services/actions/burgerConstructor';
 import { TInitialIngredientsActions } from './../../services/actions/initialIngredients';
 import { ThunkDispatch } from '@reduxjs/toolkit';
+import { TResetPasswordActions } from './../../services/actions/resetPassword';
 
 type TApplicationActions = 
   | TGetUserActions
@@ -21,6 +22,7 @@ type TApplicationActions =
   | TRegistrationActions 
   | TUpdateUserDaraActions
   | TForgotPasswordActions
+  | TResetPasswordActions
   | TWsActions
   | TOrderDetailsActions
   | TIngredientDetailsModalActions

@@ -1,7 +1,5 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import styles from './resetPasswordPage.module.css';
-import { apiConfig } from "../../constans/apiConfig";
-import { checkResponse } from "../../services/api";
 import { 
   Input, 
   PasswordInput,
@@ -12,53 +10,35 @@ import InputSection from "../../components/Form/InputSection/InputSection";
 import { Link } from "react-router-dom";
 import Preloader from "../../components/Preloader/Preloader";
 import { Redirect } from "react-router-dom";
-import { useSelector } from "../../services/hooks";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { resetPassword } from "../../services/actions/resetPassword";
 
 
 export const ResetPasswordPage = () => {
 
+  const dispatch = useDispatch()
+  const { resetPasswordRequest, resetPasswordSuccess} = useSelector(store => store.user)
+
   const [newPassword, setNewPassword] = useState('');
   const [token, setToken] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPasswordReseted, setIsPasswordReseted] = useState(false);
 
-  const forgotPasswordSuccess = useSelector(store => store.user.forgotPasswordSuccess)
 
-  const handleSubmit = useCallback(
-    (e:React.SyntheticEvent) => {
-      e.preventDefault();
-      setIsLoading(true)
-      fetch(`${apiConfig.baseUrl}/password-reset/reset`, {
-        method: 'POST',
-        headers: apiConfig.headers,
-        body: JSON.stringify({
-          password: newPassword,
-          token: token
-        })
-      })
-      .then(checkResponse)
-      .then(() => { setIsLoading(false), setIsPasswordReseted(true)})
-      .catch((err) => console.log(err.status))
-    }, []);
-
+  const handleSubmit = (e:React.SyntheticEvent) => {
+    e.preventDefault();   
+    dispatch(resetPassword(newPassword, token))
+  }
+    
   const buttonDisabled = newPassword && token ? false : true;
 
-  if (isPasswordReseted) {
+  if (resetPasswordSuccess) {
     return (
       <Redirect to={{pathname: '/login'}}/>
     )
   };
 
-  if (!forgotPasswordSuccess) {
-    return (
-      <Redirect to={"/forgot-password"} />
-    )
-  }
-
-
   return (
     <main className={styles.resetPasswordPage}>
-      {isLoading ? 
+      {resetPasswordRequest ? 
         (<Preloader />) :
         (<Form name='reset-password' onSubmit={handleSubmit} title='Сброс пароля'>
           <InputSection padding='pt-6'>

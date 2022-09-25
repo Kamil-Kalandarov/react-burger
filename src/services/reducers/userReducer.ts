@@ -1,47 +1,54 @@
 import { 
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
-  CREATE_USER_FAILED 
+  CREATE_USER_FAILED,
+  TRegistrationActions 
 } from "../actions/register";
 
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILED
+  LOGIN_FAILED,
+  TloginActions
 } from '../actions/login';
 
 import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
   GET_USER_FAILED,
-  USER_AUTH_CHECK
+  USER_AUTH_CHECK,
+  TGetUserActions
 } from '../actions/getUser';
 
 import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILED
+  UPDATE_USER_FAILED,
+  TUpdateUserDaraActions
 } from '../actions/updateUserData';
 
 import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILED
+  LOGOUT_FAILED,
+  TLogoutActions
 } from '../actions/logout';
 
 import {
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
-  FORGOT_PASSWORD_FAILED
+  FORGOT_PASSWORD_FAILED,
+  TForgotPasswordActions
 } from '../actions/forgotPassword';
 
-import { TUser } from '../../utils/types/dataTypes';
-import { TRegistrationActions } from '../actions/register';
-import { TloginActions } from '../actions/login';
-import { TLogoutActions } from './../actions/logout';
-import { TGetUserActions } from '../actions/getUser';
-import { TUpdateUserDaraActions } from '../actions/updateUserData';
-import { TForgotPasswordActions } from '../actions/forgotPassword';
+import {
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
+  TResetPasswordActions
+} from '../actions/resetPassword';
+
+import { TUser } from '../../utils/types/dataTypes';;
 
 type TUserActions = 
   | TRegistrationActions
@@ -50,6 +57,7 @@ type TUserActions =
   | TGetUserActions
   | TUpdateUserDaraActions
   | TForgotPasswordActions
+  | TResetPasswordActions
 
 type TUserInitialState = {
   user: TUser | null
@@ -78,7 +86,11 @@ type TUserInitialState = {
 
   forgotPasswordRequest: boolean,
   forgotPasswordSuccess: boolean,
-  forgotPasswordFailed: boolean
+  forgotPasswordFailed: boolean,
+
+  resetPasswordRequest: boolean,
+  resetPasswordSuccess: boolean,
+  resetPasswordFailed: boolean
 }
 
 const userInitialState: TUserInitialState = {
@@ -108,7 +120,11 @@ const userInitialState: TUserInitialState = {
 
   forgotPasswordRequest: false,
   forgotPasswordSuccess: false,
-  forgotPasswordFailed: false
+  forgotPasswordFailed: false,
+
+  resetPasswordRequest: false,
+  resetPasswordSuccess: false,
+  resetPasswordFailed: false
 }
 
 export const userReducer = (state = userInitialState, action: TUserActions): TUserInitialState => {
@@ -247,6 +263,27 @@ export const userReducer = (state = userInitialState, action: TUserActions): TUs
         ...state,
         forgotPasswordRequest: false,
         forgotPasswordFailed: true,
+      }
+    }
+
+    case RESET_PASSWORD_REQUEST: { 
+      return {
+        ...state,
+        resetPasswordRequest: true,
+      }
+    }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        resetPasswordRequest: false,
+        resetPasswordSuccess: true,
+      }
+    }
+    case RESET_PASSWORD_FAILED: {
+      return {
+        ...state,
+        resetPasswordRequest: false,
+        resetPasswordFailed: true,
       }
     }
     default: {
