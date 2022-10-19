@@ -1,4 +1,8 @@
-# **Stellar Burger (космическая бургерная)**
+<div align='center'>
+  <img src='./src/images/navigation%20panel-logo.png'>
+</div>
+
+**<h1 align='center'>Космическая бургерная</h1>**
 Учебный проект, который был выполнен в целях изучения и отработки следующих технологий технологий:
 
 ## Функциональность:
@@ -11,5 +15,12 @@
 - просмотр истории заказов с полной детализацией каждого заказа за последнее время;
 - просмотр статуса заказов с их номерами;
 - подсчет общего количества заказов за все время и за последние сутки;
+
+## Стек технологий:
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=">
+
+
+  
+  
 
 ссылка на проект [Stellar Burger](https://kamil-kalandarov.github.io/react-burger/)
