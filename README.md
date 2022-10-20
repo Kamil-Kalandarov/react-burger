@@ -5,7 +5,11 @@
 **<h1 align='center'>Космическая бургерная</h1>**
 Учебный проект, который был выполнен в целях изучения и отработки следующих технологий технологий:
 
-## **Функциональность:**
+## **Оглавление:**
+- [Функциональность](#functionality);
+- [Стек технологий](#techologies);
+
+## <a name='functionality'>**Функциональность:**</a>
 - возможность посмотреть состав каждого ингредиента бургера;
 - создание бургера, путем перетаскивания ингредиента в специальный коснтурктор;
 - соритровка или удаление ингредиентов бургера внутри коснутрктора;
@@ -16,7 +20,7 @@
 - просмотр статуса заказов с их номерами;
 - подсчет общего количества заказов за все время и за последние сутки;
 
-## **Стек технологий:**
+## <a name='techologies'>**Стек технологий:**</a>
 <img src="https://img.shields.io/badge/JavaScript-696969?style=for-the-badge&logo=JavaScript&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/TypeScript-696969?style=for-the-badge&logo=TypeScript&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/React-696969?style=for-the-badge&logo=React&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/Redux-696969?style=for-the-badge&logo=Redux&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/React Router-696969?style=for-the-badge&logo=React Router&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/HTML-696969?style=for-the-badge&logo=HTML5&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/CSS Modules-696969?style=for-the-badge&logo=CSS Modules&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/npm-696969?style=for-the-badge&logo=npm&logoColor=#F7DF1E"> <img src="https://img.shields.io/badge/websocket-696969?style=for-the-badge&logo=&logoColor=#F7DF1E"> 
 
 ## **Установка:**
