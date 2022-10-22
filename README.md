@@ -1,8 +1,8 @@
-**<h1 align='center'>Космическая бургерная</h1>**
-
 <div align='center'>
   <img src='./src/images/logo.png'>
 </div>
+
+**<h1 align='center'>Космическая бургерная</h1>**
 
 ## **Оглавление:**
 - [Функциональность](#functionality);
