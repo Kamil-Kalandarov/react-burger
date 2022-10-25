@@ -9,6 +9,7 @@
 - [Стек технологий](#techologies);
 - [Установка](#getting-started); 
 - [Планы по доработке](#will-do);
+- [Demo](#demo-link);
 - [Мои контакты](#contacts);
 
 ## <a name='functionality'>**Функциональность:**</a>
@@ -45,7 +46,7 @@
 ## <a name='will-do'>**Планы по доработке:**</a>
 - адаптивность приложения под разные разрешения
 
-## **ссылка на Demo проекта [Stellar Burger](https://kamil-kalandarov.github.io/react-burger/)**
+## <a name="demo-link">**ссылка на Demo проекта** [Stellar Burger](https://kamil-kalandarov.github.io/react-burger/)</a>
 
 ## <a name='contacts'>**Мои контакты:**</a>
 [<img src="https://img.shields.io/badge/Telegram-696969?style=for-the-badge&logo=Telegram&logoColor=#F7DF1E">](https://t.me/Kamil_Kalandarov) 
